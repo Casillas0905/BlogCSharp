@@ -8,32 +8,98 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject IPostService PostService;
 @inject IUserService userService
-@attribute [Authorize]
-<div class="card">
-    <h3>Create Post</h3>
-        <div class="form-group field">
+
+<h3 class="maintitle">Create a post</h3>
+
+<style>
+    .editor-menu {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .editor-button {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+    
+    .editor-button:focus {
+        outline: none;
+    }
+</style>
+
+<div class="editor-menu">
+    <button class="editor-button" onclick="toggleBold()">
+        <i class="icon icon-bold"></i>
+        <span>Bold</span>
+    </button>
+    <button class="editor-button" onclick="toggleItalic()">
+        <i class="icon icon-italic"></i>
+        <span>Italic</span>
+    </button>
+    <button class="editor-button" onclick="toggleSuperscript()">
+        <i class="icon icon-superscript"></i>
+        <span>Superscript</span>
+    </button>
+    <button class="editor-button" onclick="addImage()">
+        <i class="icon icon-image"></i>
+        <span>Add Image</span>
+    </button>
+</div>
+
+<div contenteditable="true" id="editor"></div>
+
+
+
+<div class="title">
             <label>Title:</label>
-            <input type="text" @bind="postTitle"/>
-            <label>Message:</label>
-                        <input type="text" @bind="PostMessage"/>
+            <input type="text" @bind="postTitle" class="input-box" />
         </div>
-        <div class="form-group field">
+        
+        <div class="description">
+            <label>Description:</label>
+            <textarea @bind="postdescription" class="textarea-box"></textarea>
         </div>
+        
+<form name="form1" id="form1" action="/action_page.php">
+    Category: <select name="subject" id="subject">
+        <option value="" selected="selected">Homework</option>
+        <option value="" selected="selected">Advice</option>
+    </select>
+    <br><br></form>
+
+ <form name="form1" id="form1" action="/action_page.php">
+            Choose campus: <select name="subject" id="subject">
+                <option value="" selected="selected">Horsens</option>
+                <option value="" selected="selected">Viborg</option>
+                <option value="" selected="selected">Aarhus</option>
+            </select>
+            <br><br></form>
+        
+    
+
         <div class="button-row">
             @if (!string.IsNullOrEmpty(msg))
             {
                 <label style="color : @color">@msg</label>
             }
-            <button @onclick="Create1" class="acceptbtn">Create</button>
+            <button @onclick="Create1" class="acceptbtn">Post</button>
         </div>
-</div>
+
 
 
 @code {
     private Task<IEnumerable<User>> users;
     private int? selectedUserId;
     private string postTitle = "";
-    private string PostMessage = "";
+    private string postdescription = "";
+    private string category = "";
+    private string IsOption1Selected="";
+    private string IsOption2Selected="";
+    private string IsOption3Selected="";
     private string msg = "";
     private string color = "";
     
@@ -69,7 +135,7 @@
 
         try
         {
-            PostCreationDto dto = new(users.Id, postTitle, PostMessage);
+            PostCreationDto dto = new(users.Id, postTitle, postdescription);
             await PostService.CreateAsync(dto);
             color = "green";
             msg = "Post created";
@@ -80,5 +146,11 @@
             msg = e.Message;
         }
     }
+    
+    private void SelectCategory(string selectedCategory)
+    {
+        category = selectedCategory;
+    }
+
 
 }

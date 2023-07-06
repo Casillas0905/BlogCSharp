@@ -2,38 +2,47 @@
 @using Domain.DTOs
 @using HttpClients.ClientInterfaces
 @inject IUserService userService;
+@inject HttpClient httpClient
 
 
 <div class="card">
     <h3>Create User</h3>
     <div class="form-group field">
-        <label>User name:</label>
-        <input type="text" @bind="username" @bind:event="oninput"/>
-        <label>Password:</label>
-        <input type="text" @bind="password" @bind:event="oninput"/>
+        <label>First Name:</label>
+                <input type="text" @bind="firstname" @bind:event="oninput"/>
+        <label>Last Name:</label>
+        <input type="text" @bind="lastname" @bind:event="oninput"/>
         <label>Email:</label>
         <input type="text" @bind="email" @bind:event="oninput"/>
-        <label>Name:</label>
-        <input type="text" @bind="name" @bind:event="oninput"/>
-        <label>Security level:</label>
-        <input type="text" @bind="securityLevel" @bind:event="oninput"/>
+        <label>Password:</label>
+        <input type="password" @bind="password" @bind:event="oninput"/>
+        <label>Confirm Password:</label>
+        <input type="password" @bind="confirmpassword" @bind:event="oninput"/>
+        <label>Birthday:</label>
+        <input type="date" @bind="birthday" @bind:event="oninput"/>
+
+
+
+
         @if (!string.IsNullOrEmpty(resultMsg))
         {
             <label style="color: @color">@resultMsg</label>
         }
     </div>
     <div class="button-row">
-        <button @onclick="Create" disabled="@(string.IsNullOrEmpty(username))" class="acceptbtn">Create</button>
+        <button @onclick="Create" disabled="@(string.IsNullOrEmpty(firstname))" class="acceptbtn">Create</button>
     </div>
 </div>
 
 @code {
-    private string username = "";
+    private string firstname = "";
+    private string lastname = "";
     private string resultMsg = "";
     private string color = "";
     private string password = "";
     private string email = "";
-    private string name = "";
+    private DateTime? birthday;
+    private string confirmpassword = "";
     private int securityLevel = 5;
     
     private async Task Create()
@@ -41,11 +50,12 @@
         resultMsg = "";
         try
         {
-            await userService.Create(new UserCreationDto(username,password,email,name,securityLevel));
-            username = "";
+            await userService.Create(new UserCreationDto(birthday,firstname,lastname,password,confirmpassword,email,securityLevel));
+            firstname = "";
+            lastname = "";
             password = "";
             email = "";
-            name = "";
+            confirmpassword = "";
             resultMsg = "User successfully created";
             color = "green";
         }
