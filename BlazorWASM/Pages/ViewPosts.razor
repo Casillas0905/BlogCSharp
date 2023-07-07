@@ -5,56 +5,78 @@
 @using Microsoft.AspNetCore.Authorization
 @inject IPostService postService;
 @inject NavigationManager NavigationManager;
-@attribute [Authorize]
-<h3 style="text-align: center">Overview of all posts</h3>
-@if (posts == null)
-{
-    <span>Loading..</span>
-}
-else if (!posts.Any())
-{
-    <span>No posts to be found</span>
-}
-else
-{
-    <div class="users-container">
-        @foreach (Post post in posts)
-        {
-            <div class="post-card">
-                <h5>@post.Title</h5>
-                <label >@post.Messages</label>
-                <br/>
-                <label >@post.Id</label>
-                <br/>
-                <button postId=@post.Id.ToString() @onclick="() => goToPosts(post.Id)" class="postButton">Go to this post</button>
-            </div>
-        }
-    </div>
-}
+
+<div class="topnav">
+  <a class="active" href="#ViewPosts.razor">Home</a>
+  <a href="/CreatePost">Create</a>
+  <a href="/ManageProfile">Profile</a>
+  <input type="text" placeholder="Search..">
+</div>
+
+<section>
+	<div class="container" style="text-align:center;">
+		<h3 id="maintitle">Last Posts...</h3>
+		<br>
+		
+		<div class="box-2">
+			<img src="image/e.jpg" class="b-img-1">
+			<h3 class="heading1">Category</h3>
+			<p class="blog-heading-1">Title</p>
+			<p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+			<span class="name">Manoj Singh . SEP 21, 2021</span>
+		</div>
+
+		<div class="box-2">
+			<img src="image/a.jpg" class="b-img-1">
+			<h3 class="heading1">Category</h3>
+			<p class="blog-heading-1">Title</p>
+			<p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+			<span class="name">Manoj Singh . SEP 21, 2021</span>
+		</div>
+
+		<div class="box-2">
+			<img src="image/p.jpg" class="b-img-1">
+			<h3 class="heading1">Category</h3>
+			<p class="blog-heading-1">Title</p>
+			<p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+			<span class="name">Manoj Singh . SEP 21, 2021</span>
+		</div>
+		
+		<div class="clearfix"></div>
+
+		<div class="box-2">
+			<img src="image/fun.jpg" class="b-img-1">
+			<h3 class="heading1">Category</h3>
+			<p class="blog-heading-1">Title</p>
+			<p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+			<span class="name">Manoj Singh . SEP 21, 2021</span>
+		</div>
+
+		<div class="box-2">
+			<img src="image/f.jpg" class="b-img-1">
+			<h3 class="heading1">Category</h3>
+			<p class="blog-heading-1">Title</p>
+			<p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+			<span class="name">Manoj Singh . SEP 21, 2021</span>
+		</div>
+
+		<div class="box-2">
+			<img src="image/2.jpg" class="b-img-1">
+			<h3 class="heading1">Category</h3>
+			<p class="blog-heading-1">Title</p>
+			<p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+			<span class="name">Manoj Singh . SEP 21, 2021</span>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+</section>
 
 
-@code {
-    private IEnumerable<Post>? posts;
-    private string msg = "";
 
-    private async Task goToPosts(int id)
-    {
-        postService.id = id;
-        NavigationManager.NavigateTo("/ViewOnePost");
-    }
 
-    protected override async Task OnInitializedAsync()
-    {
-        msg = "";
-        try
-        {
-            posts = await postService.GetPosts();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            msg = e.Message;
-        }
-    }
+  
+  
+  
 
-}
+
