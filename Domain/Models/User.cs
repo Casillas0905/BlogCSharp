@@ -5,24 +5,22 @@ namespace Domain.Models;
 public class User
 {
     public int Id { get; set; }
-    public string UserName { get; set; }
+    public string FirstName { get; set; }
     public string Password { get; set; }
     public string Email { get; set; }
-    public string Name { get; set; }
-    public int SecurityLevel { get; set; }
-    [JsonIgnore]
-    public ICollection<Post> Posts { get; set; }
-
+    public string LastName { get; set; }
+    public DateOnly Date { get; set; }
     public User()
     {
     }
 
-    public User(string userName, string password, string email, string name, int securityLevel)
+    public User(int id, string firstName, string password, string email, string lastName, DateOnly date)
     {
-        UserName = userName;
+        Id = id;
+        FirstName = firstName;
         Password = password;
         Email = email;
-        Name = name;
-        SecurityLevel = securityLevel;
+        LastName = lastName;
+        Date = date;
     }
 }
