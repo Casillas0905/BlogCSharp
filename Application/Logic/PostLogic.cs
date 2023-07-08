@@ -16,7 +16,7 @@ public class PostLogic : IPostLogic
         this.userDao = userDao;
     }
 
-    public async Task<Post> CreateAsync(PostCreationDto dto)
+    /*public async Task<Post> CreateAsync(PostCreationDto dto)
     {
         User? user = await userDao.GetByIdAsync(dto.OwnerId);
         if (user == null)
@@ -95,5 +95,45 @@ public class PostLogic : IPostLogic
     private void ValidatePost(Post dto)
     {
         if (string.IsNullOrEmpty(dto.Title)) throw new Exception("Title cannot be empty.");
+    }*/
+
+    public override bool Equals(object? obj)
+    {
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
+    public override string ToString()
+    {
+        return base.ToString();
+    }
+
+    public Task<Post> CreateAsync(PostCreationDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto searchParameters)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task UpdateAsync(PostUpdateDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PostBasicDto> GetByIdAsync(int id)
+    {
+        throw new NotImplementedException();
     }
 }
