@@ -14,14 +14,14 @@ public class UserLogic : IUserLogic
         this.userDao = userDao;
     }
 
-    public async Task<User> CreateAsync(UserCreationDto dto)
+    public async Task<User> CreateAsync(User user)
     {
-        User? existing = await userDao.GetByEmailAsync(dto.Email);
+        User? existing = await userDao.GetByEmailAsync(user.Email);
         if (existing != null)
             throw new Exception("Email already taken!");
 
-        ValidateData(dto);
-        User toCreate = new User(dto.UserName,dto.Password,dto.Email,dto.Name,dto.SecurityLevel);
+        ValidateData(user);
+        User toCreate = new User(0,user.FirstName, user.Password, user.Email, user.LastName, user.Date);
         
         User created = await userDao.CreateAsync(toCreate);
         
@@ -33,20 +33,14 @@ public class UserLogic : IUserLogic
         return userDao.GetAsync(searchParameters);
     }
 
-    public Task<User> getByUsername(string username)
+    public Task<User> getByEmail(string email)
     {
-        return userDao.GetByUsernameAsync(username);
+        return userDao.GetByEmailAsync(email);
     }
 
 
-    private static void ValidateData(UserCreationDto userToCreate)
+    private static void ValidateData(User user)
     {
-        string userName = userToCreate.UserName;
-
-        if (userName.Length < 3)
-            throw new Exception("Username must be at least 3 characters!");
-
-        if (userName.Length > 15)
-            throw new Exception("Username must be less than 16 characters!");
+        
     }
 }
