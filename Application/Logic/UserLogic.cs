@@ -28,19 +28,29 @@ public class UserLogic : IUserLogic
         return created;
     }
 
-    public Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
-    {
-        return userDao.GetAsync(searchParameters);
-    }
-
-    public Task<User> getByEmail(string email)
-    {
-        return userDao.GetByEmailAsync(email);
-    }
-
 
     private static void ValidateData(User user)
     {
         
+    }
+
+    Task<User?> IUserLogic.GetByEmailAsync(string email)
+    {
+        return userDao.GetByEmailAsync(email);
+    }
+
+    Task<User?> IUserLogic.GetByIdAsync(int id)
+    {
+        return userDao.GetByIdAsync(id);
+    }
+
+    Task<User> IUserLogic.UpdateUser(User user)
+    {
+        return userDao.UpdateUser(user);
+    }
+
+    void IUserLogic.deleteUser(int id)
+    {
+        userDao.deleteUser(id);
     }
 }

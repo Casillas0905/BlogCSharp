@@ -1,0 +1,38 @@
+syntax= "proto3";
+
+package GrpcClasses.User;
+
+service UserGrpc{
+  rpc saveUser(UserModelGrpc) returns (Empty){}
+  rpc findById(GetById) returns (UserModelGrpc){}
+  rpc updateUser(UserModelGrpc) returns (Empty){}
+  rpc deleteUser(GetById) returns (Empty){}
+  rpc findByEmail(GetByEmail) returns (UserModelGrpc){}
+}
+
+message UserModelGrpc {
+  int32 id = 1;
+  DateGrpc date=2;
+  string password = 3;
+  string email = 4;
+  string firstName = 5;
+  string lastName = 6;
+  bool administrator = 7;
+}
+
+message DateGrpc{
+  int32 day=1;
+  int32 month=2;
+  int32 year=3;
+}
+
+message GetById{
+  int32 id=1;
+}
+
+message GetByEmail{
+  string email=1;
+}
+
+message Empty{
+}

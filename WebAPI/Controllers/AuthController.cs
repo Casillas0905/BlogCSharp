@@ -30,10 +30,9 @@ public class AuthController : ControllerBase
             new Claim(JwtRegisteredClaimNames.Sub, config["Jwt:Subject"]),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName),
-            new Claim("DisplayName", user.Name),
-            new Claim("Email", user.Email),
-            new Claim("SecurityLevel", user.SecurityLevel.ToString())
+            new Claim(ClaimTypes.Name, user.Email),
+            new Claim("DisplayName", user.FirstName),
+            new Claim("Email", user.Email)
         };
         return claims.ToList();
     }
@@ -67,7 +66,7 @@ public class AuthController : ControllerBase
         {
             Console.WriteLine("Validating user...");
             User user = await authService.ValidateUser(userLoginDto.Username, userLoginDto.Password);
-            Console.WriteLine($"User {user.UserName} validated successfully.");
+            Console.WriteLine($"Email {user.Email} validated successfully.");
             string token = GenerateJwt(user);
             Console.WriteLine($"Token generated: {token}");
             return Ok(token);
