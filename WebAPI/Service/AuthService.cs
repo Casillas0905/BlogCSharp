@@ -15,9 +15,9 @@ public class AuthService : IAuthService
     }
     
     
-    public async Task<User> ValidateUser(string username, string password)
+    public async Task<User> ValidateUser(string email, string password)
     {
-        User user = await userLogic.getByUsername(username);
+        User user = await userLogic.GetByEmailAsync(email);
 
         if (user == null)
         {
@@ -36,7 +36,7 @@ public class AuthService : IAuthService
     public Task RegisterUser(User user)
     {
 
-        if (string.IsNullOrEmpty(user.UserName))
+        if (string.IsNullOrEmpty(user.Email))
         {
             throw new ValidationException("Username cannot be null");
         }
@@ -46,11 +46,8 @@ public class AuthService : IAuthService
             throw new ValidationException("Password cannot be null");
         }
         // Do more user info validation here
-        
-        // save to persistence instead of list
-        
-        UserCreationDto dto =
-            new UserCreationDto(user.UserName, user.Password, user.Email, user.Name, user.SecurityLevel);
+
+        User dto = new User(0,user.FirstName, user.Password, user.Email, user.LastName, user.Date, user.administrator);
         userLogic.CreateAsync(dto);
         
         return Task.CompletedTask;

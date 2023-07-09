@@ -10,11 +10,10 @@ public class User
     public string Email { get; set; }
     public string LastName { get; set; }
     public DateOnly Date { get; set; }
-    public User()
-    {
-    }
+    
+    public Boolean administrator{ get; set; }
 
-    public User(int id, string firstName, string password, string email, string lastName, DateOnly date)
+    public User(int id, string firstName, string password, string email, string lastName, DateOnly date, bool administrator)
     {
         Id = id;
         FirstName = firstName;
@@ -22,5 +21,6 @@ public class User
         Email = email;
         LastName = lastName;
         Date = date;
+        this.administrator = administrator;
     }
 }

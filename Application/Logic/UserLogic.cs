@@ -16,41 +16,41 @@ public class UserLogic : IUserLogic
 
     public async Task<User> CreateAsync(User user)
     {
-        User? existing = await userDao.GetByEmailAsync(user.Email);
+        User? existing = userDao.GetByEmailAsync(user.Email);
         if (existing != null)
             throw new Exception("Email already taken!");
 
         ValidateData(user);
-        User toCreate = new User(0,user.FirstName, user.Password, user.Email, user.LastName, user.Date);
+        User toCreate = new User(0,user.FirstName, user.Password, user.Email, user.LastName, user.Date, user.administrator);
         
-        User created = await userDao.CreateAsync(toCreate);
+        User created = userDao.CreateAsync(toCreate);
         
         return created;
     }
 
-
-    private static void ValidateData(User user)
+    public async Task<User?> GetByEmailAsync(string email)
     {
+        return userDao.GetByEmailAsync(email);
         
     }
 
-    Task<User?> IUserLogic.GetByEmailAsync(string email)
-    {
-        return userDao.GetByEmailAsync(email);
-    }
-
-    Task<User?> IUserLogic.GetByIdAsync(int id)
+    public async Task<User?> GetByIdAsync(int id)
     {
         return userDao.GetByIdAsync(id);
     }
 
-    Task<User> IUserLogic.UpdateUser(User user)
+    public async Task<User> UpdateUser(User user)
     {
         return userDao.UpdateUser(user);
     }
 
-    void IUserLogic.deleteUser(int id)
+    public void deleteUser(int id)
     {
         userDao.deleteUser(id);
+    }
+    
+    private static void ValidateData(User user)
+    {
+        
     }
 }

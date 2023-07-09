@@ -97,21 +97,6 @@ public class PostLogic : IPostLogic
         if (string.IsNullOrEmpty(dto.Title)) throw new Exception("Title cannot be empty.");
     }*/
 
-    public override bool Equals(object? obj)
-    {
-        return base.Equals(obj);
-    }
-
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
-
-    public override string ToString()
-    {
-        return base.ToString();
-    }
-
     public Task<Post> CreateAsync(PostCreationDto dto)
     {
         throw new NotImplementedException();

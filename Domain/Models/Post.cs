@@ -18,5 +18,5 @@ public class Post
         Messages = messages;
     }
     
-    private Post(){}
+   
 }
