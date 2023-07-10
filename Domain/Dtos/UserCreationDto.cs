@@ -2,7 +2,7 @@
 
 public class UserCreationDto
 {
-    public string UserName { get;}
+    public string FirsName { get;}
     public string Password { get; }
     public string Email { get; }
     public string Name { get; }
