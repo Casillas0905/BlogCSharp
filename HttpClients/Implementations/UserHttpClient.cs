@@ -15,10 +15,10 @@ public class UserHttpClient : IUserService
         this.client = client;
     }
 
-    public async Task<User> Create(UserCreationDto dto)
+    public async Task<User> Create(User dto)
     {
         Console.WriteLine("CreateAsync method called");
-        HttpResponseMessage response = await client.PostAsJsonAsync("/users", dto);
+        HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7093/Users/create", dto);
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -29,7 +29,7 @@ public class UserHttpClient : IUserService
         return user;
     }
     
-    public async Task<IEnumerable<User>> GetUsers(string? usernameContains = null)
+   /* public async Task<IEnumerable<User>> GetUsers(string? usernameContains = null)
     {
         string uri = "/users";
         if (!string.IsNullOrEmpty(usernameContains))
@@ -48,5 +48,5 @@ public class UserHttpClient : IUserService
             PropertyNameCaseInsensitive = true
         })!;
         return users;
-    }
+    }*/
 }

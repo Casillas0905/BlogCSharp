@@ -16,7 +16,7 @@ public class UsersController : ControllerBase
         this.userLogic = userLogic;
     }
 
-    [HttpPost]
+    [HttpPost,Route("create")]
     public async Task<ActionResult<User>> CreateAsync(User dto)
     {
         try

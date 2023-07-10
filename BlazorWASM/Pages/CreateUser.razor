@@ -1,8 +1,8 @@
 ﻿@page "/CreateUser"
 @using Domain.DTOs
+@using Domain.Models
 @using HttpClients.ClientInterfaces
 @inject IUserService userService;
-@inject HttpClient httpClient
 
 
 <div class="card">
@@ -50,7 +50,12 @@
         resultMsg = "";
         try
         {
-            //await userService.Create(new UserCreationDto(birthday,firstname,lastname,password,confirmpassword,email,securityLevel));
+            if (!(password.Equals(confirmpassword)))
+            {
+                throw new Exception("Password doesn't match");
+            }
+            User user = new User(0, firstname, password, email, lastname, birthday.Value.Day, birthday.Value.Month, birthday.Value.Year, false);
+            await userService.Create(user);
             firstname = "";
             lastname = "";
             password = "";
