@@ -14,6 +14,5 @@ public class AnswerMessage
         this.postOwnerid = postOwnerid;
     }
     
-    private AnswerMessage(){}
     
 }

@@ -5,7 +5,9 @@ namespace Application.LogicInterfaces;
 
 public interface IUserLogic
 {
-    public Task<User> CreateAsync(UserCreationDto dto);
-    public Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters);
-    public Task<User> getByUsername(string username);
+    void CreateAsync(User user);
+    Task<User?> GetByEmailAsync(string email);
+    Task<User?> GetByIdAsync(int id);
+    Task<User> UpdateUser(User user);
+    void deleteUser(int id);
 }

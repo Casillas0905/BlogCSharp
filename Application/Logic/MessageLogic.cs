@@ -19,7 +19,7 @@ public class MessageLogic : IMessageLogic
         this.postDao = postDao;
     }
 
-    public async Task<AnswerMessage> CreateAsync(MessageCreationDto messageCreationDto)
+    /*public async Task<AnswerMessage> CreateAsync(MessageCreationDto messageCreationDto)
     {
         User? user = await userDao.GetByIdAsync(messageCreationDto.Ownerid);
         if (user == null)
@@ -60,5 +60,19 @@ public class MessageLogic : IMessageLogic
     public void ValidateMessage(AnswerMessage message)
     {
         if(string.IsNullOrEmpty(message.message))throw new Exception("Title cannot be empty.");
+    }*/
+    public Task<AnswerMessage> CreateAsync(MessageCreationDto messageCreationDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<AnswerMessage?> GetByIdAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<AnswerMessage>> GetByPostIdAsync(int id)
+    {
+        throw new NotImplementedException();
     }
 }

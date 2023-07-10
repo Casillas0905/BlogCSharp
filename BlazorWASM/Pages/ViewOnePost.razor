@@ -216,8 +216,32 @@
     public Task<AuthenticationState> AuthState { get; set; } = null!;
     private string? name;
     private bool isLoggedIn;
-    
-   
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        isLoggedIn = user.Identity != null;
+        
+        if (!isLoggedIn) return;
+        
+        userClaims = user.Claims;
+        name = user.Identity!.Name!;
+        //users=userService.GetUsers(name);
+        try
+        {
+            int postid = postService.id ;
+            postData = await postService.GetPostByIdAsync(postid);
+            post = new GetPostDto(postData.Title, postData.Messages);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
     
     public async Task AddMessage1()
     {

@@ -17,8 +17,19 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="IGrpc" />
-      <Folder Include="Protos" />
+        <Protobuf Include="Protos\User.proto">
+            <GrpcServices>Client</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>
 
 </Project>

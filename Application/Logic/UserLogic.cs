@@ -14,39 +14,43 @@ public class UserLogic : IUserLogic
         this.userDao = userDao;
     }
 
-    public async Task<User> CreateAsync(UserCreationDto dto)
+    public void CreateAsync(User user)
     {
-        User? existing = await userDao.GetByUsernameAsync(dto.UserName);
-        if (existing != null)
-            throw new Exception("Username already taken!");
+        Console.WriteLine("logic called");
+        User? existing = userDao.GetByEmailAsync(user.Email);
+        Console.WriteLine(existing.Id);
+        if (existing.Id >0)
+        {
+            throw new Exception("Email already taken!");
+        }
+        //ValidateData(user);
+        Console.WriteLine("logic2 called");
+        userDao.CreateAsync(user);
+        Console.WriteLine("logic3 called");
+    }
 
-        ValidateData(dto);
-        User toCreate = new User(dto.UserName,dto.Password,dto.Email,dto.Name,dto.SecurityLevel);
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+        return userDao.GetByEmailAsync(email);
+    }
+
+    public async Task<User?> GetByIdAsync(int id)
+    {
+        return userDao.GetByIdAsync(id);
+    }
+
+    public async Task<User> UpdateUser(User user)
+    {
+        return userDao.UpdateUser(user);
+    }
+
+    public void deleteUser(int id)
+    {
+        userDao.deleteUser(id);
+    }
+    
+    private static void ValidateData(User user)
+    {
         
-        User created = await userDao.CreateAsync(toCreate);
-        
-        return created;
-    }
-
-    public Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
-    {
-        return userDao.GetAsync(searchParameters);
-    }
-
-    public Task<User> getByUsername(string username)
-    {
-        return userDao.GetByUsernameAsync(username);
-    }
-
-
-    private static void ValidateData(UserCreationDto userToCreate)
-    {
-        string userName = userToCreate.UserName;
-
-        if (userName.Length < 3)
-            throw new Exception("Username must be at least 3 characters!");
-
-        if (userName.Length > 15)
-            throw new Exception("Username must be less than 16 characters!");
     }
 }
