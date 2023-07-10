@@ -219,14 +219,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        msg = "";
+        /*msg = "";
         AuthenticationState authState = await AuthState;
-        ClaimsPrincipal user = authState.User;
+        //ClaimsPrincipal user = authState.User;
         isLoggedIn = user.Identity != null;
         
         if (!isLoggedIn) return;
         
-        userClaims = user.Claims;
+        //userClaims = user.Claims;
         name = user.Identity!.Name!;
         //users=userService.GetUsers(name);
         try
@@ -258,7 +258,7 @@
         {
             Console.WriteLine(e);
             msg = e.Message;
-        }
+        }*/
 
     }
 }
