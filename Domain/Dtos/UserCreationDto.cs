@@ -8,9 +8,9 @@ public class UserCreationDto
     public string Name { get; }
     public int SecurityLevel { get; }
 
-    public UserCreationDto(string userName, string password, string email, string name, int securityLevel)
+    public UserCreationDto(string firsName, string password, string email, string name, int securityLevel)
     {
-        UserName = userName;
+        FirsName = firsName;
         Password = password;
         Email = email;
         Name = name;
