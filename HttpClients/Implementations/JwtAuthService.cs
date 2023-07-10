@@ -8,9 +8,8 @@ namespace BlazorWASM.Services.Http;
 
 public class JwtAuthService : IAuthService
 {
-       private readonly HttpClient client = new ();
-
-    // this private variable for simple caching
+    private readonly HttpClient client = new ();
+       
     public static string? Jwt { get; private set; } = "";
 
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!;
@@ -18,7 +17,7 @@ public class JwtAuthService : IAuthService
     public async Task LoginAsync(string username, string password)
     {
         UserLogInDto userLoginDto = new(username,password);
-
+        Console.WriteLine("http");
         string userAsJson = JsonSerializer.Serialize(userLoginDto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
 

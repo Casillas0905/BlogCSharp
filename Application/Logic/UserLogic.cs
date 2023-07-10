@@ -23,7 +23,7 @@ public class UserLogic : IUserLogic
         {
             throw new Exception("Email already taken!");
         }
-        //ValidateData(user);
+        ValidateUser(user);
         Console.WriteLine("logic2 called");
         userDao.CreateAsync(user);
         Console.WriteLine("logic3 called");
@@ -49,8 +49,21 @@ public class UserLogic : IUserLogic
         userDao.deleteUser(id);
     }
     
-    private static void ValidateData(User user)
+    private static void ValidateUser(User user)
     {
-        
+        string domain = "@via.dk";
+        if (user.Password.Length <= 7)
+        {
+            throw new Exception("Password must be contain at least 8 characters");
+        }
+        DateTime currentDate = DateTime.Now;
+        if (currentDate.Year - user.year < 18)
+        {
+            throw new Exception("Must be older than 18 years");
+        }
+        if (!(user.Email.EndsWith(domain)))
+        {
+            throw new Exception("Email does not have the domain @via.dk");
+        }
     }
 }
