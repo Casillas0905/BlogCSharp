@@ -14,24 +14,24 @@ public class UserLogic : IUserLogic
         this.userDao = userDao;
     }
 
-    public async Task<User> CreateAsync(User user)
+    public void CreateAsync(User user)
     {
+        Console.WriteLine("logic called");
         User? existing = userDao.GetByEmailAsync(user.Email);
-        if (existing != null)
+        Console.WriteLine(existing.Id);
+        if (existing.Id >0)
+        {
             throw new Exception("Email already taken!");
-
-        ValidateData(user);
-        User toCreate = new User(0,user.FirstName, user.Password, user.Email, user.LastName, user.Date, user.administrator);
-        
-        User created = userDao.CreateAsync(toCreate);
-        
-        return created;
+        }
+        //ValidateData(user);
+        Console.WriteLine("logic2 called");
+        userDao.CreateAsync(user);
+        Console.WriteLine("logic3 called");
     }
 
     public async Task<User?> GetByEmailAsync(string email)
     {
         return userDao.GetByEmailAsync(email);
-        
     }
 
     public async Task<User?> GetByIdAsync(int id)

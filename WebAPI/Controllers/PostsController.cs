@@ -17,7 +17,7 @@ public class PostsController : ControllerBase
         this.postLogic = postLogic;
     }
 
-    [HttpPost]
+   /* [HttpPost]
     public async Task<ActionResult<Post>> CreateAsync(PostCreationDto dto)
     {
         try
@@ -93,6 +93,6 @@ public class PostsController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
-    }
+    }*/
 
 }

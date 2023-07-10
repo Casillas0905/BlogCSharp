@@ -9,7 +9,7 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class MessageController : ControllerBase
 {
-    private readonly IMessageLogic messageLogic;
+   /* private readonly IMessageLogic messageLogic;
 
     public MessageController(IMessageLogic messageLogic)
     {

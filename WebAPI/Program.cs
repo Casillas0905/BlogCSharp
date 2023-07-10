@@ -19,10 +19,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserDao, UserGrpcService>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
-builder.Services.AddScoped<IMessageLogic, MessageLogic>();
+//builder.Services.AddScoped<IMessageLogic, MessageLogic>();
 //builder.Services.AddScoped<IMessageDao, MessageEfcDao>();
 //builder.Services.AddScoped<IPostDao, PostEfcDao>();
-builder.Services.AddScoped<IPostLogic, PostLogic>();
+//builder.Services.AddScoped<IPostLogic, PostLogic>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

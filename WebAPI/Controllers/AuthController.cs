@@ -65,7 +65,7 @@ public class AuthController : ControllerBase
         try
         {
             Console.WriteLine("Validating user...");
-            User user = await authService.ValidateUser(userLoginDto.Username, userLoginDto.Password);
+            User user = await authService.ValidateUser(userLoginDto.Email, userLoginDto.Password);
             Console.WriteLine($"Email {user.Email} validated successfully.");
             string token = GenerateJwt(user);
             Console.WriteLine($"Token generated: {token}");

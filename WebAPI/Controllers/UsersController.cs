@@ -21,8 +21,8 @@ public class UsersController : ControllerBase
     {
         try
         {
-            User user = await userLogic.CreateAsync(dto);
-            return Created($"/users/{user.Id}", user);
+            userLogic.CreateAsync(dto);
+            return Created($"/users/{dto.Id}", dto);
         }
         catch (Exception e)
         {
@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet, Route("GetByEmail")]
     public async Task<ActionResult<User>> GetByEmailAsync([FromQuery] string email)
     {
         try
@@ -46,7 +46,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet, Route("GetById")]
     public async Task<ActionResult<IEnumerable<User>>> GetByIdAsync([FromQuery] int id)
     {
         try

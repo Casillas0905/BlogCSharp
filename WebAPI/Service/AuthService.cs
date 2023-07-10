@@ -47,7 +47,7 @@ public class AuthService : IAuthService
         }
         // Do more user info validation here
 
-        User dto = new User(0,user.FirstName, user.Password, user.Email, user.LastName, user.Date, user.administrator);
+        User dto = new User(0,user.FirstName, user.Password, user.Email, user.LastName, user.day, user.month, user.year, user.administrator);
         userLogic.CreateAsync(dto);
         
         return Task.CompletedTask;

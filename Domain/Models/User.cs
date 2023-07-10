@@ -9,18 +9,22 @@ public class User
     public string Password { get; set; }
     public string Email { get; set; }
     public string LastName { get; set; }
-    public DateOnly Date { get; set; }
+    public int day { get; set; }
+    public int month { get; set; }
+    public int year { get; set; }
     
     public Boolean administrator{ get; set; }
 
-    public User(int id, string firstName, string password, string email, string lastName, DateOnly date, bool administrator)
+    public User(int id, string firstName, string password, string email, string lastName, int day, int month, int year, bool administrator)
     {
         Id = id;
         FirstName = firstName;
         Password = password;
         Email = email;
         LastName = lastName;
-        Date = date;
+        this.day = day;
+        this.month = month;
+        this.year = year;
         this.administrator = administrator;
     }
 }
