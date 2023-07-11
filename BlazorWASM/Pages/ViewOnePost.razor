@@ -282,10 +282,10 @@
 
     //[Parameter]
     public int postId;
-    private PostBasicDto postData;
+    //private PostBasicDto postData;
     private string msg = "";
     private Task<IEnumerable<User>>? users;
-    private GetPostDto post;
+    //private GetPostDto post;
     private string message = "";
     private int messageid;
     private string color = "";
@@ -303,8 +303,8 @@
         
         try
         {
-            MessageCreationDto dto = new(message,users.Id,postId);
-            await messageService.CreateAsync(dto);
+           // MessageCreationDto dto = new(message,users.Id,postId);
+            //await messageService.CreateAsync(dto);
             color = "green";
             msg = "Post created";
         }

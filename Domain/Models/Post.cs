@@ -4,19 +4,32 @@ namespace Domain.Models;
 
 public class Post
 {
-    [Key]
     public int Id { get; set; }
-    public User Owner { get;private set; }
-    public string Title { get; private set;}
-    public string Messages { get; private set; }
-    
+    public int userID { get; set; }
+    public string Title { get;  set;}
+    public string description { get;  set; }
+    public string imageUrl{get;  set;}
+    public string category{get;  set;}
+    public string location{get;  set;}
 
-    public Post(User owner, string title, String messages)
+
+    public Post(int id, int userId, string title, string description, string imageUrl, string category, string location)
     {
-        Owner = owner;
+        Id = id;
+        userID = userId;
         Title = title;
-        Messages = messages;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.category = category;
+        this.location = location;
     }
-    
-   
 }
+
+
+
+
+
+
+
+
+

@@ -61,11 +61,7 @@ public class MessageLogic : IMessageLogic
     {
         if(string.IsNullOrEmpty(message.message))throw new Exception("Title cannot be empty.");
     }*/
-    public Task<AnswerMessage> CreateAsync(MessageCreationDto messageCreationDto)
-    {
-        throw new NotImplementedException();
-    }
-
+  
     public Task<AnswerMessage?> GetByIdAsync(int id)
     {
         throw new NotImplementedException();

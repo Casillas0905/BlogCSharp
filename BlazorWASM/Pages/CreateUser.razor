@@ -63,8 +63,7 @@
     private string email = "";
     private DateTime? birthday;
     private string confirmpassword = "";
-    private int securityLevel = 5;
-    
+    string domain = "@via.dk";
     private async Task Create()
     {
         resultMsg = "";
@@ -74,6 +73,10 @@
             {
                 throw new Exception("Password doesn't match");
             }
+            /*if (!ViaEmail(email))
+            {
+                throw new Exception("Email is not from Via University domain");
+            }*/
             User user = new User(0, firstname, password, email, lastname, birthday.Value.Day, birthday.Value.Month, birthday.Value.Year, false);
             await userService.Create(user);
             firstname = "";
@@ -91,4 +94,22 @@
             color = "red";
         }
     }
+    
+    /*private Boolean ViaEmail(string mail)
+    {
+        /*if (mail.EndsWith(domain))
+            {
+            // Email has the domain "@via.dk"
+                Console.WriteLine("Email has the domain @via.dk");
+                return true;
+            }
+            else
+            {
+            // Email does not have the domain "@via.dk"
+                Console.WriteLine("Email does not have the domain @via.dk");
+                return false;
+            }
+    }*/
+    
+
 }

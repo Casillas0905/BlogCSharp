@@ -65,17 +65,17 @@
         </div>
         
 <form name="form1" id="form1" action="/action_page.php">
-    Category: <select name="subject" id="subject">
-        <option value="" selected="selected">Homework</option>
-        <option value="" selected="selected">Advice</option>
+    Category: <select @bind="category" name="subject" id="subject">
+        <option value="Homework" selected="selected">Homework</option>
+        <option value="Advice" selected="selected">Advice</option>
     </select>
     <br><br></form>
 
  <form name="form1" id="form1" action="/action_page.php">
-            Choose campus: <select name="subject" id="subject">
-                <option value="" selected="selected">Horsens</option>
-                <option value="" selected="selected">Viborg</option>
-                <option value="" selected="selected">Aarhus</option>
+            Choose campus: <select @bind="location" name="subject" id="subject">
+                <option value="Horsens" selected="selected">Horsens</option>
+                <option value="Viborg" selected="selected">Viborg</option>
+                <option value="Aarhus" selected="selected">Aarhus</option>
             </select>
             <br><br></form>
         
@@ -101,6 +101,7 @@
     private string IsOption2Selected="";
     private string IsOption3Selected="";
     private string msg = "";
+    private string location = "";
     private string color = "";
     
     [CascadingParameter]
@@ -135,8 +136,11 @@
 
         try
         {
-            PostCreationDto dto = new(users.Id, postTitle, postdescription);
+            //"Poner userid en create post"
+            Post dto = new(0,1,postTitle,postdescription,"imagen",category,location);
             await PostService.CreateAsync(dto);
+            postTitle = "";
+            postdescription = "";
             color = "green";
             msg = "Post created";
         }
