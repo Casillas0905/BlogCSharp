@@ -5,34 +5,54 @@
 @inject IUserService userService;
 
 
-<div class="card">
-    <h3>Create User</h3>
-    <div class="form-group field">
-        <label>First Name:</label>
-                <input type="text" @bind="firstname" @bind:event="oninput"/>
-        <label>Last Name:</label>
-        <input type="text" @bind="lastname" @bind:event="oninput"/>
-        <label>Email:</label>
-        <input type="text" @bind="email" @bind:event="oninput"/>
-        <label>Password:</label>
-        <input type="password" @bind="password" @bind:event="oninput"/>
-        <label>Confirm Password:</label>
-        <input type="password" @bind="confirmpassword" @bind:event="oninput"/>
-        <label>Birthday:</label>
-        <input type="date" @bind="birthday" @bind:event="oninput"/>
 
+<div class="container h-100">
+    		<div class="row h-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
 
+						<div class="text-center mt-4">
+							<h1 class="h2">Welcome! </h1>
+							<p class="lead">
+								Register to continue
+							</p>
+						</div>
 
+						<div class="card">
+							<div class="card-body">
+								<div class="m-sm-4">
+									<div class="text-center">
+										<img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Andrew Jones" class="img-fluid rounded-circle" width="132" height="132">
+									</div>
+									<form>
+										<div class="form-group">
+                                          <label class="label">First Name</label>
+                                          <input class="form-control smaller-input" type="text" name="firstname" placeholder="Enter your name">
+                                          <label class="label">Last Name</label>
+                                          <input class="form-control smaller-input" type="text" name="lastname" placeholder="Enter your last name">
+                                          <label class="label">Password</label>
+                                          <input class="form-control smaller-input" type="password" name="password" placeholder="Enter a password">
+                                          <label class="label">Confirm Password</label>
+                                          <input class="form-control smaller-input" type="password" name="confirmpassword" placeholder="Enter the password again">
+                                          <label class="label">Birthday</label>
+                                          <input type="date" class="form-control smaller-input" required autofocus>
+                                        </div>
 
-        @if (!string.IsNullOrEmpty(resultMsg))
-        {
-            <label style="color: @color">@resultMsg</label>
-        }
-    </div>
-    <div class="button-row">
-        <button @onclick="Create" disabled="@(string.IsNullOrEmpty(firstname))" class="acceptbtn">Create</button>
-    </div>
-</div>
+										
+										<div class="button1">
+											<a href="/LogIn" class="btn btn-lg btn-primary">Sign in</a>
+											
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 @code {
     private string firstname = "";

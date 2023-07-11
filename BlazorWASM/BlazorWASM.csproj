@@ -31,4 +31,13 @@
       <_ContentIncludedByDefault Remove="Shared\SurveyPrompt.razor" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="Pages\CreateUser.razor.css">
+        <DependentUpon>CreateUser.razor</DependentUpon>
+      </Content>
+      <Content Update="Pages\ForgotPassword.razor.css">
+        <DependentUpon>ForgotPassword.razor</DependentUpon>
+      </Content>
+    </ItemGroup>
+
 </Project>
