@@ -14,7 +14,7 @@ public class UserLogic : IUserLogic
         this.userDao = userDao;
     }
 
-    public void CreateAsync(User user)
+    /*public void CreateAsync(User user)
     {
         Console.WriteLine("logic called");
         User? existing = userDao.GetByEmailAsync(user.Email);
@@ -65,5 +65,29 @@ public class UserLogic : IUserLogic
         {
             throw new Exception("Email does not have the domain @via.dk");
         }
-    }
+    }*/
+   public void CreateAsync(User user)
+   {
+       throw new NotImplementedException();
+   }
+
+   public Task<User?> GetByEmailAsync(string email)
+   {
+       throw new NotImplementedException();
+   }
+
+   public Task<User?> GetByIdAsync(int id)
+   {
+       throw new NotImplementedException();
+   }
+
+   public Task<User> UpdateUser(User user)
+   {
+       throw new NotImplementedException();
+   }
+
+   public void deleteUser(int id)
+   {
+       throw new NotImplementedException();
+   }
 }

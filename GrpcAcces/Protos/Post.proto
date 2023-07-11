@@ -1,0 +1,39 @@
+syntax= "proto3";
+
+package GrpcClasses.Post;
+
+service PostGrpc{
+  rpc createPost(PostModelGrpc) returns (Empty){}
+  rpc findById(GetById) returns (PostModelGrpc){}
+  rpc updatePost(PostModelGrpc) returns (Empty){}
+  rpc deletePost(GetById) returns (Empty){}
+  rpc findByParameters(SearchParameters) returns (stream PostModelGrpc){}
+  rpc findByUserId(GetById) returns (stream PostModelGrpc){}
+}
+
+message PostModelGrpc {
+  int32 id = 1;
+  int32 userId = 2;
+  string category = 3;
+  string title = 4;
+  string description = 5;
+  string imageUrl = 6;
+  string location=7;
+}
+
+message GetById{
+  int32 id=1;
+}
+
+message GetByTitle{
+  string title=1;
+}
+
+message SearchParameters{
+  string title=1;
+  string location=2;
+  string category=3;
+}
+
+message Empty{
+}
