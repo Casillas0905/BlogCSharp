@@ -12,4 +12,8 @@ public class SearchParameters
         this.location = location;
         this.category = category;
     }
+
+    public SearchParameters()
+    {
+    }
 }
