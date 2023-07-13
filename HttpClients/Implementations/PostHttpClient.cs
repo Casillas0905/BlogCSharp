@@ -16,17 +16,67 @@ public class PostHttpClient : IPostService
         this.client = client;
     }
     
-    public async Task CreateAsync(PostCreationDto dto)
+    public async Task CreateAsync(Post dto)
     {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/posts",dto);
+        HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7093/Posts/create",dto);
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();
             throw new Exception(content);
         }
     }
-    
-    public async Task<IEnumerable<Post>> GetPosts(string? titleContains = null)
+
+    public async Task<IEnumerable<Post>> FindByParameters(SearchParameters searchParameters)
+    {
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/Posts/FindByParameters/{searchParameters}");
+        string result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+
+        IEnumerable<Post> posts = JsonSerializer.Deserialize<IEnumerable<Post>>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return posts;
+    }
+
+    public async Task<Post?> GetByIdAsync(int Id)
+    {
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/Posts/findById/{id}");
+        string result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+
+        Post posts = JsonSerializer.Deserialize<Post>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return posts;
+    }
+
+    public async Task<IEnumerable<Post>> GetByUserIdAsync(int UserId)
+    {
+        Console.WriteLine("Http1");
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/Posts/GetByUserIdAsync/{UserId}");
+        string result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+        Console.WriteLine("Http2");
+        IEnumerable<Post> posts = JsonSerializer.Deserialize<IEnumerable<Post>>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        Console.WriteLine("Http3");
+        return posts;
+    }
+
+    /*public async Task<IEnumerable<Post>> GetPosts(string? titleContains = null)
     {
         string uri = "/posts";
         if (!string.IsNullOrEmpty(titleContains))
@@ -61,7 +111,7 @@ public class PostHttpClient : IPostService
             PropertyNameCaseInsensitive = true
         })!;
         return posts;
-    }
+    }*/
 
 
     

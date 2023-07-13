@@ -15,7 +15,7 @@ public class MessageHttpClient : IMessageService
         this.client = client;
     }
 
-    public async Task CreateAsync(MessageCreationDto dto)
+   /* public async Task CreateAsync(MessageCreationDto dto)
     {
         HttpResponseMessage response = await client.PostAsJsonAsync("/answermessages",dto);
         if (!response.IsSuccessStatusCode)
@@ -23,7 +23,7 @@ public class MessageHttpClient : IMessageService
             string content = await response.Content.ReadAsStringAsync();
             throw new Exception(content);
         }
-    }
+    }*/
 
     public async Task<AnswerMessage> GetById(int id)
     {

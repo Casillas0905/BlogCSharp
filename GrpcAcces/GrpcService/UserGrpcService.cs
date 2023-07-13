@@ -41,9 +41,8 @@ public class UserGrpcService : IUserDao
     {
         var req = new GetById() { Id = id };
         var user= userGrpcClient.findById(req);
-        //DateTime date = new DateTime(user.Date.Year, user.Date.Month, user.Date.Day);
         User newUser = new User(user.Id, user.FirstName, user.Password, user.Email, user.LastName,user.Day, user.Month, user.Year,user.Administrator);
-        return null;
+        return newUser;
     }
 
     public User UpdateUser(User user)
