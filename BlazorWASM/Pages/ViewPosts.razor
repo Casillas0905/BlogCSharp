@@ -7,11 +7,27 @@
 @inject NavigationManager NavigationManager;
 
 <div class="topnav">
-  <a class="active" href="#ViewPosts.razor">Home</a>
-  <a href="/CreatePost">Create</a>
-  <a href="/ManageProfile">Profile</a>
-  <input type="text" placeholder="Search..">
+    <a class="active" href="#ViewPosts.razor">Home</a>
+    <a href="/CreatePost">Create</a>
+    <a href="/ManageProfile">Profile</a>
+    <input type="text" placeholder="Search..">
 </div>
+
+<form name="form1" id="form1" action="/action_page.php">
+    Category: <select name="subject" id="subject">
+        <option value="" selected="selected">Homework</option>
+        <option value="" selected="selected">Advice</option>
+    </select>
+    <br><br></form>
+
+ <form name="form1" id="form1" action="/action_page.php">
+            Choose campus: <select name="subject" id="subject">
+                <option value="" selected="selected">Horsens</option>
+                <option value="" selected="selected">Viborg</option>
+                <option value="" selected="selected">Aarhus</option>
+            </select>
+            <br><br></form>
+        
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 

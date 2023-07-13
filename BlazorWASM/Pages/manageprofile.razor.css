@@ -91,6 +91,7 @@ body{
 }
 .btn-style-1.btn-white {
     background-color: #fff;
+    
 }
 .list-group-item i {
     display: inline-block;
@@ -175,3 +176,4 @@ a.list-group-item, .list-group-item-action {
     background-color: transparent;
     content: '';
 }
+
