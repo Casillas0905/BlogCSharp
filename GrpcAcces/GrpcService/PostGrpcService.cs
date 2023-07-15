@@ -14,7 +14,7 @@ public class PostGrpcService : IPostDao
     static GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:8080");
     private PostGrpc.PostGrpcClient postGrpcClient = new PostGrpc.PostGrpcClient(channel);
 
-    public async Task<Post> CreateAsync(Post post)
+    /*public async Task<Post> CreateAsync(Post post)
     {
         Console.WriteLine("grpc called");
         PostModelGrpc userModel = new PostModelGrpc()
@@ -44,6 +44,11 @@ public class PostGrpcService : IPostDao
         if (parameters.location == null)
         {
             parameters.location = "niull";
+        }
+
+        if (parameters.userId == null)
+        {
+            parameters.userId = 0;
         }
         var req = new GrpcClasses.Post.SearchParameters() { Title = parameters.title,Category = parameters.category, Location = parameters.location};
         using var call = postGrpcClient.findByParameters(req);
@@ -79,5 +84,24 @@ public class PostGrpcService : IPostDao
         }
 
         return list;
-    }
+    }*/
+   public Task<Post> CreateAsync(Post post)
+   {
+       throw new NotImplementedException();
+   }
+
+   public Task<IEnumerable<Post>> FindByParameters(SearchParameters searchParameters)
+   {
+       throw new NotImplementedException();
+   }
+
+   public Task<Post?> GetByIdAsync(int Id)
+   {
+       throw new NotImplementedException();
+   }
+
+   public Task<IEnumerable<Post>> GetByUserIdAsync(int UserId)
+   {
+       throw new NotImplementedException();
+   }
 }

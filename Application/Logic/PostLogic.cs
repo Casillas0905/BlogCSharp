@@ -17,7 +17,7 @@ public class PostLogic : IPostLogic
         this.userDao = userDao;
     }
 
-    public async Task<Post> CreateAsync(Post post)
+   /* public async Task<Post> CreateAsync(Post post)
     {
         User? user = userDao.GetByIdAsync(post.userID);
         Console.WriteLine(post.userID);
@@ -81,7 +81,7 @@ public class PostLogic : IPostLogic
         await postDao.DeleteAsync(id);
     }*/
 
-    public async Task<Post> GetByIdAsync(int id)
+    /*public async Task<Post> GetByIdAsync(int id)
     {
         Post? model = await postDao.GetByIdAsync(id);
         if (model.Id==0)
@@ -101,6 +101,25 @@ public class PostLogic : IPostLogic
     private void ValidatePost(Post dto)
     {
         if (string.IsNullOrEmpty(dto.Title)) throw new Exception("Title cannot be empty.");
+    }*/
+
+    public Task<Post> CreateAsync(Post dto)
+    {
+        throw new NotImplementedException();
     }
-    
+
+    public Task<IEnumerable<Post>> FindByParameters(SearchParameters searchParameters)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Post?> GetByIdAsync(int Id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Post>> GetByUserIdAsync(int UserId)
+    {
+        throw new NotImplementedException();
+    }
 }
