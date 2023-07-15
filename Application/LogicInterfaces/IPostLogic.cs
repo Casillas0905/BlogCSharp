@@ -9,4 +9,6 @@ public interface IPostLogic
     Task<IEnumerable<Post>> FindByParameters(SearchParameters searchParameters);
     Task<Post?> GetByIdAsync(int Id);
     Task<IEnumerable<Post>> GetByUserIdAsync(int UserId);
+    Task UpdatePost(Post post);
+    Task deletePost(int id);
 }
