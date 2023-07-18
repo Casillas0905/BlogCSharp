@@ -1,40 +1,60 @@
 .page {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    height: 100vh;
 }
+
 
 main {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f7f7;
+    padding: 2rem;
 }
+
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-color: #333;
+    padding: 1rem;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Arial, sans-serif;
+    transition: width 0.5s ease;
 }
+
+
 
 .top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
+    background-color: #333;
+    border-bottom: 1px solid #222;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-        text-decoration: none;
-    }
+.top-row a,
+.top-row .btn-link {
+    white-space: nowrap;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+    font-weight: bold;
+}
 
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: underline;
-    }
+.top-row a:hover,
+.top-row .btn-link:hover {
+    text-decoration: underline;
+    color: #ccc;
+}
 
-    .top-row ::deep a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.top-row a:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 @media (max-width: 640.98px) {
     .top-row:not(.auth) {
@@ -45,21 +65,18 @@ main {
         justify-content: space-between;
     }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
+    .top-row a,
+    .top-row .btn-link {
         margin-left: 0;
     }
 }
 
 @media (min-width: 641px) {
-    .page {
-        flex-direction: row;
-    }
-
     .sidebar {
-        width: 250px;
-        height: 100vh;
         position: sticky;
         top: 0;
+        height: 100vh;
+        overflow-y: auto;
     }
 
     .top-row {
@@ -68,14 +85,14 @@ main {
         z-index: 1;
     }
 
-    .top-row.auth ::deep a:first-child {
+    .top-row.auth a:first-child {
         flex: 1;
         text-align: right;
         width: 0;
     }
 
-    .top-row, article {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+    main,
+    article {
+        padding: 2rem;
     }
 }
