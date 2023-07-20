@@ -14,7 +14,7 @@ service PostGrpc{
 message PostModelGrpc {
   int32 id = 1;
   int32 userId = 2;
-  string category = 3;
+  int32 category = 3;
   string title = 4;
   string description = 5;
   string imageUrl = 6;
@@ -33,6 +33,7 @@ message SearchParameters{
   string title=1;
   string location=2;
   string category=3;
+  int32 userId=4;
 }
 
 message Empty{

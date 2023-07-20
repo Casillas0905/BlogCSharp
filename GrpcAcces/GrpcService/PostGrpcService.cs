@@ -17,7 +17,7 @@ public class PostGrpcService : IPostDao
     public async Task<Post> CreateAsync(Post post)
     {
         Console.WriteLine("grpc called");
-        PostModelGrpc userModel = new PostModelGrpc()
+        PostModelGrpc postModel = new PostModelGrpc()
         {
             Id = post.Id,
             UserId = post.userID,
@@ -27,7 +27,7 @@ public class PostGrpcService : IPostDao
             ImageUrl = post.imageUrl,
             Location = post.location
         };
-        postGrpcClient.createPost(userModel);
+        postGrpcClient.createPost(postModel);
         return post;
     }
 
@@ -45,7 +45,12 @@ public class PostGrpcService : IPostDao
         {
             parameters.location = "niull";
         }
-        var req = new GrpcClasses.Post.SearchParameters() { Title = parameters.title,Category = parameters.category, Location = parameters.location};
+
+        if (parameters.userId == null)
+        {
+            parameters.userId = 0;
+        }
+        var req = new GrpcClasses.Post.SearchParameters() { Title = parameters.title,Category = parameters.category, Location = parameters.location, UserId = parameters.userId};
         using var call = postGrpcClient.findByParameters(req);
         List<Post> list = new List<Post>();
         while ( await call.ResponseStream.MoveNext())
@@ -79,5 +84,26 @@ public class PostGrpcService : IPostDao
         }
 
         return list;
+    }
+
+    public void UpdatePost(Post post)
+    {
+        PostModelGrpc postModel = new PostModelGrpc()
+        {
+            Id = post.Id,
+            UserId = post.userID,
+            Category = post.category,
+            Title = post.Title,
+            Description = post.description,
+            ImageUrl = post.imageUrl,
+            Location = post.location
+        };
+        postGrpcClient.updatePostAsync(postModel);
+    }
+
+    public void deletePost(int id)
+    {
+        var req = new GrpcClasses.Post.GetById() { Id = id };
+        postGrpcClient.deletePostAsync(req);
     }
 }

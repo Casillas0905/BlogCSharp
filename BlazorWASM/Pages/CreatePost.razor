@@ -66,8 +66,8 @@
         
 <form name="form1" id="form1" action="/action_page.php">
     Category: <select @bind="category" name="subject" id="subject">
-        <option value="Homework" selected="selected">Homework</option>
-        <option value="Advice" selected="selected">Advice</option>
+        <option value="1" selected="selected">Homework</option>
+        <option value="2" selected="selected">Advice</option>
     </select>
     <br><br></form>
 
@@ -96,7 +96,7 @@
     private int? selectedUserId;
     private string postTitle = "";
     private string postdescription = "";
-    private string category = "";
+    private int category ;
     private string IsOption1Selected="";
     private string IsOption2Selected="";
     private string IsOption3Selected="";
@@ -150,11 +150,4 @@
             msg = e.Message;
         }
     }
-    
-    private void SelectCategory(string selectedCategory)
-    {
-        category = selectedCategory;
-    }
-
-
 }

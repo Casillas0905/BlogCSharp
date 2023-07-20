@@ -44,7 +44,7 @@ public class PostHttpClient : IPostService
 
     public async Task<Post?> GetByIdAsync(int Id)
     {
-        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/Posts/findById/{id}");
+        HttpResponseMessage response = await client.GetAsync($"/Posts/{id}");
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -95,24 +95,6 @@ public class PostHttpClient : IPostService
             PropertyNameCaseInsensitive = true
         })!;
         return posts;
-    }
-
-    public async Task<PostBasicDto> GetPostByIdAsync(int id)
-    {
-        HttpResponseMessage response = await client.GetAsync($"/posts/{id}");
-        string result = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(result);
-        }
-
-        PostBasicDto posts = JsonSerializer.Deserialize<PostBasicDto>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-        return posts;
     }*/
-
-
     
 }
