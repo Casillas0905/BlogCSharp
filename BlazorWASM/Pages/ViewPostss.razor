@@ -242,33 +242,33 @@ else
         @foreach (Post post in posts)
         {
 
-<h3 style="text-align: center">Overview of all posts</h3>
-<div class="users-container">
-            <div class="post-card">
-                <h5>Ttiel: @post.Title</h5>
-                <label >Description: @post.description</label>
-                <br/>
-                <label >Id: @post.Id</label>
-                <br/>
-                <label >Category: @post.category</label>
-                <br/>
-                <label >IMage: @post.imageUrl</label>
-                <br/>
-                <label >Location: @post.location</label>
-                <br/>
-                <label >UserId: @post.userID</label>
-                                <br/>
+            <h3 style="text-align: center">Overview of all posts</h3>
+            <div class="users-container">
+                <div class="post-card">
+                    <h5>Ttiel: @post.Title</h5>
+                    <label >Description: @post.description</label>
+                    <br/>
+                    <label >Id: @post.Id</label>
+                    <br/>
+                    <label >Category: @post.category</label>
+                    <br/>
+                    <label >IMage: @post.imageUrl</label>
+                    <br/>
+                    <label >Location: @post.location</label>
+                    <br/>
+                    <label >UserId: @post.userID</label>
+                    <br/>
+                </div>
             </div>
+        }
     </div>
-}
-
 
 @code {
     private IEnumerable<Post>? posts;
     private Post post;
     private string msg = "";
 
-   /* private async Task goToPosts(int id)
+    /* private async Task goToPosts(int id)
     {
         postService.id = id;
         NavigationManager.NavigateTo("/ViewOnePost");
@@ -289,4 +289,4 @@ else
         }
     }
 
-}
+}}

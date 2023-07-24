@@ -19,8 +19,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserDao, UserGrpcService>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
-//builder.Services.AddScoped<IMessageLogic, MessageLogic>();
-//builder.Services.AddScoped<IMessageDao, MessageEfcDao>();
+builder.Services.AddScoped<ICommentLogic, CommentLogic>();
+builder.Services.AddScoped<ICommentDao, CommentGrpcService>();
 builder.Services.AddScoped<IPostDao, PostGrpcService>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
 builder.Services.AddScoped<IAuthService, AuthService>();

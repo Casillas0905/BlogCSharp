@@ -9,20 +9,20 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class MessageController : ControllerBase
 {
-   /* private readonly IMessageLogic messageLogic;
+    private readonly ICommentLogic CommentLogic;
 
-    public MessageController(IMessageLogic messageLogic)
+    public MessageController(ICommentLogic CommentLogic)
     {
-        this.messageLogic = messageLogic;
+        this.CommentLogic = CommentLogic;
     }
 
     [HttpPost]
-    public async Task<ActionResult<AnswerMessage>> CreateAsync(MessageCreationDto messageCreationDto)
+    public async Task<ActionResult<Comment>> CreateAsync(Comment comment)
     {
         try
         {
-            AnswerMessage created = await messageLogic.CreateAsync(messageCreationDto);
-            return Created($"/Message/{created.id}", created);
+            CommentLogic.CreateAsync(comment);
+            return Created($"/Message/{comment.id}", comment);
         }
         catch(Exception e)
         {
@@ -33,16 +33,13 @@ public class MessageController : ControllerBase
         
     }
     
+    
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<AnswerMessage>> GetById([FromRoute] int id)
+    public async Task<ActionResult<IEnumerable<Comment>>> GetByPostId([FromRoute] int id)
     {
         try
         {
-            AnswerMessage? result = await messageLogic.GetByIdAsync(id);
-            if (result == null)
-            {
-                return NotFound();
-            }
+            IEnumerable<Comment> result = await CommentLogic.GetByPostIdAsync(id);
             return Ok(result);
         }
         catch (Exception e)
@@ -51,20 +48,5 @@ public class MessageController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
-   /* [HttpGet("{id2:int}")]
-    public async Task<ActionResult<IEnumerable<AnswerMessage>>> GetByPostId([FromRoute] int id2)
-    {
-        try
-        {
-            IEnumerable<AnswerMessage> result = await messageLogic.GetByPostIdAsync(id2);
-            return Ok(result);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, e.Message);
-        }
-    }*/
 
 }

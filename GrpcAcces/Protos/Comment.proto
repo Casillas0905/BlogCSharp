@@ -1,0 +1,22 @@
+syntax= "proto3";
+
+package GrpcClasses.Comment;
+
+service CommentGrpc{
+  rpc saveComment(CommentModelGrpc) returns (Empty){}
+  rpc findByPostId(GetByPostId) returns(stream CommentModelGrpc);
+}
+
+message GetByPostId{
+  int32 id=1;
+}
+
+message CommentModelGrpc{
+  string message=1;
+  int32 userId=2;
+  int32 postId=3;
+  int32 id=4;
+}
+
+message Empty{
+}

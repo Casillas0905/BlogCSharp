@@ -8,14 +8,14 @@ namespace HttpClients.Implementations;
 
 public class MessageHttpClient : IMessageService
 {
-    private readonly HttpClient client;
+    /*private readonly HttpClient client;
 
     public MessageHttpClient(HttpClient client)
     {
         this.client = client;
     }
 
-   /* public async Task CreateAsync(MessageCreationDto dto)
+    public async Task CreateAsync(MessageCreationDto dto)
     {
         HttpResponseMessage response = await client.PostAsJsonAsync("/answermessages",dto);
         if (!response.IsSuccessStatusCode)
@@ -23,7 +23,7 @@ public class MessageHttpClient : IMessageService
             string content = await response.Content.ReadAsStringAsync();
             throw new Exception(content);
         }
-    }*/
+    }
 
     public async Task<AnswerMessage> GetById(int id)
     {
@@ -44,5 +44,5 @@ public class MessageHttpClient : IMessageService
     public Task<IEnumerable<AnswerMessage>> GetByPostIdAsync(int id)
     {
         throw new NotImplementedException();
-    }
+    }*/
 }
