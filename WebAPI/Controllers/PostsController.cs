@@ -91,12 +91,12 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-/*[HttpPatch]
-    public async Task<ActionResult> UpdateAsync([FromBody] PostUpdateDto dto)
+    [HttpPatch]
+    public async Task<ActionResult> UpdateAsync([FromBody] Post dto)
     {
         try
         {
-            await postLogic.UpdateAsync(dto);
+            await postLogic.UpdatePost(dto);
             return Ok();
         }
         catch (Exception e)
@@ -111,7 +111,7 @@ public class PostsController : ControllerBase
     {
         try
         {
-            await postLogic.DeleteAsync(id);
+            await postLogic.deletePost(id);
             return Ok();
         }
         catch (Exception e)
@@ -119,5 +119,5 @@ public class PostsController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
-    }*/
+    }
 }

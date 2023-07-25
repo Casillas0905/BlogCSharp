@@ -9,11 +9,11 @@ public class Post
     public string Title { get;  set;}
     public string description { get;  set; }
     public string imageUrl{get;  set;}
-    public string category{get;  set;}
+    public int category{get;  set;}
     public string location{get;  set;}
 
 
-    public Post(int id, int userId, string title, string description, string imageUrl, string category, string location)
+    public Post(int id, int userId, string title, string description, string imageUrl, int category, string location)
     {
         Id = id;
         userID = userId;

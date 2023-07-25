@@ -47,11 +47,25 @@ public class UserGrpcService : IUserDao
 
     public User UpdateUser(User user)
     {
-        throw new NotImplementedException();
+        UserModelGrpc userGrpc = new UserModelGrpc()
+        {
+            Id = user.Id,
+            Password = user.Password,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Year = user.year,
+            Day = user.day,
+            Month = user.month,
+            Administrator = user.administrator
+        };
+        userGrpcClient.updateUserAsync(userGrpc);
+        return user;
     }
 
     public void deleteUser(int id)
     {
-        throw new NotImplementedException();
+        var req = new GetById() { Id = id };
+        userGrpcClient.deleteUserAsync(req);
     }
 }

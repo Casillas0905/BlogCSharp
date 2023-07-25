@@ -1,4 +1,4 @@
-﻿@page "/ViewPostss"
+@page "/ViewPosts"
 @using HttpClients.ClientInterfaces
 @using Domain.Models
 @using Domain.DTOs
@@ -108,30 +108,31 @@ else
     <div class="users-container">
         @foreach (Post post in posts)
         {
+
+<h3 style="text-align: center">Overview of all posts</h3>
+<div class="users-container">
             <div class="post-card">
-                <h5>@post.Title</h5>
-                <label >@post.description</label>
+                <h5>Ttiel: @post.Title</h5>
+                <label >Description: @post.description</label>
                 <br/>
-                <label >@post.Id</label>
+                <label >Id: @post.Id</label>
                 <br/>
-                <label >@post.category</label>
+                <label >Category: @post.category</label>
                 <br/>
-                <label >@post.imageUrl</label>
+                <label >IMage: @post.imageUrl</label>
                 <br/>
-                <label >@post.location</label>
+                <label >Location: @post.location</label>
                 <br/>
-                <label >@post.Title</label>
-                <br/>
-                <label >@post.userID</label>
+                <label >UserId: @post.userID</label>
                                 <br/>
             </div>
-        }
     </div>
 }
 
 
 @code {
     private IEnumerable<Post>? posts;
+    private Post post;
     private string msg = "";
 
    /* private async Task goToPosts(int id)
@@ -145,7 +146,7 @@ else
         msg = "";
         try
         {
-            posts = await postService.GetByUserIdAsync(2);
+            post = await postService.GetByIdAsync(2);
             Console.WriteLine("Blazor");
         }
         catch (Exception e)
