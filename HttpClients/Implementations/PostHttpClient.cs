@@ -42,7 +42,7 @@ public class PostHttpClient : IPostService
         return posts;
     }
 
-    public async Task<Post?> GetByIdAsync(int Id)
+    /*public async Task<Post?> GetByIdAsync(int Id)
     {
         HttpResponseMessage response = await client.GetAsync($"/Posts/{id}");
         string result = await response.Content.ReadAsStringAsync();
@@ -56,6 +56,40 @@ public class PostHttpClient : IPostService
             PropertyNameCaseInsensitive = true
         })!;
         return posts;
+    }*/
+    
+    public async Task<Post> GetByIdAsync(int postId)
+    {
+        try
+        {
+            string apiUrl = $"https://localhost:7093/findById?id={postId}";
+            
+            // Send the GET request
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+            
+            // Check if the request was successful
+            if (response.IsSuccessStatusCode)
+            {
+                // Read the response content as a string
+                string responseBody = await response.Content.ReadAsStringAsync();
+                
+                // Deserialize the response JSON to a Post object (assuming the JSON structure matches the Post class)
+                // Replace "Post" with the class that matches your Post model
+                Post post = await response.Content.ReadFromJsonAsync<Post>();
+                
+                return post;
+            }
+            else
+            {
+                // Handle the error as needed
+                throw new Exception($"Failed to get the post. Status code: {response.StatusCode}");
+            }
+        }
+        catch (Exception e)
+        {
+            // Handle the error as needed
+            throw new Exception("An error occurred while fetching the post.", e);
+        }
     }
 
     public async Task<IEnumerable<Post>> GetByUserIdAsync(int UserId)
