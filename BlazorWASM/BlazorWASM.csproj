@@ -38,11 +38,17 @@
       <Content Update="Pages\ForgotPassword.razor.css">
         <DependentUpon>ForgotPassword.razor</DependentUpon>
       </Content>
+      <Content Update="Pages\Index.razor.css">
+        <DependentUpon>Index.razor</DependentUpon>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
       <None Update="Pages\ResetedPassword.razor.css">
         <DependentUpon>ResetedPassword.razor</DependentUpon>
+      </None>
+      <None Update="Pages\CreatePostScript.js">
+        <DependentUpon>CreatePostScript.razor</DependentUpon>
       </None>
     </ItemGroup>
 

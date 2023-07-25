@@ -1,4 +1,18 @@
-﻿
+﻿div.container {
+    width: 300px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+.bold{
+    font-weight:bold;
+}
+.italic{
+    font-style :italic;
+}
+.underline{
+    text-decoration: underline;
+}
 .maintitle{
     margin-bottom: 100px;
 }
