@@ -8,61 +8,27 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject IPostService PostService;
 @inject IUserService userService
+@inject IJSRuntime JSRuntime
 
 <h3 class="maintitle">Create a post</h3>
 
-<style>
-    .editor-menu {
-        display: flex;
-        gap: 10px;
-    }
-    
-    .editor-button {
-        display: flex;
-        align-items: center;
-        padding: 8px;
-        border: none;
-        background: none;
-        cursor: pointer;
-    }
-    
-    .editor-button:focus {
-        outline: none;
-    }
-</style>
-
-<div class="editor-menu">
-    <button class="editor-button" onclick="toggleBold()">
-        <i class="icon icon-bold"></i>
-        <span>Bold</span>
-    </button>
-    <button class="editor-button" onclick="toggleItalic()">
-        <i class="icon icon-italic"></i>
-        <span>Italic</span>
-    </button>
-    <button class="editor-button" onclick="toggleSuperscript()">
-        <i class="icon icon-superscript"></i>
-        <span>Superscript</span>
-    </button>
-    <button class="editor-button" onclick="addImage()">
-        <i class="icon icon-image"></i>
-        <span>Add Image</span>
-    </button>
-</div>
-
-<div contenteditable="true" id="editor"></div>
 
 
+<input type="button" class="boldText" value="Bold">
+<input type="button" class="italicText" value="Italic">
+<input type="button" class="underlineText" value="Underline">
 
 <div class="title">
-            <label>Title:</label>
-            <input type="text" @bind="postTitle" class="input-box" />
-        </div>
+    <label>Title:</label>
+    <input type="text" @bind="postTitle" class="input-box" />
+</div>
         
-        <div class="description">
-            <label>Description:</label>
-            <textarea @bind="postdescription" class="textarea-box"></textarea>
-        </div>
+<div class="description">
+    <label>Description:</label>
+    <div class="container" @bind="postdescription" contentEditable>
+            
+    </div>
+</div>
         
 <form name="form1" id="form1" action="/action_page.php">
     Category: <select @bind="category" name="subject" id="subject">
@@ -71,24 +37,23 @@
     </select>
     <br><br></form>
 
- <form name="form1" id="form1" action="/action_page.php">
-            Choose campus: <select @bind="location" name="subject" id="subject">
-                <option value="Horsens" selected="selected">Horsens</option>
-                <option value="Viborg" selected="selected">Viborg</option>
-                <option value="Aarhus" selected="selected">Aarhus</option>
-            </select>
-            <br><br></form>
+<form name="form1" id="form1" action="/action_page.php">
+    Choose campus: <select @bind="location" name="subject" id="subject">
+        <option value="Horsens" selected="selected">Horsens</option>
+        <option value="Viborg" selected="selected">Viborg</option>
+        <option value="Aarhus" selected="selected">Aarhus</option>
+    </select>
+    <br><br></form>
         
     
 
-        <div class="button-row">
-            @if (!string.IsNullOrEmpty(msg))
-            {
-                <label style="color : @color">@msg</label>
-            }
-            <button @onclick="Create1" class="acceptbtn">Post</button>
-        </div>
-
+<div class="button-row">
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color : @color">@msg</label>
+    }
+    <button @onclick="Create1" class="acceptbtn">Post</button>
+</div>
 
 
 @code {
