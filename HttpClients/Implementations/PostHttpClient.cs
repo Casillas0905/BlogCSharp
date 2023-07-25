@@ -58,7 +58,7 @@ public class PostHttpClient : IPostService
         return posts;
     }*/
     
-    public async Task<Post> GetByIdAsync(int postId)
+    /*public async Task<Post> GetByIdAsync(int postId)
     {
         try
         {
@@ -90,6 +90,22 @@ public class PostHttpClient : IPostService
             // Handle the error as needed
             throw new Exception("An error occurred while fetching the post.", e);
         }
+    }*/
+    
+    public async Task<Post> GetByIdAsync(int id)
+    {
+        HttpResponseMessage response = await client.GetAsync($"/posts/{id}");
+        string result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+
+        Post posts = JsonSerializer.Deserialize<Post>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return posts;
     }
 
     public async Task<IEnumerable<Post>> GetByUserIdAsync(int UserId)

@@ -17,7 +17,7 @@ public class PostsController : ControllerBase
         this.postLogic = postLogic;
     }
 
-    [HttpPost,Route("create")]
+    /*[HttpPost,Route("create")]
     public async Task<ActionResult<Post>> CreateAsync(Post dto)
     {
         try
@@ -47,8 +47,8 @@ public class PostsController : ControllerBase
         }
     }
     
-    [HttpGet, Route("findById")]
-    public async Task<ActionResult<Post>> FindById([FromQuery] int id)
+    [HttpGet("{id:int}"), Route("findById")]
+    public async Task<ActionResult<Post>> FindById([FromRoute] int id)
     {
         try
         {
@@ -106,13 +106,27 @@ public class PostsController : ControllerBase
         }
     }
 
-    [HttpDelete("{id:int}")]
-    public async Task<ActionResult> DeleteAsync([FromRoute] int id)
+    [HttpDelete("{deleteid:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] int deleteid)
     {
         try
         {
-            await postLogic.deletePost(id);
+            await postLogic.deletePost(deleteid);
             return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }*/
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<Post>> GetById([FromRoute] int id)
+    {
+        try
+        {
+            Post result = await postLogic.GetByIdAsync(id);
+            return Ok(result);
         }
         catch (Exception e)
         {
