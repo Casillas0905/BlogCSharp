@@ -9,7 +9,6 @@ namespace HttpClients.Implementations;
 public class PostHttpClient : IPostService
 {
     private readonly HttpClient client;
-    public int id { get; set; }
 
     public PostHttpClient(HttpClient client)
     {
@@ -28,8 +27,10 @@ public class PostHttpClient : IPostService
 
     public async Task<IEnumerable<Post>> FindByParameters(SearchParameters searchParameters)
     {
-        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/Posts/FindByParameters/{searchParameters}");
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/posts/FindByParameters?title={searchParameters.title}&location={searchParameters.location}&category={searchParameters.category}&userId={searchParameters.userId}");
         string result = await response.Content.ReadAsStringAsync();
+        bool status = response.IsSuccessStatusCode;
+        Console.WriteLine(status);
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(result);
@@ -42,69 +43,22 @@ public class PostHttpClient : IPostService
         return posts;
     }
 
-    /*public async Task<Post?> GetByIdAsync(int Id)
+    public async Task<Post> GetByIdAsync(int getById)
     {
-        HttpResponseMessage response = await client.GetAsync($"/Posts/{id}");
+        Console.WriteLine("Http 1");
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/posts/{getById}");
+        Console.WriteLine("Http 2");
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(result);
         }
-
+        Console.WriteLine("Http 3");
         Post posts = JsonSerializer.Deserialize<Post>(result, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
-        return posts;
-    }*/
-    
-    /*public async Task<Post> GetByIdAsync(int postId)
-    {
-        try
-        {
-            string apiUrl = $"https://localhost:7093/findById?id={postId}";
-            
-            // Send the GET request
-            HttpResponseMessage response = await client.GetAsync(apiUrl);
-            
-            // Check if the request was successful
-            if (response.IsSuccessStatusCode)
-            {
-                // Read the response content as a string
-                string responseBody = await response.Content.ReadAsStringAsync();
-                
-                // Deserialize the response JSON to a Post object (assuming the JSON structure matches the Post class)
-                // Replace "Post" with the class that matches your Post model
-                Post post = await response.Content.ReadFromJsonAsync<Post>();
-                
-                return post;
-            }
-            else
-            {
-                // Handle the error as needed
-                throw new Exception($"Failed to get the post. Status code: {response.StatusCode}");
-            }
-        }
-        catch (Exception e)
-        {
-            // Handle the error as needed
-            throw new Exception("An error occurred while fetching the post.", e);
-        }
-    }*/
-    
-    public async Task<Post> GetByIdAsync(int id)
-    {
-        HttpResponseMessage response = await client.GetAsync($"/posts/{id}");
-        string result = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(result);
-        }
-
-        Post posts = JsonSerializer.Deserialize<Post>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
+        Console.WriteLine("Http 4");
         return posts;
     }
 

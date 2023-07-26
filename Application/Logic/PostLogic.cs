@@ -32,7 +32,7 @@ public class PostLogic : IPostLogic
         return created;
     }
 
-    public Task<IEnumerable<Post>> FindByParameters(SearchParameters searchParameters)
+    public Task<IEnumerable<Post>> FindByParameters(SearchParameters? searchParameters)
     {
         return postDao.FindByParameters(searchParameters);
     }

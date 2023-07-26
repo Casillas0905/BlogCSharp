@@ -4,11 +4,11 @@
 @using Domain.DTOs
 @using Microsoft.AspNetCore.Authorization
 @inject IPostService postService;
-@inject NavigationManager NavigationManager;
-
+<h3 style="text-align: center">Overview of all posts</h3>
 @if (posts == null)
 {
     <span>Loading..</span>
+    <h2>@msg</h2>
 }
 else if (!posts.Any())
 {
@@ -19,46 +19,28 @@ else
     <div class="users-container">
         @foreach (Post post in posts)
         {
-
-            <h3 style="text-align: center">Overview of all posts</h3>
-            <div class="users-container">
-                <div class="post-card">
-                    <h5>Ttiel: @post.Title</h5>
-                    <label >Description: @post.description</label>
-                    <br/>
-                    <label >Id: @post.Id</label>
-                    <br/>
-                    <label >Category: @post.category</label>
-                    <br/>
-                    <label >IMage: @post.imageUrl</label>
-                    <br/>
-                    <label >Location: @post.location</label>
-                    <br/>
-                    <label >UserId: @post.userID</label>
-                    <br/>
-                </div>
+            <div class="post-card">
+                <h5>@post.Title</h5>
+                <label >@post.description</label>
+                <br/>
+                <label >@post.Id</label>
+                <br/>
             </div>
         }
     </div>
-
+}
 @code {
     private IEnumerable<Post>? posts;
-    private Post post;
     private string msg = "";
-
-    /* private async Task goToPosts(int id)
-    {
-        postService.id = id;
-        NavigationManager.NavigateTo("/ViewOnePost");
-    }*/
 
     protected override async Task OnInitializedAsync()
     {
         msg = "";
         try
         {
-            post = await postService.GetByIdAsync(2);
-            Console.WriteLine("Blazor");
+            SearchParameters searchParameters = new SearchParameters();
+            searchParameters.title = "Cozy Cabin Retreat";
+            posts = await postService.FindByParameters(searchParameters);
         }
         catch (Exception e)
         {
@@ -66,5 +48,4 @@ else
             msg = e.Message;
         }
     }
-
-}}
+}

@@ -17,7 +17,7 @@ public class PostsController : ControllerBase
         this.postLogic = postLogic;
     }
 
-    /*[HttpPost,Route("create")]
+    [HttpPost,Route("create")]
     public async Task<ActionResult<Post>> CreateAsync(Post dto)
     {
         try
@@ -32,43 +32,14 @@ public class PostsController : ControllerBase
         }
     }
     
-    [HttpGet, Route("FindByParameters")]
-    public async Task<ActionResult<User>> FindByParametersAsync([FromQuery] SearchParameters? parameters)
+    [HttpGet,Route("FindByParameters")]
+    public async Task<ActionResult<User>> FindByParametersAsync([FromQuery] string? title,[FromQuery] string? location,[FromQuery] string? category,[FromQuery] int userId)
     {
         try
         {
-            var todos = await postLogic.FindByParameters(parameters);
+            SearchParameters searchParameters = new SearchParameters(title,location,category,userId);
+            var todos = await postLogic.FindByParameters(searchParameters);
             return Ok(todos);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, e.Message);
-        }
-    }
-    
-    [HttpGet("{id:int}"), Route("findById")]
-    public async Task<ActionResult<Post>> FindById([FromRoute] int id)
-    {
-        try
-        {
-            Post? result = await postLogic.GetByIdAsync(id);
-            return Ok(result);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, e.Message);
-        }
-    }
-    
-    [HttpGet, Route("FindAll")]
-    public async Task<ActionResult<IEnumerable<Post>>> FindAll()
-    {
-        try
-        {
-            Task<IEnumerable<Post>> result = postLogic.FindByParameters(null);
-            return Ok(result);
         }
         catch (Exception e)
         {
@@ -106,12 +77,12 @@ public class PostsController : ControllerBase
         }
     }
 
-    [HttpDelete("{deleteid:int}")]
-    public async Task<ActionResult> DeleteAsync([FromRoute] int deleteid)
+    [HttpDelete("{deleteId:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] int deleteId)
     {
         try
         {
-            await postLogic.deletePost(deleteid);
+            await postLogic.deletePost(deleteId);
             return Ok();
         }
         catch (Exception e)
@@ -119,13 +90,14 @@ public class PostsController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
-    }*/
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<Post>> GetById([FromRoute] int id)
+    }
+    
+    [HttpGet("{getById:int}")]
+    public async Task<ActionResult<Post>> GetById([FromRoute] int getById)
     {
         try
         {
-            Post result = await postLogic.GetByIdAsync(id);
+            Post? result = await postLogic.GetByIdAsync(getById);
             return Ok(result);
         }
         catch (Exception e)

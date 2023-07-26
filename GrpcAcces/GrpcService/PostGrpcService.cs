@@ -31,7 +31,7 @@ public class PostGrpcService : IPostDao
         return post;
     }
 
-    public async Task<IEnumerable<Post>> FindByParameters(SearchParameters parameters)
+    public async Task<IEnumerable<Post>> FindByParameters(SearchParameters? parameters)
     {
         if (parameters.title == null)
         {
