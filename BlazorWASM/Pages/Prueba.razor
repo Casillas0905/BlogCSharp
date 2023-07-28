@@ -1,11 +1,4 @@
-﻿@page "/ViewPosts"
-@using HttpClients.ClientInterfaces
-@using Domain.Models
-@using Domain.DTOs
-@using Microsoft.AspNetCore.Authorization
-@inject IPostService postService;
-@inject NavigationManager NavigationManager;
-
+﻿@page "/Prueba"
 <html>
 <head>
     <title>W3.CSS Template</title>
@@ -64,7 +57,7 @@
                     <h3><b>BLOG ENTRY</b></h3>
                     <!-- Image Box -->
                     <div class="image-box">
-                        <img src="https://th.bing.com/th/id/R.3db668e21f134bf436cdc41e719aa40e?rik=BYVew9uCj5DZiA&pid=ImgRaw&r=0" alt="Nature" style="width:100%">
+                        <img src="/w3images/bridge.jpg" alt="Norway" style="width:100%">
                     </div>
                     <h5>Title description, <span class="w3-opacity">April 2, 2014</span></h5>
                 </div>
@@ -105,7 +98,17 @@
 </html>
 
 
-@code{
+
+
+
+
+
+
+
+
+
+
+@code {
 
     private int likesCount = 0;
 
@@ -113,26 +116,7 @@
     {
         likesCount++;
     }
+    }
+
+
 }
-
-}
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-
-

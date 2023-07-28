@@ -1,4 +1,4 @@
-@page "/ViewPosts"
+@page "/ViewPostss"
 @using HttpClients.ClientInterfaces
 @using Domain.Models
 @using Domain.DTOs
@@ -16,7 +16,7 @@
     <a class="active" href="#ViewPosts.razor">Home</a>
     <a href="/CreatePost">Create</a>
     <div class="profile-icon">
-        <a href="/UserProfile"><i class="fas fa-user"></i></a>
+        <a href="/ManageProfile"><i class="fas fa-user"></i></a>
     </div>
     <input type="text" placeholder="Search..">
 </div>
@@ -41,96 +41,117 @@
     </form>
 </div>
 
+<head>
+ <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body, h1, h2, h3, h4, h5 { font-family: "Raleway", sans-serif; }
+    </style>
+</head>
+<body class="w3-light-grey">
+<div class="w3-content" style="max-width:1400px">
 
+  
 
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-    </div>
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-    </div>
-  </div> 
-</div>
+    <!-- Grid -->
+    <div class="w3-row">
 
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-    </div>
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-    </div>
-  </div> 
-</div>
+        <!-- Blog entries -->
+        <div class="w3-col l8 s12">
+            <!-- Blog entry -->
+            <div class="w3-card-4 w3-margin w3-white">
+                <div class="w3-container">
+                    <h3><b>TITLE HEADING</b></h3>
+                    <!-- Image Box -->
+                    <div class="image-box">
+                        <img src="https://th.bing.com/th/id/R.3db668e21f134bf436cdc41e719aa40e?rik=BYVew9uCj5DZiA&pid=ImgRaw&r=0" alt="Nature" style="width:100%">
+                    </div>
+                    <h5>Title description, <span class="w3-opacity">April 7, 2014</span></h5>
+                </div>
 
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-    </div>
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-    </div>
-  </div> 
-</div>
-        
+                <div class="w3-container">
+                    <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+                        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                    <div class="w3-row">
+                        <div class="w3-col m8 s12">
+                            <p>
+                                <a href="/ViewOnePost" class="w3-button w3-padding-large w3-white w3-border">
+                                    <b>READ MORE »</b>
+                                </a>
+                            </p>
 
-@if (posts == null)
-{
-    <span>Loading..</span>
-}
-else if (!posts.Any())
-{
-    <span>No posts to be found</span>
-}
-else
-{
-    <div class="users-container">
-        @foreach (Post post in posts)
-        {
-
-            <h3 style="text-align: center">Overview of all posts</h3>
-            <div class="users-container">
-                <div class="post-card">
-                    <h5>Ttiel: @post.Title</h5>
-                    <label >Description: @post.description</label>
-                    <br/>
-                    <label >Id: @post.Id</label>
-                    <br/>
-                    <label >Category: @post.category</label>
-                    <br/>
-                    <label >IMage: @post.imageUrl</label>
-                    <br/>
-                    <label >Location: @post.location</label>
-                    <br/>
-                    <label >UserId: @post.userID</label>
-                    <br/>
+                        </div>
+                        <div class="w3-col m4 w3-hide-small">
+                                       <!-- Display the number of likes -->
+                                       <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">@likesCount</span></span></p>
+                                   </div>
+                    </div>
                 </div>
             </div>
-        }
+            <hr>
+
+            <!-- Blog entry -->
+            <div class="w3-card-4 w3-margin w3-white">
+                <div class="w3-container">
+                    <h3><b>BLOG ENTRY</b></h3>
+                    <!-- Image Box -->
+                    <div class="image-box">
+                        <img src="https://th.bing.com/th/id/R.3db668e21f134bf436cdc41e719aa40e?rik=BYVew9uCj5DZiA&pid=ImgRaw&r=0" alt="Norway" style="width:100%">
+                    </div>
+                    <h5>Title description, <span class="w3-opacity">April 2, 2014</span></h5>
+                </div>
+
+                <div class="w3-container">
+                    <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+                        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                    <div class="w3-row">
+                        <div class="w3-col m8 s12">
+                            <p>
+                                <a href="/ViewOnePost" class="w3-button w3-padding-large w3-white w3-border">
+                                    <b>READ MORE »</b>
+                                </a>
+                            </p>
+
+                        </div>
+                        <div class="w3-col m4 w3-hide-small">
+                                       <!-- Display the number of likes -->
+                                       <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">@likesCount</span></span></p>
+                                   </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END BLOG ENTRIES -->
+        </div>
+
+        <!-- Introduction menu -->
+        <div class="w3-col l4">
+            <!-- About Card -->
+            <div class="w3-card w3-margin w3-margin-top">
+                <img src="/w3images/avatar_g.jpg" style="width:100%">
+                <div class="w3-container w3-white">
+                    <h4><b>My Name</b></h4>
+                    <p>Just me, myself and I, exploring the universe of uknownment. I have a heart of love and a interest of lorem ipsum and mauris neque quam blog. I want to share my world with you.</p>
+                </div>
+            </div>
+            <hr>
+        </div>
     </div>
+</div>
+</body>
+
+
 
 @code {
+    
+    private int likesCount = 0;
+
+    private void LikePost()
+    {
+        likesCount++;
+    }
     private IEnumerable<Post>? posts;
     private Post post;
     private string msg = "";
@@ -156,4 +177,4 @@ else
         }
     }
 
-}}
+}

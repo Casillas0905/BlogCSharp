@@ -47,9 +47,6 @@
       <None Update="Pages\ResetedPassword.razor.css">
         <DependentUpon>ResetedPassword.razor</DependentUpon>
       </None>
-      <None Update="Pages\CreatePostScript.js">
-        <DependentUpon>CreatePostScript.razor</DependentUpon>
-      </None>
     </ItemGroup>
 
 </Project>

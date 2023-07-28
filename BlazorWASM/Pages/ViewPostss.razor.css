@@ -18,7 +18,7 @@ body {
 
 /* Add styling to top navigation */
 .topnav {
-    background-color: #f2f2f2;
+    background-color: darkgray;
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -37,7 +37,7 @@ body {
 }
 
 .topnav a.active {
-    background-color: #4CAF50;
+    background-color: dimgray;
     color: white;
 }
 
