@@ -1,4 +1,7 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject NavigationManager NavigationManager
+
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">VIA blog</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -6,7 +9,7 @@
         </button>
     </div>
 </div>
-hello
+
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
@@ -14,12 +17,7 @@ hello
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/EditPost" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> EDIT
-            </NavLink>
-        </div>
-        
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="CreateUser">
                 <span class="oi oi-plus" aria-hidden="true"></span> Create user
@@ -37,7 +35,7 @@ hello
                     </NavLink>
                 </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="ViewPosts">
+            <NavLink class="nav-link" href="ViewPostss">
                 <span class="oi oi-home" aria-hidden="true"></span> View Posts
             </NavLink>
         </div>
@@ -47,6 +45,12 @@ hello
             </NavLink>
         </div>
         
+        
+        <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Prueba">
+                        <span class="oi oi-home" aria-hidden="true"></span> Prueba
+                    </NavLink>
+                </div>
         
         
     
@@ -68,13 +72,22 @@ hello
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+    
+    private bool collapseNavMenu;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private bool IsPrincipalPage()
+    {
+    // Check if the current URL is the homepage
+    // You can modify this condition based on your actual homepage URL
+        return NavigationManager.Uri == "/";
+    }
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
+    
 
 }
