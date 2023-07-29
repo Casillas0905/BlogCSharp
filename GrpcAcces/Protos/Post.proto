@@ -18,7 +18,7 @@ message PostModelGrpc {
   string title = 4;
   string description = 5;
   string imageUrl = 6;
-  string location=7;
+  int32 location=7;
 }
 
 message GetById{

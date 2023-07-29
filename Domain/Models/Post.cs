@@ -10,10 +10,10 @@ public class Post
     public string description { get;  set; }
     public string imageUrl{get;  set;}
     public int category{get;  set;}
-    public string location{get;  set;}
+    public int location{get;  set;}
 
 
-    public Post(int id, int userId, string title, string description, string imageUrl, int category, string location)
+    public Post(int id, int userId, string title, string description, string imageUrl, int category, int location)
     {
         Id = id;
         userID = userId;

@@ -106,4 +106,5 @@ public class PostGrpcService : IPostDao
         var req = new GrpcClasses.Post.GetById() { Id = id };
         postGrpcClient.deletePostAsync(req);
     }
+  
 }

@@ -1,0 +1,21 @@
+syntax= "proto3";
+
+package GrpcClasses.Category;
+
+service CategoryGrpc{
+  rpc saveCategory(CategoryModelGrpc) returns (Empty){}
+  rpc findAll(Empty) returns(stream CategoryModelGrpc);
+  rpc findById(GetById) returns(CategoryModelGrpc);
+}
+
+message GetById{
+  int32 id=1;
+}
+
+message CategoryModelGrpc{
+  string category=1;
+  int32 id=4;
+}
+
+message Empty{
+}

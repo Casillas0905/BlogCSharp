@@ -19,6 +19,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserDao, UserGrpcService>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
+builder.Services.AddScoped<ICategoryDao, CategoryGrpcService>();
+builder.Services.AddScoped<ICategoryLogic, CategoryLogic>();
+builder.Services.AddScoped<ILocationDao, LocationGrpcService>();
+builder.Services.AddScoped<ILocationLogic, LocationLogic>();
 builder.Services.AddScoped<ICommentLogic, CommentLogic>();
 builder.Services.AddScoped<ICommentDao, CommentGrpcService>();
 builder.Services.AddScoped<IPostDao, PostGrpcService>();

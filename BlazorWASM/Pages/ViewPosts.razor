@@ -6,229 +6,110 @@
 @inject IPostService postService;
 @inject NavigationManager NavigationManager;
 
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
 <div class="topnav">
     <a class="active" href="#ViewPosts.razor">Home</a>
     <a href="/CreatePost">Create</a>
-    <a href="/ManageProfile">Profile</a>
-    <input type="text" placeholder="Search..">
+    <div class="profile-icon">
+        <a href="/UserProfile"><i class="fas fa-user"></i></a>
+    </div>
+    <input type="text" placeholder="Search.." @bind="title">
+</div>
+</body>
+
+<div class="category">
+    <form name="form1" id="form1" action="/action_page.php">
+        Category: <select @bind="category" name="subject" id="subject">
+            <option value="1" selected="selected">Homework</option>
+            <option value="1">Advice</option>
+        </select>
+    </form>
 </div>
 
-<form name="form1" id="form1" action="/action_page.php">
-    Category: <select name="subject" id="subject">
-        <option value="" selected="selected">Homework</option>
-        <option value="" selected="selected">Advice</option>
-    </select>
-    <br><br></form>
-
- <form name="form1" id="form1" action="/action_page.php">
-            Choose campus: <select name="subject" id="subject">
-                <option value="" selected="selected">Horsens</option>
-                <option value="" selected="selected">Viborg</option>
-                <option value="" selected="selected">Aarhus</option>
-            </select>
-            <br><br></form>
-        
-
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
-<div class="row">
-            
-    <div class="col-sm-12">
-        <div class="panel panel-white post">
-            <div class="post-heading">
-                <div class="pull-left image">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle avatar" alt="user profile image">
-                </div>
-                <div class="pull-left meta">
-                    <div class="title h5">
-                        <a href="#"><b>John Doe</b></a>
-                        uploaded a photo.
-                    </div>
-                    <h6 class="text-muted time">5 seconds ago</h6>
-                </div>
-            </div>
-            <div class="post-image">
-                <img src=""><img src="https://niveloculto.com/wp-content/uploads/2013/08/Muchos-libros.jpg" class="image" alt="image post">
-            </div>
-            <div class="post-description">
-                <h4>Product Shoot</h4>
-                <p>Here is a picture of the walkway to our product shoot.</p>
-                <div class="stats">
-                    <a href="javascript:void(0);" class="btn btn-default stat-item">
-                        <i class="fa fa-thumbs-up icon"></i>228
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-default stat-item">
-                        <i class="fa fa-share icon"></i>128
-                    </a>
-                </div>
-            </div>
-            <div class="post-footer">
-                <div class="input-group"> 
-                    <input class="form-control" placeholder="Add a comment" type="text">
-                    <span class="input-group-addon">
-                        <a href="javascript:void(0);"><i class="fa fa-edit"></i></a>  
-                    </span>
-                </div>
-                <ul class="comments-list">
-                    <li class="comment">
-                        <a class="pull-left" href="javascript:void(0);">
-                            <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                        </a>
-                        <div class="comment-body">
-                            <div class="comment-heading">
-                                <h4 class="user">John dOE</h4>
-                                <h5 class="time">7 minutes ago</h5>
-                            </div>
-                            <p>I really love this picture. I really wish i could have been there.</p>
-                        </div>
-                    </li>
-                    <li class="comment">
-                        <a class="pull-left" href="javascript:void(0);">
-                            <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                        </a>
-                        <div class="comment-body">
-                            <div class="comment-heading">
-                                <h4 class="user">John Doe</h4>
-                                <h5 class="time">3 minutes ago</h5>
-                            </div>
-                            <p>I think I might you this for one of my projects.</p>
-                        </div>
-                    </li>
-                    <li class="comment">
-                        <a class="pull-left" href="javascript:void(0);">
-                            <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="avatar">
-                        </a>
-                        <div class="comment-body">
-                            <div class="comment-heading">
-                                <h4 class="user">John Doe</h4>
-                                <h5 class="time">10 seconds ago</h5>
-                            </div>
-                            <p>Wow! This is gorgeous.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-            
-    <div class="col-sm-12">
-        <div class="panel panel-white post">
-            <div class="post-heading">
-                <div class="pull-left image">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle avatar" alt="user profile image">
-                </div>
-                <div class="pull-left meta">
-                    <div class="title h5">
-                        <a href="#"><b>John Doe</b></a>
-                        made a post.
-                    </div>
-                    <h6 class="text-muted time">1 minute ago</h6>
-                </div>
-            </div> 
-            <div class="post-description"> 
-                <p>Anyone who is interested in helping out with the Mark &amp; Markson dinner party, please let me know before the week is over.</p>
-                <div class="stats">
-                    <a href="javascript:void(0);" class="btn btn-default stat-item">
-                        <i class="fa fa-thumbs-up icon"></i>2
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-default stat-item">
-                        <i class="fa fa-share icon"></i>12
-                    </a>
-                </div>
-            </div>
-            <div class="post-footer">
-                <div class="input-group"> 
-                    <input class="form-control" placeholder="Add a comment" type="text">
-                    <span class="input-group-addon">
-                        <a href="javascript:void(0);"><i class="fa fa-edit"></i></a>  
-                    </span>
-                </div>
-                <ul class="comments-list">
-                    <li class="comment">
-                        <a class="pull-left" href="javascript:void(0);">
-                            <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                        </a>
-                        <div class="comment-body">
-                            <div class="comment-heading">
-                                <h4 class="user">Gavino Free</h4>
-                                <h5 class="time">5 minutes ago</h5>
-                            </div>
-                            <p>Sure, I'd help out.</p>
-                        </div>
-                        <ul class="comments-list">
-                            <li class="comment">
-                                <a class="pull-left" href="javascript:void(0);">
-                                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="user">John Doe</h4>
-                                        <h5 class="time">3 minutes ago</h5>
-                                    </div>
-                                    <p>I will email you the details.</p>
-                                </div>
-                            </li> 
-                            <li class="comment">
-                                <a class="pull-left" href="javascript:void(0);">
-                                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="user">John Doe</h4>
-                                        <h5 class="time">3 minutes ago</h5>
-                                    </div>
-                                    <p>Ok, cool.</p>
-                                </div>
-                            </li> 
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-             
-    <div class="col-sm-12">
-        <div class="panel panel-white post">
-            <div class="post-heading">
-                <div class="pull-left image">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="img-circle avatar" alt="user profile image">
-                </div>
-                <div class="pull-left meta">
-                    <div class="title h5">
-                        <a href="#"><b>Yanique Robinson</b></a>
-                        shared a video.
-                    </div>
-                    <h6 class="text-muted time">1 minute ago</h6>
-                </div>
-            </div> 
-            <div class="post-video">
-                <div class="fluid-width-video-wrapper" style="padding-top: 56.2%;"><iframe src="https://player.vimeo.com/video/98417189" id="fitvid369523"></iframe></div>
-            </div>
-            <div class="post-description">  
-                <div class="stats">
-                    <a href="javascript:void(0);" class="btn btn-default stat-item">
-                        <i class="fa fa-thumbs-up icon"></i>2
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-default stat-item">
-                        <i class="fa fa-share icon"></i>12
-                    </a>
-                </div>
-            </div>
-            <div class="post-footer">
-                <div class="input-group"> 
-                    <input class="form-control" placeholder="Add a comment" type="text">
-                    <span class="input-group-addon">
-                        <a href="javascript:void(0);"><i class="fa fa-edit"></i></a> 
-                    </span>
-                </div> 
-            </div>
-        </div>
-    </div>
-            
+<div class="choose-campus">
+    <form name="form2" id="form2" action="/action_page.php">
+        Choose campus: <select @bind="location" name="subject" id="subject">
+            <option value="City Center" selected="selected">Horsens</option>
+            <option value="Forest Retreat">Viborg</option>
+            <option value="Mountainous Region">Aarhus</option>
+        </select>
+    </form>
 </div>
-        
+<button @onclick="Search">Search</button>
+@if (posts == null)
+{
+    <span>Loading..</span>
+}
+else if (!posts.Any())
+{
+    <span>No posts to be found</span>
+}
+else
+{
+    <div class="users-container">
+        @foreach (Post post in posts)
+        {
 
+            <div class="row">
+                <div class="leftcolumn">
+                    <div class="card">
+                        <h2>@post.Title</h2>
+                        <h5>@post.description</h5>
+                        <p>@post.category</p>
+                        <div class="fakeimg" style="height:200px;">@post.imageUrl</div>
+                        <p>@post.location</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 
+@code {
+    private IEnumerable<Post>? posts;
+    private string msg = "";
+    private string? location;
+    private int? category;
+    private string? title;
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            SearchParameters searchParameters = new SearchParameters();
+            posts = await postService.FindByParameters(searchParameters);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    /* private async Task goToPosts(int id)
+    {
+        postService.id = id;
+        NavigationManager.NavigateTo("/ViewOnePost");
+     }*/
+
+    private async Task Search()
+    {
+        try
+        {
+            SearchParameters searchParameters = new SearchParameters(title,location,"home",0);
+            posts = await postService.FindByParameters(searchParameters);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}}
 
 
 

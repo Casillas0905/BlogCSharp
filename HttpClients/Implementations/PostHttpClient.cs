@@ -45,20 +45,16 @@ public class PostHttpClient : IPostService
 
     public async Task<Post> GetByIdAsync(int getById)
     {
-        Console.WriteLine("Http 1");
         HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/posts/{getById}");
-        Console.WriteLine("Http 2");
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(result);
         }
-        Console.WriteLine("Http 3");
         Post posts = JsonSerializer.Deserialize<Post>(result, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
-        Console.WriteLine("Http 4");
         return posts;
     }
 

@@ -7,11 +7,11 @@ namespace WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class MessageController : ControllerBase
+public class CommentController : ControllerBase
 {
     private readonly ICommentLogic CommentLogic;
 
-    public MessageController(ICommentLogic CommentLogic)
+    public CommentController(ICommentLogic CommentLogic)
     {
         this.CommentLogic = CommentLogic;
     }
@@ -29,8 +29,6 @@ public class MessageController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
-        
-        
     }
     
     

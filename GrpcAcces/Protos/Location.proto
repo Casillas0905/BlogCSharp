@@ -1,0 +1,21 @@
+syntax= "proto3";
+
+package GrpcClasses.Location;
+
+service LocationGrpc{
+  rpc saveLocation(LocationModelGrpc) returns (Empty){}
+  rpc findAll(Empty) returns(stream LocationModelGrpc);
+  rpc findById(GetById) returns(LocationModelGrpc);
+}
+
+message GetById{
+  int32 id=1;
+}
+
+message LocationModelGrpc{
+  string location=1;
+  int32 id=2;
+}
+
+message Empty{
+}
