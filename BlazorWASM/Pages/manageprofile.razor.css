@@ -90,8 +90,8 @@ body{
     box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .11);
 }
 .btn-style-1.btn-white {
-    background-color: #fff;
-    
+    background-color: gray;
+
 }
 .list-group-item i {
     display: inline-block;
@@ -177,3 +177,15 @@ a.list-group-item, .list-group-item-action {
     content: '';
 }
 
+.btn-style-1.btn-white {
+    background-color: #ccc;
+    color: #404040;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-style-1.btn-white:hover {
+    background-color: #999;
+}

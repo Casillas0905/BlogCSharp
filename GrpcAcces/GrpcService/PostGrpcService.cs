@@ -69,6 +69,7 @@ public class PostGrpcService : IPostDao
         var post = postGrpcClient.findById(req);
         Post newPost = new Post(post.Id,post.UserId,post.Title,post.Description,post.ImageUrl, post.Category, post.Location);
         return newPost;
+        
     }
 
     public async Task<IEnumerable<Post>> GetByUserIdAsync(int UserId)
