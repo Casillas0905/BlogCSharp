@@ -1,0 +1,15 @@
+﻿/* Rest of the styles as before */
+
+/* Styles for the image box */
+.image-box {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.image-box img {
+    width: 100%;
+}
+
+/* Rest of the styles as needed */
