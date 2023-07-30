@@ -554,3 +554,57 @@ a {
 }
 
 
+/*THIS IS FOR THE THREE DOTS*/
+
+.post {
+    position: relative;
+    /* Add your post styling here */
+}
+
+.menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.dots-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #333;
+}
+
+.options {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    display: none;
+}
+
+.options li {
+    padding: 8px 16px;
+}
+
+.options li a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Show the options when the menu is hovered */
+.menu:hover .options {
+    display: block;
+}
