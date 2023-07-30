@@ -8,7 +8,6 @@
 
 <html>
 <head>
-    <title>W3.CSS Template</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -25,68 +24,51 @@
         <h1><b>MY BLOG</b></h1>
         <p>Welcome to the blog of <span class="w3-tag">unknown</span></p>
     </header>
-
     <!-- Grid -->
     <div class="w3-row">
-
+@if (posts == null)
+{
+    <span>Loading..</span>
+}
+else if (!posts.Any())
+{
+    <span>No posts to be found</span>
+}
+else
+{
+    @foreach (Post post in posts)
+    {
         <!-- Blog entries -->
         <div class="w3-col l8 s12">
-            <!-- Blog entry -->
-            <div class="w3-card-4 w3-margin w3-white">
-                <div class="w3-container">
-                    <h3><b>TITLE HEADING</b></h3>
-                    <!-- Image Box -->
-                    <div class="image-box">
-                        <img src="https://th.bing.com/th/id/R.3db668e21f134bf436cdc41e719aa40e?rik=BYVew9uCj5DZiA&pid=ImgRaw&r=0" alt="Nature" style="width:100%">
-                    </div>
-                    <h5>Title description, <span class="w3-opacity">April 7, 2014</span></h5>
-                </div>
-
-                <div class="w3-container">
-                    <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-                        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                    <div class="w3-row">
-                        <div class="w3-col m8 s12">
-                            <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+                    <!-- Blog entry -->
+                    <div class="w3-card-4 w3-margin w3-white">
+                        <div class="w3-container">
+                            <h3><b>@post.Title</b></h3>
+                            <!-- Image Box -->
+                            <div class="image-box">
+                                <img src="@post.imageUrl" alt="Nature" style="width:100%">
+                            </div>
                         </div>
-                        <div class="w3-col m4 w3-hide-small">
-                                       <!-- Display the number of likes -->
-                                       <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">@likesCount</span></span></p>
-                                   </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-
-            <!-- Blog entry -->
-            <div class="w3-card-4 w3-margin w3-white">
-                <div class="w3-container">
-                    <h3><b>BLOG ENTRY</b></h3>
-                    <!-- Image Box -->
-                    <div class="image-box">
-                        <img src="https://th.bing.com/th/id/R.3db668e21f134bf436cdc41e719aa40e?rik=BYVew9uCj5DZiA&pid=ImgRaw&r=0" alt="Nature" style="width:100%">
-                    </div>
-                    <h5>Title description, <span class="w3-opacity">April 2, 2014</span></h5>
-                </div>
-
-                <div class="w3-container">
-                    <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-                        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                    <div class="w3-row">
-                        <div class="w3-col m8 s12">
-                            <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+        
+                        <div class="w3-container">
+                            <p>@post.description</p>
+                            <div class="w3-row">
+                                <div class="w3-col m8 s12">
+                                    <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+                                </div>
+                                <div class="w3-col m4 w3-hide-small">
+                                    <!-- Display the number of likes -->
+                                    <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">0</span></span></p>
+                                    </div>
+                            </div>
                         </div>
-                        <div class="w3-col m4 w3-hide-small">
-                                       <!-- Display the number of likes -->
-                                       <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">@likesCount</span></span></p>
-                                   </div>
                     </div>
+                    <hr>
+                    <!-- END BLOG ENTRIES -->
                 </div>
-            </div>
-            <!-- END BLOG ENTRIES -->
-        </div>
-
-        <!-- Introduction menu -->
+    }
+}
+<!-- Introduction menu -->
         <div class="w3-col l4">
             <!-- About Card -->
             <div class="w3-card w3-margin w3-margin-top">
@@ -105,16 +87,46 @@
 </html>
 
 
-@code{
+@code {
+    private IEnumerable<Post>? posts;
+    private string msg = "";
+    private string? location;
+    private int? category;
+    private string? title;
 
-    private int likesCount = 0;
-
-    private void LikePost()
+    protected override async Task OnInitializedAsync()
     {
-        likesCount++;
+        msg = "";
+        try
+        {
+            SearchParameters searchParameters = new SearchParameters();
+            posts = await postService.FindByParameters(searchParameters);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
     }
-}
+    /* private async Task goToPosts(int id)
+    {
+        postService.id = id;
+        NavigationManager.NavigateTo("/ViewOnePost");
+     }*/
 
+    private async Task Search()
+    {
+        try
+        {
+            SearchParameters searchParameters = new SearchParameters(title,location,"home",0);
+            posts = await postService.FindByParameters(searchParameters);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
 }
 
 

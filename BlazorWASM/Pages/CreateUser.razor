@@ -3,6 +3,7 @@
 @using Domain.Models
 @using HttpClients.ClientInterfaces
 @inject IUserService userService;
+@inject NavigationManager navMgr
 <div class="container h-100">
     		<div class="row h-100">
 				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
@@ -25,24 +26,25 @@
 									
 									<form>
 										<div class="form-group">
-                                          <label class="label">First Name</label>
-											<input class="form-control smaller-input" type="text" name="firstname" placeholder="Enter your name">
+											<label class="label">First Name</label>
+											<input  @bind="firstname" class="form-control  smaller-input" type="text" name="firstname" placeholder="Enter your name">
 											<label class="label">Email Address</label>
-											<input class="form-control smaller-input" type="text" name="email" placeholder="Enter your email">
-                                          <label class="label">Last Name</label>
-                                          <input class="form-control smaller-input" type="text" name="lastname" placeholder="Enter your last name">
-                                          <label class="label">Password</label>
-                                          <input class="form-control smaller-input" type="password" name="password" placeholder="Enter a password">
-                                          <label class="label">Confirm Password</label>
-                                          <input class="form-control smaller-input" type="password" name="confirmpassword" placeholder="Enter the password again">
-                                          <label class="label">Birthday</label>
-                                          <input type="date" class="form-control smaller-input" required autofocus>
-                                        </div>
-
-										
-										<div class="button1">
-											<a href="/LogIn" class="btn btn-lg btn-primary">Sign in</a>
-											
+											<input @bind="email" class="form-control smaller-input" type="text" name="email" placeholder="Enter your email">
+											<label class="label">Last Name</label>
+											<input @bind="lastname" class="form-control smaller-input" type="text" name="lastname" placeholder="Enter your last name">
+											<label class="label">Password</label>
+											<input @bind="password" class="form-control smaller-input" type="password" name="password" placeholder="Enter a password">
+											<label class="label">Confirm Password</label>
+											<input @bind="confirmpassword" class="form-control smaller-input" type="password" name="confirmpassword" placeholder="Enter the password again">
+											<label class="label">Birthday</label>
+											<input @bind="birthday" type="date" class="form-control smaller-input" required autofocus>
+										</div>
+										@if (!string.IsNullOrEmpty(resultMsg))
+                                                {
+                                                    <label style="color: @color">@resultMsg</label>
+                                                }
+										<div >
+											<button @onclick="Create">Sign in</button>
 										</div>
 									</form>
 								</div>
@@ -88,6 +90,9 @@
             confirmpassword = "";
             resultMsg = "User successfully created";
             color = "green";
+	        Thread.Sleep(3000);
+	        navMgr.NavigateTo("/LogIn");
+	        
         }
         catch (Exception e)
         {
