@@ -16,7 +16,7 @@
                 <h3 class="secondtitle">Create a post</h3>
                 <div class="upload-bar">
                     <a href="#" class="nav-item @(isPhotoSelected ? "active" : "")" @onclick="SelectPhoto">Add Photo</a>
-                    <a href="#" class="nav-item @(isVideoSelected ? "active" : "")" @onclick="SelectVideo">Add Video</a>
+                    
                 </div>
 
                 <div class="container">
@@ -28,13 +28,7 @@
                             <input type="file" accept="image/*" @onchange="HandlePhotoUpload" />
                         </div>
                     }
-                    else if (isVideoSelected)
-                    {
-                        <div class="video-upload-container">
-                            <!-- Add your video upload input and logic here -->
-                            <input type="file" accept="video/*" @onchange="HandleVideoUpload" />
-                        </div>
-                    }
+                    
                 </div>
                 
                 <br/>
@@ -88,19 +82,14 @@
 @code {
     
     private bool isPhotoSelected = true;
-    private bool isVideoSelected = false;
+   
 
     private void SelectPhoto()
     {
         isPhotoSelected = true;
-        isVideoSelected = false;
+       
     }
-
-    private void SelectVideo()
-    {
-        isPhotoSelected = false;
-        isVideoSelected = true;
-    }
+    
 
     // Handlers for photo and video uploads (you can implement your logic here)
     private void HandlePhotoUpload()
@@ -108,11 +97,6 @@
     // Handle photo upload logic
     }
 
-    private void HandleVideoUpload()
-    {
-    // Handle video upload logic
-    }
-    
     private Task<IEnumerable<User>> users;
     private int? selectedUserId;
     private string postTitle = "";
