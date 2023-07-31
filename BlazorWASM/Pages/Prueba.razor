@@ -1,100 +1,129 @@
 ﻿@page "/Prueba"
-<html>
+@using System.ComponentModel.DataAnnotations
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>W3.CSS Template</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Register</title>
     <style>
-        body, h1, h2, h3, h4, h5 { font-family: "Raleway", sans-serif; }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            display: flex;
+            max-width: 800px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            flex: 1;
+            padding: 20px;
+            border: none;
+        }
+
+        .login-card {
+            background-color: #ffffff;
+        }
+
+        .register-card {
+            background-color: #f7f7f7;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .login-form {
+            margin-right: 20px;
+        }
+
+        .register-form {
+            margin-left: 20px;
+        }
     </style>
 </head>
-<body class="w3-light-grey">
-<div class="w3-content" style="max-width:1400px">
-
-    <!-- Header -->
-    <header class="w3-container w3-center w3-padding-32"> 
-        <h1><b>MY BLOG</b></h1>
-        <p>Welcome to the blog of <span class="w3-tag">unknown</span></p>
-    </header>
-
-    <!-- Grid -->
-    <div class="w3-row">
-
-        <!-- Blog entries -->
-        <div class="w3-col l8 s12">
-            <!-- Blog entry -->
-            <div class="w3-card-4 w3-margin w3-white">
-                <div class="w3-container">
-                    <h3><b>TITLE HEADING</b></h3>
-                    <!-- Image Box -->
-                    <div class="image-box">
-                        <img src="https://th.bing.com/th/id/R.3db668e21f134bf436cdc41e719aa40e?rik=BYVew9uCj5DZiA&pid=ImgRaw&r=0" alt="Nature" style="width:100%">
-                    </div>
-                    <h5>Title description, <span class="w3-opacity">April 7, 2014</span></h5>
+<body>
+    <div class="container">
+        <div class="card login-card">
+            <div class="card-title">Login</div>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="login-email" placeholder="Enter your email">
                 </div>
-
-                <div class="w3-container">
-                    <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-                        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                    <div class="w3-row">
-                        <div class="w3-col m8 s12">
-                            <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
-                        </div>
-                        <div class="w3-col m4 w3-hide-small">
-                                       <!-- Display the number of likes -->
-                                       <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">@likesCount</span></span></p>
-                                   </div>
-                    </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="login-password" placeholder="Enter your password">
                 </div>
-            </div>
-            <hr>
-
-            <!-- Blog entry -->
-            <div class="w3-card-4 w3-margin w3-white">
-                <div class="w3-container">
-                    <h3><b>BLOG ENTRY</b></h3>
-                    <!-- Image Box -->
-                    <div class="image-box">
-                        <img src="/w3images/bridge.jpg" alt="Norway" style="width:100%">
-                    </div>
-                    <h5>Title description, <span class="w3-opacity">April 2, 2014</span></h5>
-                </div>
-
-                <div class="w3-container">
-                    <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-                        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                    <div class="w3-row">
-                        <div class="w3-col m8 s12">
-                            <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
-                        </div>
-                        <div class="w3-col m4 w3-hide-small">
-                                       <!-- Display the number of likes -->
-                                       <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">@likesCount</span></span></p>
-                                   </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END BLOG ENTRIES -->
+                <button class="btn-primary" type="submit">Log In</button>
+            </form>
         </div>
-
-        <!-- Introduction menu -->
-        <div class="w3-col l4">
-            <!-- About Card -->
-            <div class="w3-card w3-margin w3-margin-top">
-                <img src="/w3images/avatar_g.jpg" style="width:100%">
-                <div class="w3-container w3-white">
-                    <h4><b>My Name</b></h4>
-                    <p>Just me, myself and I, exploring the universe of uknownment. I have a heart of love and a interest of lorem ipsum and mauris neque quam blog. I want to share my world with you.</p>
+        <div class="card register-card">
+            <div class="card-title">Register</div>
+            <form class="register-form">
+                <div class="form-group">
+                    <label for="register-name">Name:</label>
+                    <input type="text" id="register-name" name="register-name" placeholder="Enter your name">
                 </div>
-            </div>
-            <hr>
+                <div class="form-group">
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" name="register-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" name="register-password" placeholder="Choose a password">
+                </div>
+                <button class="btn-primary" type="submit">Register</button>
+            </form>
         </div>
     </div>
-</div>
 </body>
-
 </html>
 
 
@@ -105,10 +134,9 @@
 
 
 
-
-
-
 @code {
+    private string email;
+    private string password;
 
     private int likesCount = 0;
 

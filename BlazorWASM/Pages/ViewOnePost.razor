@@ -7,6 +7,7 @@
 @inject IMessageService messageService;
 
 
+
 <div class="blog-single gray-bg">
     <div class="container">
         <div class="row align-items-start">
@@ -15,9 +16,24 @@
                     <div class="article-img">
                         <img src="https://th.bing.com/th/id/R.3db668e21f134bf436cdc41e719aa40e?rik=BYVew9uCj5DZiA&pid=ImgRaw&r=0" title="" alt="">
                     </div>
-                    <div class="article-title">
-                        <h6><a href="#">Questions</a></h6>
+                    <div class="article-title"><div class="post">
+                            <div class="article-title"><div class="menu"> <!-- Move the "menu" div here -->
+                                    <div class="dots-menu">
+                                        <div class="dot"></div>
+                                        <div class="dot"></div>
+                                        <div class="dot"></div>
+                                        </div>
+                                    <ul class="options">
+                                        <li><a href="#" onclick="savePost()">Save</a></li>
+                                        <li><a href="#" onclick="reportPost()">Report</a></li>
+                                        </ul>
+                                    </div>  <!-- Close the "article-title" div -->
+                                </div>
+                        <h6><a href="#">Questions</a></h6> 
                         <h2>What coding language do you think will be used the most moving forward?</h2>
+                      
+                          <!-- Rest of your post content goes here -->
+                        </div>
                         <div class="media">
                             <div class="avatar">
                                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" title="" alt="">

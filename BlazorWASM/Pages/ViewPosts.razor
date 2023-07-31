@@ -1,4 +1,5 @@
-﻿@page "/ViewPostss"
+
+@page "/ViewPostss"
 @using HttpClients.ClientInterfaces
 @using Domain.Models
 @using Domain.DTOs
@@ -96,6 +97,7 @@ else
             msg = e.Message;
         }
     }
+
     /* private async Task goToPosts(int id)
     {
         postService.id = id;
@@ -106,7 +108,7 @@ else
     {
         try
         {
-            SearchParameters searchParameters = new SearchParameters(title,location,"home",0);
+            SearchParameters searchParameters = new SearchParameters(title, location, "home", 0);
             posts = await postService.FindByParameters(searchParameters);
         }
         catch (Exception e)
@@ -115,4 +117,5 @@ else
             msg = e.Message;
         }
     }
+
 }

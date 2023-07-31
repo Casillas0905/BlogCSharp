@@ -38,6 +38,9 @@
       <Content Update="Pages\ForgotPassword.razor.css">
         <DependentUpon>ForgotPassword.razor</DependentUpon>
       </Content>
+      <Content Update="Pages\ConfirmPage.razor.css">
+        <DependentUpon>ConfirmPage.razor</DependentUpon>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
