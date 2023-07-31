@@ -7,7 +7,9 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @inject IPostService PostService;
-@inject IUserService userService
+@inject IUserService userService;
+@inject ILocationService LocationService;
+@inject ICategoryService CategoryService;
 
 <div class="background-image-container">
     <div class="row justify-content-center align-items-center h-100">
@@ -15,31 +17,18 @@
             <div class="content-box">
                 <h3 class="secondtitle">Create a post</h3>
                 <div class="upload-bar">
-                    <a href="#" class="nav-item @(isPhotoSelected ? "active" : "")" @onclick="SelectPhoto">Add Photo</a>
-                    <a href="#" class="nav-item @(isVideoSelected ? "active" : "")" @onclick="SelectVideo">Add Video</a>
+                    <a class="nav-item" >Add Photo</a>
                 </div>
 
                 <div class="container">
                     <!-- Show different content based on selection -->
-                    @if (isPhotoSelected)
-                    {
-                        <div class="photo-upload-container">
-                            <!-- Add your photo upload input and logic here -->
-                            <input type="file" accept="image/*" @onchange="HandlePhotoUpload" />
+                    <div class="photo-upload-container">
+                        <!-- Add your photo upload input and logic here -->
+                        <input  @bind="imageurl" type="file" accept="image/*"  />
                         </div>
-                    }
-                    else if (isVideoSelected)
-                    {
-                        <div class="video-upload-container">
-                            <!-- Add your video upload input and logic here -->
-                            <input type="file" accept="video/*" @onchange="HandleVideoUpload" />
-                        </div>
-                    }
                 </div>
-                
                 <br/>
                 <br/>
-
                 <form class="post-form">
                     <div class="form-group mb-4"> <!-- Added margin-bottom to create more space between "Choose File" and title -->
                         <label for="postTitle">Title:</label>
@@ -54,30 +43,29 @@
                     <div class="form-group">
                         <label for="category">Category:</label>
                         <select @bind="category" name="category" id="category" class="form-control">
-                            <option value="Homework">Homework</option>
-                            <option value="Advice">Advice</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Programming">Programming</option>
-                            <option value="Exams">Exams</option>
-                            <option value="Other">Other</option>
+                             @foreach (Category category in categories)
+                             {
+                                 <option value="@category.Id">@category.category</option>
+                                                                                         
+                             }
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="location">Choose campus:</label>
                         <select @bind="location" name="location" id="location" class="form-control">
-                            <option value="Horsens">Horsens</option>
-                            <option value="Viborg">Viborg</option>
-                            <option value="Aarhus">Aarhus</option>
-                            <option value="Silkeborg">Silkeborg</option>
-                            <option value="Skive">Skive</option>
-                            <option value="Randers">Randers</option>
-                            <option value="Herning">Herning</option>
-                            <option value="Holstebro">Holstebro</option>
+                             @foreach (Location location in locations)
+                                {
+                                    <option value="@location.Id">@location.location</option>
+                                                                                                                         
+                                }
                         </select>
                     </div>
 
                     <button @onclick="Create1" class="btn btn-primary btn-create-post">Create Post</button>
+                    @if (!string.IsNullOrEmpty(resultMsg))
+                    {<label style="color: @color">@resultMsg</label>
+                    }
                 </form>
             </div>
         </div>
@@ -86,44 +74,18 @@
 
 
 @code {
-    
-    private bool isPhotoSelected = true;
-    private bool isVideoSelected = false;
 
-    private void SelectPhoto()
-    {
-        isPhotoSelected = true;
-        isVideoSelected = false;
-    }
-
-    private void SelectVideo()
-    {
-        isPhotoSelected = false;
-        isVideoSelected = true;
-    }
-
-    // Handlers for photo and video uploads (you can implement your logic here)
-    private void HandlePhotoUpload()
-    {
-    // Handle photo upload logic
-    }
-
-    private void HandleVideoUpload()
-    {
-    // Handle video upload logic
-    }
-    
     private Task<IEnumerable<User>> users;
     private int? selectedUserId;
     private string postTitle = "";
     private string postdescription = "";
-    private string category = "";
-    private string IsOption1Selected="";
-    private string IsOption2Selected="";
-    private string IsOption3Selected="";
-    private string msg = "";
-    private string location = "";
+    private int category ;
+    private string resultMsg = "";
+    private int location ;
     private string color = "";
+    private string imageurl = "";
+    private IEnumerable<Location>? locations;
+    private IEnumerable<Category>? categories;
     
     [CascadingParameter]
     public Task<AuthenticationState> AuthState { get; set; } = null!;
@@ -134,48 +96,50 @@
 
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState authState = await AuthState;
+        /*AuthenticationState authState = await AuthState;
         ClaimsPrincipal user = authState.User;
         isLoggedIn = user.Identity != null;
         
         if (!isLoggedIn) return;
         
         userClaims = user.Claims;
-        name = user.Identity!.Name!;
+        name = user.Identity!.Name!;*/
        // users=userService.GetUsers(name);
+        locations = await LocationService.findAll();
+        categories = await CategoryService.findAll();
     }
 
     private async Task Create1()
     {
-        msg = "";
+        resultMsg = "";
         if (string.IsNullOrEmpty(postTitle))
         {
             color = "red";
-            msg = "Title cannot be empty!";
+            resultMsg = "Title cannot be empty!";
             return;
         }
 
         try
         {
             //"Poner userid en create post"
-            //Post dto = new(0,1,postTitle,postdescription,"imagen",category,location);
-            //await PostService.CreateAsync(dto);
+            Post dto = new(0,1,postTitle,postdescription,imageurl,category,location);
+            await PostService.CreateAsync(dto);
             postTitle = "";
             postdescription = "";
             color = "green";
-            msg = "Post created";
+            resultMsg = "Post created";
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
+            resultMsg = e.Message;
         }
     }
-    
-    private void SelectCategory(string selectedCategory)
-    {
-        category = selectedCategory;
-    }
 
+
+    private void HandlePhotoUpload()
+    {
+        throw new NotImplementedException();
+    }
 
 }

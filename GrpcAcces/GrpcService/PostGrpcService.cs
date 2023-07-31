@@ -28,6 +28,7 @@ public class PostGrpcService : IPostDao
             Location = post.location
         };
         postGrpcClient.createPost(postModel);
+        Console.WriteLine("grpc called 2");
         return post;
     }
 
