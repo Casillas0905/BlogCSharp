@@ -1,0 +1,49 @@
+﻿@page "/Test"
+@using Domain.Models
+@using HttpClients.ClientInterfaces
+@inject ILocationService LocationService;
+@inject ICategoryService CategoryService;
+
+
+<label for="location">Choose campus:</label>
+<select name="location" id="location" class="form-control">
+    @foreach (Location location in locations)
+    {
+        <option value="@location.Id">@location.location</option>
+                                                                                             
+    }
+    <option value="Horsens">Horsens2</option>
+    <option value="Viborg">Viborg</option>
+    <option value="Aarhus">Aarhus</option>
+    <option value="Silkeborg">Silkeborg</option>
+    <option value="Skive">Skive</option>
+    <option value="Randers">Randers</option>
+    <option value="Herning">Herning</option>
+    <option value="Holstebro">Holstebro</option>
+</select>
+ <label for="category">Category:</label>
+                         <select name="category" id="category" class="form-control">
+                              @foreach (Category category in categories)
+                              {
+                                  <option value="@category.Id">@category.category</option>
+                                                                                          
+                              }
+                             <option value="Homework">Homework</option>
+                             <option value="Advice">Advice</option>
+                             <option value="Engineering">Engineering</option>
+                             <option value="Programming">Programming</option>
+                             <option value="Exams">Exams</option>
+                             <option value="Other">Other</option>
+                         </select>                                                   
+
+
+@code {
+    private IEnumerable<Location>? locations;
+    private IEnumerable<Category>? categories;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        locations = await LocationService.findAll();
+        categories = await CategoryService.findAll();
+    }
+}
