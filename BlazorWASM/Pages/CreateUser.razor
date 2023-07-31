@@ -81,6 +81,10 @@
             {
                 throw new Exception("Email is not from Via University domain");
             }
+	        if (string.IsNullOrEmpty(firstname) ||string.IsNullOrEmpty(lastname) ||string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmpassword) ||string.IsNullOrEmpty(email))
+	        {
+		        throw new Exception("All fields must have a value");
+	        }
             User user = new User(0, firstname, password, email, lastname, birthday.Value.Day, birthday.Value.Month, birthday.Value.Year, false);
             await userService.Create(user);
             firstname = "";

@@ -1,69 +1,77 @@
 ﻿@page "/MyPosts"
+@using HttpClients.ClientInterfaces
+@using Domain.Models
+@using Domain.DTOs
+@using Microsoft.AspNetCore.Authorization
+@inject IPostService postService;
+@inject NavigationManager NavigationManager;
+@inject ILocationService LocationService;
+@inject ICategoryService CategoryService;
+@using Domain.Models
+ <div class="w3-row">
+@if (posts == null)
+{
+    <span>Loading..</span>
+}
+else if (!posts.Any())
+{
+    <span>No posts to be found</span>
+}
+else
+{
+    @foreach (Post post in posts)
+    {
+        <!-- Blog entries -->
+        <div class="w3-col l8 s12">
+                    <!-- Blog entry -->
+                    <div class="w3-card-4 w3-margin w3-white">
+                        <div class="w3-container">
+                            <h3><b>@post.Title</b></h3>
+                            <!-- Image Box -->
+                            <div class="image-box">
+                                <img src="@post.imageUrl" alt="Nature" style="width:100%">
+                            </div>
+                        </div>
+        
+                        <div class="w3-container">
+                            <p>@post.description</p>
+                            <div class="w3-row">
+                                <div class="w3-col m8 s12">
+                                    <p><button class="w3-button w3-padding-large w3-white w3-border"><b>Edit</b></button></p>
+                                </div>
+                            </div>
 
-
-
-
-<h3> My Posts </h3>
-<div class="blogs-container">
-    
-    <section class="blogs-section">
-        <a href="/ViewOnePost" class="blog-link">
-            <div class="blog-card">
-                <img src="https://www.nationalgeographic.com.es/medio/2022/04/23/libros_b2d310d5_1280x852.jpg" class="blog-image" alt="">
-                <h1 class="blog-title">Lorem ipsum dolor sit amet consectetur.</h1>
-                <p class="blog-overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
-                <a href="/EditPost" class="btn dark">Edit</a>
-            </div>
-        </a>
-    </section>
-
-    
-    <section class="blogs-section">
-        <a href="/ViewOnePost" class="blog-link">
-            <div class="blog-card">
-                <img src="https://www.nationalgeographic.com.es/medio/2022/04/23/libros_b2d310d5_1280x852.jpg" class="blog-image" alt="">
-                <h1 class="blog-title">Lorem ipsum dolor sit amet consectetur.</h1>
-                <p class="blog-overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
-                <a href="/EditPost" class="btn dark">Edit</a>
-            </div>
-        </a>
-    </section>
-
-    <section class="blogs-section">
-        <a href="/ViewOnePost" class="blog-link">
-            <div class="blog-card">
-                <img src="https://www.nationalgeographic.com.es/medio/2022/04/23/libros_b2d310d5_1280x852.jpg" class="blog-image" alt="">
-                <h1 class="blog-title">Lorem ipsum dolor sit amet consectetur.</h1>
-                <p class="blog-overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
-                <a href="/EditPost" class="btn dark">Edit</a>
-            </div>
-        </a>
-    </section>
-
-    <section class="blogs-section">
-        <a href="/ViewOnePost" class="blog-link">
-            <div class="blog-card">
-                <img src="https://www.nationalgeographic.com.es/medio/2022/04/23/libros_b2d310d5_1280x852.jpg" class="blog-image" alt="">
-                <h1 class="blog-title">Lorem ipsum dolor sit amet consectetur.</h1>
-                <p class="blog-overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
-                <a href="/EditPost" class="btn dark">Edit</a>
-            </div>
-        </a>
-    </section>
-
-    <section class="blogs-section">
-        <a href="/ViewOnePost" class="blog-link">
-            <div class="blog-card">
-                <img src="https://www.nationalgeographic.com.es/medio/2022/04/23/libros_b2d310d5_1280x852.jpg" class="blog-image" alt="">
-                <h1 class="blog-title">Lorem ipsum dolor sit amet consectetur.</h1>
-                <p class="blog-overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
-                <a href="/EditPost" class="btn dark">Edit</a>
-            </div>
-        </a>
-    </section>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- END BLOG ENTRIES -->
+                </div>
+    }
+}
 </div>
-
-
 @code {
+    private IEnumerable<Post>? posts;
+    private string msg = "";
+    private int userId = 2;
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            SearchParameters searchParameters = new SearchParameters(null,null,null,userId);
+            posts = await postService.FindByParameters(searchParameters);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    /* private async Task goToPosts(int id)
+    {
+        postService.id = id;
+        NavigationManager.NavigateTo("/ViewOnePost");
+     }*/
     
 }
