@@ -18,7 +18,6 @@ builder.Services.AddScoped<IAuthService, JwtAuthService>();
 builder.Services.AddScoped<IPostService, PostHttpClient>();
 builder.Services.AddScoped<ILocationService, LocationHttpClient>();
 builder.Services.AddScoped<ICategoryService, CategoryHttpClient>();
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7093") });
 builder.Services.AddScoped<IUserService, UserHttpClient>();
 builder.Services.AddScoped<IMessageService, MessageHttpClient>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();

@@ -1,0 +1,45 @@
+﻿@page "/Test"
+@using Domain.Models
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@inject IPostService postService;
+@inject IUserService userService;
+@inject IMessageService messageService;
+@inject ICategoryService categoryService;
+<h3>Test</h3>
+<p>@post.Title</p>
+<p></p>
+<p></p>
+<p>@categories.category</p>
+ <h6>@user.FirstName @user.LastName</h6>
+@code {
+    private string msg = "";
+    private string color = "";
+    Post? post;
+    Category categories;
+    User? user;
+    private string title;
+    private string category;
+    private string description;
+    private string author;
+    
+    
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            post = await postService.GetByIdAsync(7);
+            title = post.Title;
+            description = post.description;
+            categories = await categoryService.findById(post.category);
+            user = await userService.findById(post.userID);
+            category =categories.category;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}

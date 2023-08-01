@@ -46,12 +46,12 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet, Route("GetById")]
-    public async Task<ActionResult<IEnumerable<User>>> GetByIdAsync([FromQuery] int id)
+    [HttpGet("{getById:int}")]
+    public async Task<ActionResult<User>> GetByIdAsync([FromRoute] int getById)
     {
         try
         {
-            User user = await userLogic.GetByIdAsync(id);
+            User user = await userLogic.GetByIdAsync(getById);
             return Ok(user);
         }
         catch (Exception e)
@@ -75,7 +75,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpPatch]
+    [HttpPatch,Route("patch")]
     public async Task<ActionResult<User>> UpdateUser(User dto){
         try
         {

@@ -55,6 +55,7 @@ public class PostHttpClient : IPostService
         {
             PropertyNameCaseInsensitive = true
         })!;
+        Console.WriteLine("post");
         return posts;
     }
 
@@ -74,6 +75,11 @@ public class PostHttpClient : IPostService
         })!;
         Console.WriteLine("Http3");
         return posts;
+    }
+
+    public Task Update(Post post)
+    {
+        throw new NotImplementedException();
     }
 
     /*public async Task<IEnumerable<Post>> GetPosts(string? titleContains = null)

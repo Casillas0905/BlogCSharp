@@ -31,12 +31,12 @@ public class CategoryController : ControllerBase
         }
     }
     
-    [HttpGet, Route("GetById")]
-    public async Task<ActionResult<Category>> GetByUserIdAsync([FromQuery] int id)
+    [HttpGet("{getById:int}")]
+    public async Task<ActionResult<Category>> GetByIdAsync([FromRoute] int getById)
     {
         try
         {
-            Category result = categoryLogic.findById(id);
+            Category result = categoryLogic.findById(getById);
             return Ok(result);
         }
         catch (Exception e)

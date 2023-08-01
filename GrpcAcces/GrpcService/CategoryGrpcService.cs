@@ -41,6 +41,7 @@ public class CategoryGrpcService : ICategoryDao
     public Category findById(int id)
     {
         var req = new GrpcClasses.Category.GetById() { Id = id };
+        Console.WriteLine("Id"+id);
         var categoryModel = categoryGrpcClient.findById(req);
         Category location = new Category(categoryModel.Id, categoryModel.Category);
         return location;

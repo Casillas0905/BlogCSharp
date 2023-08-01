@@ -1,0 +1,128 @@
+﻿@page "/ManagePost"
+@using HttpClients.ClientInterfaces
+@using Domain.Models
+@using Domain.DTOs
+@using System.Drawing
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@inject IPostService PostService;
+@inject IUserService userService;
+@inject ILocationService LocationService;
+@inject ICategoryService CategoryService;
+
+<div class="background-image-container" xmlns="http://www.w3.org/1999/html">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-8">
+            <div class="content-box">
+                <h3 class="secondtitle">Manage post</h3>
+                <div class="upload-bar">
+                </div>
+                <br/>
+                <br/>
+                <div class="photo-upload-container">
+                    <!-- Add your photo upload input and logic here -->
+                    <input  @bind="imageurl" type="file" accept="image/*"  />
+                    </div>
+                <form class="post-form">
+                    <div class="form-group mb-4"> <!-- Added margin-bottom to create more space between "Choose File" and title -->
+                        <label for="postTitle">Title:</label>
+                        <p type="text" class="form-control">@postTitle </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postDescription">Description:</label>
+                        <textarea  class="form-control" rows="4">@postdescription</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <select @bind="category" name="category" id="category" class="form-control">
+                             @foreach (Category category in categories)
+                             {
+                                 <option value="@category.Id">@category.category</option>
+                                                                                         
+                             }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Choose campus:</label>
+                        <select @bind="locationId" name="location" id="location" class="form-control">
+                            <option value="@locationTask.Id">@locationTask.location</option>
+                            @foreach (Location location in locations)
+                                {
+                                    <option value="@location.Id">@location.location</option>
+                                }
+                        </select>
+                    </div>
+
+                    <button @onclick="Create" class="btn btn-primary btn-create-post">Create Post</button>
+                    @if (!string.IsNullOrEmpty(resultMsg))
+                    {<label style="color: @color">@resultMsg</label>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private Task<IEnumerable<User>> users;
+    private int? selectedUserId;
+    private string postTitle = "";
+    private string postdescription = "";
+    private int category ;
+    private Location locationTask ;
+    private string resultMsg = "";
+    private int locationId ;
+    private string color = "";
+    private string imageurl = "";
+    private Post post;
+    private int id = 2;
+    private IEnumerable<Location>? locations;
+    private IEnumerable<Category>? categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        /*AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        isLoggedIn = user.Identity != null;
+        
+        if (!isLoggedIn) return;
+        
+        userClaims = user.Claims;
+        name = user.Identity!.Name!;*/
+       // users=userService.GetUsers(name);
+        post = await PostService.GetByIdAsync(id);
+        locationTask = await LocationService.findById(post.location);
+    }
+
+    private async Task Create()
+    {
+        resultMsg = "";
+        if (string.IsNullOrEmpty(postTitle)||string.IsNullOrEmpty(postdescription))
+        {
+            color = "red";
+            resultMsg = "All fields must have a value";
+            return;
+        }
+
+        try
+        {
+            //"Poner userid en create post"
+            Post dto = new(0,1,postTitle,postdescription,imageurl,category,locationId);
+            await PostService.Update(dto);
+            postTitle = "";
+            postdescription = "";
+            color = "green";
+            resultMsg = "Post update";
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            resultMsg = e.Message;
+        }
+    }
+}

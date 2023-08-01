@@ -1,18 +1,20 @@
 ﻿@page "/ManageProfile"
+@using HttpClients.ClientInterfaces
+@using Domain.Models
+@inject IUserService userService;
 
 
-
-<div class="container mt-5">
+<div class="container mt-5" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col-lg-4 pb-5">
             <!-- Account Sidebar-->
             <div class="author-card pb-3">
                 <div class="author-card-cover" style="background-image: url(https://3.bp.blogspot.com/-svhBkPEJGO0/TzbUWd6dzTI/AAAAAAAAwQU/KhL3wvRkKjs/s1600/fotos-del-bosque-forest-pictures-campo-paisajes-rurales-naturaleza-santuarios--08.jpg);"></div>
                 <div class="author-card-profile">
-                    <div class="author-card-avatar"><img src="https://th.bing.com/th/id/OIP.117vgAXQTcpc5HVAn4RC4wHaHY?pid=ImgDet&rs=1" alt="Daniel Adams">
+                    <div class="author-card-avatar"><img src="https://th.bing.com/th/id/OIP.117vgAXQTcpc5HVAn4RC4wHaHY?pid=ImgDet&rs=1">
                     </div>
                     <div class="author-card-details">
-                        <h5 class="author-card-name text-lg">Daniel Adams</h5><span class="author-card-position">Joined February 06, 2017</span>
+                        <h5 class="author-card-name text-lg">@firstname @lastname</h5><span class="author-card-position"></span>
                     </div>
                 </div>
             </div>
@@ -50,7 +52,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-fn">First Name</label>
-                        <input class="form-control" type="text" id="account-fn" value="Daniel" required="">
+                        <input type="text" @bind="firstname" class="form-control" placeholder="@firstname"/>
                     </div>
                 </div>
             
@@ -58,27 +60,26 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-ln">Last Name</label>
-                        <input class="form-control" type="text" id="account-ln" value="Adams" required="">
+                        <input type="text" @bind="lastname" class="form-control" placeholder="@lastname"/>
                     </div>
                 </div> 
                 
                 <div class="form-group">
-                                     <label for="account-fn">Birthday</label>
-                                     <input class="form-control" type="text" id="account-fn" value="31/07/1990" readonly>
-                                   </div>
+                    <label for="account-fn">Birthday</label>
+                    <label class="form-control" type="text" id="account-ln" required="">@month/@day/@year</label>
+                </div>
                 
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-email">E-mail Address</label>
-                        <input class="form-control" type="email" id="account-email" value="daniel.adams@example.com" disabled="">
+                        <input type="text" @bind="email" class="form-control" placeholder="@email"/>
                     </div>
                 </div>
-            
+            @if (!string.IsNullOrEmpty(resultMsg))
+            {
+                <label style="color: @color">@resultMsg</label>
+            }
          
-               
-                
-                
-                
                 <div class="col-12">
                     <hr class="mt-2 mb-3">
                     <div class="d-flex flex-wrap justify-content-between align-items-center">
@@ -99,7 +100,7 @@
                        
                     </div>
                      <div class="btn-container">
-                           <a href="" class="btn btn-style-1 btn-white">Update Profile</a>
+                           <button @onclick="Update">Update profile</button>
                            <a href="/DeleteAccount" class="btn btn-style-1 btn-white">Delete Account</a>
                            <a href="/ForgotPassword" class="btn btn-style-1 btn-white">Reset Password</a>
                        </div>
@@ -109,5 +110,63 @@
     </div>
 </div>
 @code {
+    private string firstname = "";
+    private string lastname = "";
+    private string resultMsg = "";
+    private string color = "";
+    private string email = "";
+    private DateTime? birthday;
+    private int year;
+    private int month;
+    private int day;
+    string domain = "@via.dk";
+    private User? user;
+    private int id=2;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        resultMsg = "";
+        try
+        {
+            user = await userService.findById(id);
+            firstname = user.FirstName;
+            lastname = user.LastName;
+            email = user.Email;
+            year = user.year;
+            month=user.month;
+            day = user.day;
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            resultMsg = e.Message;
+        }
+    }
+    
+    private async Task Update()
+    {
+        resultMsg = "";
+        if (string.IsNullOrEmpty(firstname)||string.IsNullOrEmpty(lastname)||string.IsNullOrEmpty(email))
+        {
+            color = "red";
+            resultMsg = "All fields must have a value";
+            return;
+        }
+
+        try
+        {
+            //Poner id del usuario loggeado
+            User NewUser = new(id,firstname,user.Password,email,lastname,day,month,year,false);
+            await userService.UpdateUser(NewUser);
+            color = "green";
+            resultMsg = "User updated";
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            resultMsg = e.Message;
+        }
+    }
     
 }

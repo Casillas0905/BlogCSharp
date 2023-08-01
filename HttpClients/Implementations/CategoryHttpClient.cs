@@ -44,7 +44,7 @@ public class CategoryHttpClient : ICategoryService
 
     public async Task<Category> findById(int id)
     {
-        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/category/GetById/{id}");
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/category/{id}");
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -54,6 +54,7 @@ public class CategoryHttpClient : ICategoryService
         {
             PropertyNameCaseInsensitive = true
         })!;
+        Console.WriteLine("category");
         return category;
     }
 }

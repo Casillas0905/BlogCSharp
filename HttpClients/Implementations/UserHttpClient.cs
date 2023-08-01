@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using Domain.DTOs;
 using Domain.Models;
@@ -28,25 +29,36 @@ public class UserHttpClient : IUserService
         User user = JsonSerializer.Deserialize<User>(result)!;
         return user;
     }
-    
-   /* public async Task<IEnumerable<User>> GetUsers(string? usernameContains = null)
+
+    public async Task<User?> findById(int getById)
     {
-        string uri = "/users";
-        if (!string.IsNullOrEmpty(usernameContains))
-        {
-            uri += $"?username={usernameContains}";
-        }
-        HttpResponseMessage response = await client.GetAsync(uri);
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/Users/{getById}");
         string result = await response.Content.ReadAsStringAsync();
+
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(result);
         }
 
-        IEnumerable<User> users = JsonSerializer.Deserialize<IEnumerable<User>>(result, new JsonSerializerOptions
+        User? user = JsonSerializer.Deserialize<User>(result, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
-        })!;
-        return users;
-    }*/
+        });
+        Console.WriteLine("user");
+        return user;
+    }
+
+    public async Task<User?> UpdateUser(User user)
+    {
+        Console.WriteLine("UpdateUser method called");
+        HttpResponseMessage response = await client.PatchAsync("https://localhost:7093/Users/patch", new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, "application/json"));
+        string result = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+        User updatedUser = JsonSerializer.Deserialize<User>(result);
+        return updatedUser;
+    }
 }
