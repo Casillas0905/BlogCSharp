@@ -38,16 +38,19 @@ public class UserLogic : IUserLogic
         return userDao.GetByIdAsync(id);
     }
 
-    public async Task<User> UpdateUser(User user)
+    public async Task UpdateUser(User user)
     {
         Console.WriteLine("logic called");
         User? existing = userDao.GetByEmailAsync(user.Email);
-        if (existing.Id >0)
+        if (user.Id == existing.Id)
+        {
+            ValidateUser(user);
+            userDao.UpdateUser(user);
+        }
+        else if (existing.Id >0)
         {
             throw new Exception("Email already taken!");
         }
-        ValidateUser(user);
-        return userDao.UpdateUser(user);
     }
 
     public void deleteUser(int id)

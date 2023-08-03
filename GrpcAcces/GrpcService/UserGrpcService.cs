@@ -45,7 +45,7 @@ public class UserGrpcService : IUserDao
         return newUser;
     }
 
-    public User UpdateUser(User user)
+    public void UpdateUser(User user)
     {
         UserModelGrpc userGrpc = new UserModelGrpc()
         {
@@ -60,7 +60,6 @@ public class UserGrpcService : IUserDao
             Administrator = user.administrator
         };
         userGrpcClient.updateUserAsync(userGrpc);
-        return user;
     }
 
     public void deleteUser(int id)

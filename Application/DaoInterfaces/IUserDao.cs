@@ -8,6 +8,6 @@ public interface IUserDao
     void CreateAsync(User user);
     User? GetByEmailAsync(string email);
     User? GetByIdAsync(int id);
-    User UpdateUser(User user);
+    void UpdateUser(User user);
     void deleteUser(int id);
 }

@@ -9,5 +9,5 @@ public interface IPostService
     Task<IEnumerable<Post>> FindByParameters(SearchParameters searchParameters);
     Task<Post?> GetByIdAsync(int Id);
     Task<IEnumerable<Post>> GetByUserIdAsync(int UserId);
-    Task Update(Post post);
+    Task<Post?> Update(Post post);
 }

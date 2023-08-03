@@ -1,45 +1,83 @@
 ﻿@page "/Test"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
-@using Domain.DTOs
-@inject IPostService postService;
-@inject IUserService userService;
-@inject IMessageService messageService;
-@inject ICategoryService categoryService;
-<h3>Test</h3>
-<p>@post.Title</p>
-<p></p>
-<p></p>
-<p>@categories.category</p>
- <h6>@user.FirstName @user.LastName</h6>
+@inject IPostService PostService;
+@inject ILocationService LocationService;
+@inject ICategoryService CategoryService;
+<input type="text" @bind="postTitle" placeholder="@postTitle"/>
+<input type="text" @bind="postdescription" placeholder="@postdescription"/>
+<input  @bind="imageurl"  accept="image/*"  placeholder="@imageurl"/>
+ <div class="form-group">
+     <label for="category">Category:</label>
+     <select @bind="category" name="category" id="category" class="form-control">
+         
+         @foreach (Category category in categories)
+         {
+             <option value="@category.Id">@category.category</option>
+
+         }
+     </select>
+     </div>
+
+<div class="form-group">
+    <label for="location">Choose campus:</label>
+    <select @bind="location" name="location" id="location" class="form-control">
+        @foreach (Location location in locations)
+        {
+            <option value="@location.Id">@location.location</option>
+        }
+    </select>
+                        </div>
+<button @onclick="Update" >Update Post</button>
+@if (!string.IsNullOrEmpty(resultMsg))
+            {
+                <label >@resultMsg</label>
+            }
+
+
 @code {
-    private string msg = "";
-    private string color = "";
-    Post? post;
-    Category categories;
-    User? user;
-    private string title;
-    private string category;
-    private string description;
-    private string author;
-    
-    
+    private string postTitle = "";
+    private string postdescription = "";
+    private Post post;
+    private int id = 7;
+    private string resultMsg = "";
+    private string imageurl = "";
+    private IEnumerable<Location>? locations;
+    private IEnumerable<Category>? categories;
+    private int category ;
+    private int location ;
     protected override async Task OnInitializedAsync()
     {
-        msg = "";
+        post = await PostService.GetByIdAsync(id);
+        postTitle = post.Title;
+        postdescription = post.description;
+        imageurl = post.imageUrl;
+        locations = await LocationService.findAll();
+        categories = await CategoryService.findAll();
+        category = post.category;
+        location = post.location;
+    }
+
+    private async Task Update()
+    {
+        resultMsg = "";
+        if (string.IsNullOrEmpty(postTitle)||string.IsNullOrEmpty(postdescription))
+        {
+            resultMsg = "All fields must have a value";
+            return;
+        }
+
         try
         {
-            post = await postService.GetByIdAsync(7);
-            title = post.Title;
-            description = post.description;
-            categories = await categoryService.findById(post.category);
-            user = await userService.findById(post.userID);
-            category =categories.category;
+    //"Poner userid en create post"
+            Post dto = new(7,1,postTitle,postdescription,post.imageUrl,category,location);
+            await PostService.Update(dto);
+            resultMsg = "Post update";
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
+            resultMsg = e.Message;
         }
     }
 }

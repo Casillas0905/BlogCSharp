@@ -22,107 +22,101 @@
                 <br/>
                 <div class="photo-upload-container">
                     <!-- Add your photo upload input and logic here -->
-                    <input  @bind="imageurl" type="file" accept="image/*"  />
-                    </div>
-                <form class="post-form">
-                    <div class="form-group mb-4"> <!-- Added margin-bottom to create more space between "Choose File" and title -->
-                        <label for="postTitle">Title:</label>
-                        <p type="text" class="form-control">@postTitle </p>
-                    </div>
-
+                    <input  @bind="imageurl"  accept="image/*"  placeholder="@imageurl"/>
                     <div class="form-group">
-                        <label for="postDescription">Description:</label>
-                        <textarea  class="form-control" rows="4">@postdescription</textarea>
                     </div>
+                    <form class="post-form">
+                        <div class="form-group mb-4"> <!-- Added margin-bottom to create more space between "Choose File" and title -->
+                            <label for="postTitle">Title:</label>
+                            <input type="text" @bind="postTitle" placeholder="@postTitle"/>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="category">Category:</label>
-                        <select @bind="category" name="category" id="category" class="form-control">
-                             @foreach (Category category in categories)
-                             {
-                                 <option value="@category.Id">@category.category</option>
+                        <div class="form-group">
+                            <label for="postDescription">Description:</label>
+                            <textarea type="text" @bind="postdescription" placeholder="@postdescription"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <select @bind="category" name="category" id="category" class="form-control">
+                                @foreach (Category category in categories)
+                                {
+                                    <option value="@category.Id">@category.category</option>
                                                                                          
-                             }
-                        </select>
-                    </div>
+                                }
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="location">Choose campus:</label>
-                        <select @bind="locationId" name="location" id="location" class="form-control">
-                            <option value="@locationTask.Id">@locationTask.location</option>
-                            @foreach (Location location in locations)
+                        <div class="form-group">
+                            <label for="location">Choose campus:</label>
+                            <select @bind="location" name="location" id="location" class="form-control">
+                                @foreach (Location location in locations)
                                 {
                                     <option value="@location.Id">@location.location</option>
                                 }
-                        </select>
-                    </div>
+                            </select>
+                        </div>
 
-                    <button @onclick="Create" class="btn btn-primary btn-create-post">Create Post</button>
-                    @if (!string.IsNullOrEmpty(resultMsg))
-                    {<label style="color: @color">@resultMsg</label>
-                    }
-                </form>
+                        <button @onclick="Update" class="btn btn-primary btn-create-post">Update Post</button>
+                        @if (!string.IsNullOrEmpty(resultMsg))
+                        {<label style="color: @color">@resultMsg</label>
+                        }
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+         </div>
 </div>
 
 
 @code {
-    private Task<IEnumerable<User>> users;
-    private int? selectedUserId;
     private string postTitle = "";
     private string postdescription = "";
-    private int category ;
-    private Location locationTask ;
-    private string resultMsg = "";
-    private int locationId ;
-    private string color = "";
-    private string imageurl = "";
     private Post post;
-    private int id = 2;
+    private int id = 7;
+    private string resultMsg = "";
+    private string imageurl = "";
     private IEnumerable<Location>? locations;
     private IEnumerable<Category>? categories;
+    private int category;
+    private int location;
+    private string color;
 
     protected override async Task OnInitializedAsync()
     {
-        /*AuthenticationState authState = await AuthState;
-        ClaimsPrincipal user = authState.User;
-        isLoggedIn = user.Identity != null;
-        
-        if (!isLoggedIn) return;
-        
-        userClaims = user.Claims;
-        name = user.Identity!.Name!;*/
-       // users=userService.GetUsers(name);
         post = await PostService.GetByIdAsync(id);
-        locationTask = await LocationService.findById(post.location);
+        postTitle = post.Title;
+        postdescription = post.description;
+        imageurl = post.imageUrl;
+        locations = await LocationService.findAll();
+        categories = await CategoryService.findAll();
+        category = post.category;
+        location = post.location;
     }
 
-    private async Task Create()
+    private async Task Update()
     {
         resultMsg = "";
-        if (string.IsNullOrEmpty(postTitle)||string.IsNullOrEmpty(postdescription))
+        if (string.IsNullOrEmpty(postTitle) || string.IsNullOrEmpty(postdescription))
         {
-            color = "red";
             resultMsg = "All fields must have a value";
             return;
         }
 
         try
         {
-            //"Poner userid en create post"
-            Post dto = new(0,1,postTitle,postdescription,imageurl,category,locationId);
+    //"Poner userid en create post"
+            Post dto = new(7, 1, postTitle, postdescription, imageurl, category, location);
             await PostService.Update(dto);
-            postTitle = "";
-            postdescription = "";
-            color = "green";
             resultMsg = "Post update";
+            color = "green";
         }
         catch (Exception e)
         {
+            color = "red";
             Console.WriteLine(e);
             resultMsg = e.Message;
         }
     }
+
 }

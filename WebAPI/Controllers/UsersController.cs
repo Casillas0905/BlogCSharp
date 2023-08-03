@@ -79,8 +79,8 @@ public class UsersController : ControllerBase
     public async Task<ActionResult<User>> UpdateUser(User dto){
         try
         {
-            User user = await userLogic.UpdateUser(dto);
-            return Created($"/users/{user.Id}", user);
+           await userLogic.UpdateUser(dto);
+            return Created($"/users/{dto.Id}", dto);
         }
         catch (Exception e)
         {

@@ -63,20 +63,19 @@ public class PostsController : ControllerBase
         }
     }
     
-    [HttpPatch]
-    public async Task<ActionResult> UpdateAsync([FromBody] Post dto)
-    {
-        try
-        {
-            await postLogic.UpdatePost(dto);
-            return Ok();
+    [HttpPatch,Route("patch")]
+        public async Task<ActionResult<Post>> UpdateUser(Post dto){
+            try
+            {
+               await postLogic.UpdatePost(dto);
+               return Created($"/posts/{dto.Id}", dto);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, e.Message);
-        }
-    }
 
     [HttpDelete("{deleteId:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] int deleteId)

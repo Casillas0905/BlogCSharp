@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using Domain.DTOs;
 using Domain.Models;
@@ -77,30 +78,17 @@ public class PostHttpClient : IPostService
         return posts;
     }
 
-    public Task Update(Post post)
+    public async Task<Post?> Update(Post post)
     {
-        throw new NotImplementedException();
-    }
-
-    /*public async Task<IEnumerable<Post>> GetPosts(string? titleContains = null)
-    {
-        string uri = "/posts";
-        if (!string.IsNullOrEmpty(titleContains))
-        {
-            uri += $"?title={titleContains}";
-        }
-        HttpResponseMessage response = await client.GetAsync(uri);
+        Console.WriteLine("UpdateUser method called");
+        HttpResponseMessage response = await client.PatchAsync("https://localhost:7093/posts/patch", new StringContent(JsonSerializer.Serialize(post), Encoding.UTF8, "application/json"));
         string result = await response.Content.ReadAsStringAsync();
+
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(result);
         }
-
-        IEnumerable<Post> posts = JsonSerializer.Deserialize<IEnumerable<Post>>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-        return posts;
-    }*/
-    
+        Post updatedPost = JsonSerializer.Deserialize<Post>(result);
+        return updatedPost;
+    }
 }
