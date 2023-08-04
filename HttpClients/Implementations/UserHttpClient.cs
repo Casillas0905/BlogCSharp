@@ -61,4 +61,15 @@ public class UserHttpClient : IUserService
         User updatedUser = JsonSerializer.Deserialize<User>(result);
         return updatedUser;
     }
+
+    public async Task deleteById(int deleteId)
+    {
+        HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7093/Users/delete/{deleteId}");
+        string result = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+    }
 }

@@ -49,4 +49,8 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <_JsFileModuleStaticWebAsset Include="Pages\MyPosts.razor.js" />
+    </ItemGroup>
+
 </Project>

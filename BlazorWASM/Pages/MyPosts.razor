@@ -19,34 +19,19 @@ else if (!posts.Any())
 }
 else
 {
+    <div class="blogs-container">
     @foreach (Post post in posts)
     {
-        <!-- Blog entries -->
-        <div class="w3-col l8 s12">
-                    <!-- Blog entry -->
-                    <div class="w3-card-4 w3-margin w3-white">
-                        <div class="w3-container">
-                            <h3><b>@post.Title</b></h3>
-                            <!-- Image Box -->
-                            <div class="image-box">
-                                <img src="@post.imageUrl" alt="Nature" style="width:100%">
-                            </div>
-                        </div>
-        
-                        <div class="w3-container">
-                            <p>@post.description</p>
-                            <div class="w3-row">
-                                <div class="w3-col m8 s12">
-                                    <p><button class="w3-button w3-padding-large w3-white w3-border"><b>Edit</b></button></p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <hr>
-                    <!-- END BLOG ENTRIES -->
-                </div>
+        <section class="blogs-section">
+            <div class="blog-card">
+                <img src="https://www.nationalgeographic.com.es/medio/2022/04/23/libros_b2d310d5_1280x852.jpg" class="blog-image" alt="">
+                <h1 class="blog-title">@post.Title</h1>
+                <p class="blog-overview">@post.description</p>
+                <a href="/ViewOnePost" class="btn dark">read</a>
+            </div>
+        </section>
     }
+    </div>
 }
 </div>
 @code {

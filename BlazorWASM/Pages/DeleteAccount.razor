@@ -1,5 +1,8 @@
 ﻿@page "/DeleteAccount"
-
+@using HttpClients.ClientInterfaces
+@using Domain.Models
+@inject IUserService UserService;
+@inject NavigationManager navMang;
 
 <div class="container h-100">
     		<div class="row h-100">
@@ -21,26 +24,25 @@
 									</div>
 									<form>
 										<div class="form-group">
-                                          <label class="label">Email</label>
-                                          <input class="form-control smaller-input" type="text" name="email" placeholder="Enter your email">
-                                          <label class="label">Password</label>
-                                          <input class="form-control smaller-input" type="password" name="password" placeholder="Enter a password">
-                                          <label class="label">Confirm</label>
-                                          <input class="form-control smaller-input" type="newpassword" name="newpassword" placeholder="Enter the password again">
-                                        
-                                        </div>
-
-										
+											<label class="label">Email</label>
+											<input @bind="email" class="form-control smaller-input" type="text" name="email" placeholder="Enter your email">
+											<label class="label">Password</label>
+											<input @bind="password" class="form-control smaller-input" type="password" name="password" placeholder="Enter a password">
+											<label class="label">Confirm</label>
+											<input @bind="confirm" class="form-control smaller-input" type="text"  placeholder="Enter the word: Confirm">
+										</div>
+										@if (!string.IsNullOrEmpty(resultMsg))
+                                                            {
+	                                                            <label style="color: @color">@resultMsg</label>
+                                                            }
 										<div class="button1">
-											<a href="/ConfirmPage" class="btn btn-lg btn-primary">Submit</a>
+											<a @onclick="Submit" class="btn btn-lg btn-primary">Submit</a>
 											<a href="/ManageProfile" class="btn btn-lg btn-primary">Cancel</a>
-
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -48,5 +50,40 @@
 
 
 @code {
-    
+	private string email="";
+	private string password = "";
+	private string confirm = "";
+	private User user;
+	private string resultMsg = "";
+	private string color = "";
+	
+	protected override async Task OnInitializedAsync()
+	{
+		user=await UserService.findById(8);
+	}
+
+	private async Task Submit()
+	{
+		if (!(email.ToLower().Equals(user.Email.ToLower())))
+		{
+			color = "red";
+			resultMsg ="Email does not match";
+			return;
+		}
+		if (!(password.ToLower().Equals(user.Password.ToLower())))
+		{
+			color = "red";
+			resultMsg ="Password does not match";
+			return;
+		}
+		if (!(confirm.Equals("Confirm")))
+		{
+			color = "red";
+			resultMsg ="Write: Confirm";
+			return;
+		}
+		UserService.deleteById(8);
+		navMang.NavigateTo("/ConfirmPage");
+	}
+
 }

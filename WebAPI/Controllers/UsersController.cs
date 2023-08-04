@@ -61,11 +61,11 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpDelete]
-    public async void DeleteUser([FromQuery] int id){
+    [HttpDelete("delete/{deleteId:int}")]
+    public async void DeleteUser([FromRoute] int deleteId){
         try
         {
-            userLogic.deleteUser(id);
+            userLogic.deleteUser(deleteId);
             Ok("user delete");
         }
         catch (Exception e)
