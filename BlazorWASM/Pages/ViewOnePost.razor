@@ -4,7 +4,7 @@
 @using Domain.DTOs
 @inject IPostService postService;
 @inject IUserService userService;
-@inject IMessageService messageService;
+@inject ICommentService commentService;
 @inject ICategoryService categoryService;
 
 <div class="blog-single gray-bg">
@@ -55,18 +55,17 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea name="commment" id="comment" placeholder="Your comment *" rows="4" class="form-control"></textarea>
+                                    <textarea name="commment" id="comment" @bind="comment" placeholder="Your comment *" rows="4" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="send">
-                                    <button class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
-                                </div>
+                                <button @onclick="AddMessage"><span>Submit</span></button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+            
             <div class="col-lg-4 m-15px-tb blog-aside">
                 <!-- Author -->
                 <div class="widget widget-author">
@@ -121,18 +120,20 @@
        <div class="row">
    		<div class="col-md-12">
    		    <div class="blog-comment">
-              
-   				<ul class="comments">
-   				<li class="clearfix">
-   				  <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
-   				  <div class="post-comments">
-   				      <p class="meta"><a href="#">Nombre del autor del comentario</a> says : <i class="pull-right"><a href="#"></a></i></p>
-   				      <p>
-   				         Comentario
-   				      </p>
-   				  </div>
-   				</li>
-                </ul>
+              @foreach (Comment comment in comments)
+              {
+                  <ul class="comments">
+                      <li class="clearfix">
+                          <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
+                          <div class="post-comments">
+                              <p class="meta"><a href="#">@comment.UserId</a> says : <i class="pull-right"><a href="#"></a></i></p>
+                              <p>
+                                  @comment.message
+                              </p>
+                          </div>
+                      </li>
+                  </ul>
+              }
    			</div>
    		</div>
    	</div>
@@ -150,6 +151,9 @@
     private string category;
     private string description;
     private string imageurl;
+    private string comment;
+    private IEnumerable<Comment>? comments;
+    
 
     protected override async Task OnInitializedAsync()
     {
@@ -163,6 +167,7 @@
             user = await userService.findById(post.userID);
             category =categories.category;
             imageurl = post.imageUrl;
+            comments = await commentService.GetByPostIdAsync(7);
         }
         catch (Exception e)
         {
@@ -178,8 +183,9 @@
         
         try
         {
-           // MessageCreationDto dto = new(message,users.Id,postId);
-            //await messageService.CreateAsync(dto);
+            Comment dto = new Comment(comment,0,7,1);
+            await commentService.CreateAsync(dto);
+            comment = "";
             color = "green";
             msg = "Post created";
         }

@@ -32,12 +32,12 @@ public class CommentController : ControllerBase
     }
     
     
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<IEnumerable<Comment>>> GetByPostId([FromRoute] int id)
+    [HttpGet("{postId:int}")]
+    public async Task<ActionResult<IEnumerable<Comment>>> GetByPostId([FromRoute] int postId)
     {
         try
         {
-            IEnumerable<Comment> result = await CommentLogic.GetByPostIdAsync(id);
+            IEnumerable<Comment> result = await CommentLogic.GetByPostIdAsync(postId);
             return Ok(result);
         }
         catch (Exception e)

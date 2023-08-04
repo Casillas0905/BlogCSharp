@@ -19,7 +19,7 @@ builder.Services.AddScoped<IPostService, PostHttpClient>();
 builder.Services.AddScoped<ILocationService, LocationHttpClient>();
 builder.Services.AddScoped<ICategoryService, CategoryHttpClient>();
 builder.Services.AddScoped<IUserService, UserHttpClient>();
-builder.Services.AddScoped<IMessageService, MessageHttpClient>();
+builder.Services.AddScoped<ICommentService, CommentHttpClient>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 AuthorizationPolicies.AddPolicies(builder.Services);
