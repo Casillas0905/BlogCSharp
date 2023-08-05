@@ -1,0 +1,22 @@
+syntax= "proto3";
+
+package GrpcClasses.SavePost;
+
+service SavePostGrpc{
+  rpc saveSavePost(SaveModelGrpc) returns (Empty){}
+  rpc deleteById(GetById) returns (Empty){}
+  rpc findByUserId(SaveModelGrpc) returns (stream SaveModelGrpc){}
+}
+
+message SaveModelGrpc {
+  int32 id = 1;
+  int32 userId = 2;
+  int32 postId = 3;
+}
+
+message GetById{
+  int32 id=1;
+}
+
+message Empty{
+}

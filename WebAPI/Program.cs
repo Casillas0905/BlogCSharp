@@ -27,6 +27,10 @@ builder.Services.AddScoped<ICommentLogic, CommentLogic>();
 builder.Services.AddScoped<ICommentDao, CommentGrpcService>();
 builder.Services.AddScoped<IPostDao, PostGrpcService>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
+builder.Services.AddScoped<ILikePostDao, LikeGrpcService>();
+builder.Services.AddScoped<ILikeLogic, LikeLogic>();
+builder.Services.AddScoped<ISaveLogic, SaveLogic>();
+builder.Services.AddScoped<ISavePostDao, SaveGrpcService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
