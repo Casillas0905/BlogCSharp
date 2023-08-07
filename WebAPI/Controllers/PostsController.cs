@@ -33,7 +33,8 @@ public class PostsController : ControllerBase
     }
     
     [HttpGet,Route("FindByParameters")]
-    public async Task<ActionResult<Post>> FindByParametersAsync([FromQuery] string? title,[FromQuery] string? location,[FromQuery] string? category,[FromQuery] int userId)
+    public async Task<ActionResult<Post>> FindByParametersAsync([FromQuery] string? title,[FromQuery] string? location,
+        [FromQuery] string? category,[FromQuery] int userId)
     {
         try
         {

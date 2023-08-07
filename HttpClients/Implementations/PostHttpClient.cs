@@ -30,7 +30,10 @@ public class PostHttpClient : IPostService
 
     public async Task<IEnumerable<Post>> FindByParameters(SearchParameters searchParameters)
     {
-        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/posts/FindByParameters?title={searchParameters.title}&location={searchParameters.location}&category={searchParameters.category}&userId={searchParameters.userId}");
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/posts/FindByParameters?title" +
+                                                             $"={searchParameters.title}&location={searchParameters.location}&" +
+                                                             $"category={searchParameters.category}&" +
+                                                             $"userId={searchParameters.userId}");
         string result = await response.Content.ReadAsStringAsync();
         bool status = response.IsSuccessStatusCode;
         Console.WriteLine(status);
