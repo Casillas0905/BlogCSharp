@@ -1,8 +1,9 @@
 ﻿@page "/ManageProfile"
 @using HttpClients.ClientInterfaces
 @using Domain.Models
+@using System.Security.Claims
 @inject IUserService userService;
-
+@attribute [Authorize]
 
 <div class="container mt-5" xmlns="http://www.w3.org/1999/html">
     <div class="row">
@@ -73,19 +74,16 @@
                         <input type="text" @bind="email" class="form-control" placeholder="@email"/>
                     </div>
                 </div>
-            @if (!string.IsNullOrEmpty(resultMsg))
-            {
-                <label style="color: @color">@resultMsg</label>
-            }
+                @if (!string.IsNullOrEmpty(resultMsg))
+                {
+                    <label style="color: @color">@resultMsg</label>
+                }
          
                 <div class="col-12">
                     <hr class="mt-2 mb-3">
                     <div class="d-flex flex-wrap justify-content-between align-items-center">
                         <div class="custom-control custom-checkbox d-block">
                         </div>
-                        
-                        
-                        
                         <form name="form1" id="form1" action="/action_page.php">
                             Language <select name="subject" id="subject">
                                 <option value="" selected="selected">Spanish</option>
@@ -94,19 +92,18 @@
                                 <option value="" selected="selected">German</option>
                             </select>
                             <br><br></form>
-
-                       
                     </div>
-                     <div class="btn-container">
-                           <button @onclick="Update">Update profile</button>
-                           <a href="/DeleteAccount" class="btn btn-style-1 btn-white">Delete Account</a>
-                           <a href="/ForgotPassword" class="btn btn-style-1 btn-white">Reset Password</a>
-                       </div>
+                    <div class="btn-container">
+                           
+                        <a href="/DeleteAccount" class="btn btn-style-1 btn-white">Delete Account</a>
+                        <a href="/ForgotPassword" class="btn btn-style-1 btn-white">Reset Password</a>
                     </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
+<button @onclick="Update">Update profile</button>
 @code {
     private string firstname = "";
     private string lastname = "";
@@ -118,22 +115,36 @@
     private int month;
     private int day;
     string domain = "@via.dk";
-    private User? user;
-    private int id=2;
+    private User user;
+    private int id;
+    
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    private IEnumerable<Claim>? userClaims;
+    private bool isLoggedIn;
+    private Task<User> users;
     
     protected override async Task OnInitializedAsync()
     {
         resultMsg = "";
         try
-        {
-            user = await userService.findById(id);
+        { 
+            AuthenticationState authState = await AuthState;
+            ClaimsPrincipal currentUser = authState.User;
+            isLoggedIn = currentUser.Identity != null;
+            if (!isLoggedIn) return;
+            userClaims = currentUser.Claims;
+            email = currentUser.Identity!.Name!;
+            users = userService.GetUserByEmail(email);
+            user = await userService.findById(userService.id);
+            email = user.Email;
             firstname = user.FirstName;
             lastname = user.LastName;
-            email = user.Email;
             year = user.year;
-            month=user.month;
+            month = user.month;
             day = user.day;
 
+           
         }
         catch (Exception e)
         {
@@ -141,6 +152,7 @@
             resultMsg = e.Message;
         }
     }
+    
     
     private async Task Update()
     {
@@ -155,7 +167,7 @@
         try
         {
             //Poner id del usuario loggeado
-            User NewUser = new(id,firstname,user.Password,email,lastname,day,month,year,false);
+            User NewUser = new(userService.id,firstname,user.Password,email,lastname,day,month,year,false);
             await userService.UpdateUser(NewUser);
             color = "green";
             resultMsg = "User updated";

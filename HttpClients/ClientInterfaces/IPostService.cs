@@ -10,4 +10,5 @@ public interface IPostService
     Task<Post?> GetByIdAsync(int Id);
     Task<IEnumerable<Post>> GetByUserIdAsync(int UserId);
     Task<Post?> Update(Post post);
+    int id { get; set; }
 }

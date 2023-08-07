@@ -60,6 +60,7 @@ public class UserGrpcService : IUserDao
             Administrator = user.administrator
         };
         userGrpcClient.updateUserAsync(userGrpc);
+        Console.WriteLine("update grpc called");
     }
 
     public void deleteUser(int id)

@@ -1,14 +1,62 @@
-
-@page "/ViewPostss"
+@page "/ViewPosts"
 @using HttpClients.ClientInterfaces
 @using Domain.Models
 @using Domain.DTOs
 @using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
 @inject IPostService postService;
 @inject NavigationManager NavigationManager;
-
-<html>
+@inject ILocationService LocationService;
+@inject ICategoryService CategoryService;
+@inject IUserService userService;
+@attribute [Authorize]
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div class="topnav">
+    <a class="active" href="#ViewPosts.razor">Home</a>
+    <a href="/CreatePost">Create</a>
+    <div class="profile-icon">
+        <a href="/ManageProfile"><i class="fas fa-user"></i></a>
+    </div>
+    
+</div>
+</body>
+<hr/>
+<input type="text" @bind="title" placeholder="Search..">
+<div class="category">
+    <form name="form1" id="form1" action="/action_page.php">
+        Category:  <select @bind="category" name="category" id="category" class="form-control">
+            @foreach (Category category in categories)
+            {
+                <option value="@category.category">@category.category</option>
+                                                                                                           
+            }
+            <option value="niull">None</option>
+        </select>
+    </form>
+</div>
+
+<div class="choose-campus">
+    <form name="form2" id="form2" action="/action_page.php">
+        Choose campus: <select @bind="location" name="location" id="location" class="form-control">
+            @foreach (Location location in locations)
+            {
+                <option value="@location.location">@location.location</option>
+                                                                                                                                                
+            }
+            <option value="niull">None</option>
+        </select>
+    </form>
+</div>
+
+<button @onclick="Search">Search</button>
+
+<head>
+ <title>W3.CSS Template</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -20,11 +68,8 @@
 <body class="w3-light-grey">
 <div class="w3-content" style="max-width:1400px">
 
-    <!-- Header -->
-    <header class="w3-container w3-center w3-padding-32"> 
-        <h1><b>MY BLOG</b></h1>
-        <p>Welcome to the blog of <span class="w3-tag">unknown</span></p>
-    </header>
+  
+
     <!-- Grid -->
     <div class="w3-row">
 @if (posts == null)
@@ -55,13 +100,14 @@ else
                             <p>@post.description</p>
                             <div class="w3-row">
                                 <div class="w3-col m8 s12">
-                                    <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+                                    <p><button postId=@post.Id.ToString() @onclick="() => goToPosts(post.Id)"  class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
                                 </div>
                                 <div class="w3-col m4 w3-hide-small">
                                     <!-- Display the number of likes -->
                                     <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">0</span></span></p>
                                     </div>
                             </div>
+
                         </div>
                     </div>
                     <hr>
@@ -72,22 +118,38 @@ else
 </div>
 </div>
 </body>
-
-</html>
-
-
 @code {
     private IEnumerable<Post>? posts;
     private string msg = "";
     private string? location;
-    private int? category;
+    private string? category;
     private string? title;
+    private IEnumerable<Location>? locations;
+    private IEnumerable<Category>? categories;
+    
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    private string? email;
+    private IEnumerable<Claim>? userClaims;
+    private bool isLoggedIn;
+    private Task<User> users;
 
     protected override async Task OnInitializedAsync()
     {
         msg = "";
         try
         {
+            AuthenticationState authState = await AuthState;
+            ClaimsPrincipal user = authState.User;
+            isLoggedIn = user.Identity != null;
+        
+            if (!isLoggedIn) return;
+        
+            userClaims = user.Claims;
+            email = user.Identity!.Name!;
+            users=userService.GetUserByEmail(email);
+            locations = await LocationService.findAll();
+            categories = await CategoryService.findAll();
             SearchParameters searchParameters = new SearchParameters();
             posts = await postService.FindByParameters(searchParameters);
         }
@@ -97,18 +159,17 @@ else
             msg = e.Message;
         }
     }
-
-    /* private async Task goToPosts(int id)
+     private async Task goToPosts(int id)
     {
         postService.id = id;
         NavigationManager.NavigateTo("/ViewOnePost");
-     }*/
+     }
 
     private async Task Search()
     {
         try
         {
-            SearchParameters searchParameters = new SearchParameters(title, location, "home", 0);
+            SearchParameters searchParameters = new SearchParameters(title,location,category,0);
             posts = await postService.FindByParameters(searchParameters);
         }
         catch (Exception e)
@@ -117,5 +178,4 @@ else
             msg = e.Message;
         }
     }
-
 }

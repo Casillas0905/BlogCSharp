@@ -15,6 +15,8 @@ public class UserHttpClient : IUserService
     {
         this.client = client;
     }
+    
+    public int id { get; set; }
 
     public async Task<User> Create(User dto)
     {
@@ -71,5 +73,23 @@ public class UserHttpClient : IUserService
         {
             throw new Exception(result);
         }
+    }
+
+    public async Task<User> GetUserByEmail(string email)
+    {
+        HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/Users/GetByEmail?email={email}");
+        string result = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+
+        User? user = JsonSerializer.Deserialize<User>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        });
+        Console.WriteLine("user");
+        return user;;
     }
 }

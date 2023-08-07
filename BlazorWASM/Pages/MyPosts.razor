@@ -7,6 +7,7 @@
 @inject NavigationManager NavigationManager;
 @inject ILocationService LocationService;
 @inject ICategoryService CategoryService;
+@inject IUserService UserService;
 @using Domain.Models
  <div class="w3-row">
 @if (posts == null)
@@ -24,10 +25,10 @@ else
     {
         <section class="blogs-section">
             <div class="blog-card">
-                <img src="https://www.nationalgeographic.com.es/medio/2022/04/23/libros_b2d310d5_1280x852.jpg" class="blog-image" alt="">
+                <img @post.imageUrl class="blog-image" alt="">
                 <h1 class="blog-title">@post.Title</h1>
                 <p class="blog-overview">@post.description</p>
-                <a href="/ViewOnePost" class="btn dark">read</a>
+                <p><button postId=@post.Id.ToString() @onclick="() => goToPosts(post.Id)"  class="btn dark"><b>Edit</b></button></p>
             </div>
         </section>
     }
@@ -37,14 +38,13 @@ else
 @code {
     private IEnumerable<Post>? posts;
     private string msg = "";
-    private int userId = 2;
 
     protected override async Task OnInitializedAsync()
     {
         msg = "";
         try
         {
-            SearchParameters searchParameters = new SearchParameters(null,null,null,userId);
+            SearchParameters searchParameters = new SearchParameters(null,null,null,UserService.id);
             posts = await postService.FindByParameters(searchParameters);
         }
         catch (Exception e)
@@ -53,10 +53,10 @@ else
             msg = e.Message;
         }
     }
-    /* private async Task goToPosts(int id)
+     private async Task goToPosts(int id)
     {
         postService.id = id;
-        NavigationManager.NavigateTo("/ViewOnePost");
-     }*/
+        NavigationManager.NavigateTo("/ManagePost");
+     }
     
 }

@@ -57,7 +57,7 @@
                             </select>
                         </div>
 
-                        <button @onclick="Update" class="btn btn-primary btn-create-post">Update Post</button>
+                        
                         @if (!string.IsNullOrEmpty(resultMsg))
                         {<label style="color: @color">@resultMsg</label>
                         }
@@ -67,13 +67,12 @@
         </div>
          </div>
 </div>
-
+<button @onclick="Update" class="btn btn-primary btn-create-post">Update Post</button>
 
 @code {
     private string postTitle = "";
     private string postdescription = "";
     private Post post;
-    private int id = 7;
     private string resultMsg = "";
     private string imageurl = "";
     private IEnumerable<Location>? locations;
@@ -84,7 +83,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        post = await PostService.GetByIdAsync(id);
+        post = await PostService.GetByIdAsync(PostService.id);
         postTitle = post.Title;
         postdescription = post.description;
         imageurl = post.imageUrl;
@@ -106,7 +105,7 @@
         try
         {
     //"Poner userid en create post"
-            Post dto = new(7, 1, postTitle, postdescription, imageurl, category, location);
+            Post dto = new(PostService.id,userService.id , postTitle, postdescription, imageurl, category, location);
             await PostService.Update(dto);
             resultMsg = "Post update";
             color = "green";

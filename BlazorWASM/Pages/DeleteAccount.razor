@@ -59,7 +59,7 @@
 	
 	protected override async Task OnInitializedAsync()
 	{
-		user=await UserService.findById(8);
+		user=await UserService.findById(UserService.id);
 	}
 
 	private async Task Submit()
@@ -82,7 +82,7 @@
 			resultMsg ="Write: Confirm";
 			return;
 		}
-		UserService.deleteById(8);
+		UserService.deleteById(UserService.id);
 		navMang.NavigateTo("/ConfirmPage");
 	}
 

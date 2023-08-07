@@ -1,8 +1,11 @@
 ﻿@page "/LogIn"
 
 @using BlazorWASM.Services
+@using Domain.Models
+@using HttpClients.ClientInterfaces
 @inject IAuthService authService
 @inject NavigationManager navMgr
+@inject IUserService userService;
 <br>
 <br>
 <div class="container">
@@ -56,6 +59,7 @@
     private string password;
     private string resultMsg = "";
     private string color = "";
+    private User user;
 
     private async Task LoginAsync()
     {
@@ -63,6 +67,8 @@
         try
         {
           await authService.LoginAsync(email, password);
+          user = await userService.GetUserByEmail(email);
+          userService.id = user.Id;
           navMgr.NavigateTo("/ViewPosts");
         }
         catch (Exception e)

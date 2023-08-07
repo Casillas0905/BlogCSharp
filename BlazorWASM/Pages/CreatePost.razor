@@ -10,7 +10,7 @@
 @inject IUserService userService;
 @inject ILocationService LocationService;
 @inject ICategoryService CategoryService;
-
+@attribute [Authorize]
 <div class="background-image-container">
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-md-8">
@@ -59,7 +59,7 @@
                         </select>
                     </div>
 
-                    <button @onclick="Create" class="btn btn-primary btn-create-post">Create Post</button>
+                    
                     @if (!string.IsNullOrEmpty(resultMsg))
                     {<label style="color: @color">@resultMsg</label>
                     }
@@ -68,10 +68,9 @@
         </div>
     </div>
 </div>
-
+<button @onclick="Create" class="btn btn-primary btn-create-post">Create Post</button>
 
 @code {
-    private Task<IEnumerable<User>> users;
     private int? selectedUserId;
     private string postTitle = "";
     private string postdescription = "";
@@ -85,22 +84,24 @@
     
     [CascadingParameter]
     public Task<AuthenticationState> AuthState { get; set; } = null!;
-    private string? name;
+    private string? email;
     private IEnumerable<Claim>? userClaims;
     private bool isLoggedIn;
+    private Task<User> users;
+
 
 
     protected override async Task OnInitializedAsync()
     {
-        /*AuthenticationState authState = await AuthState;
+        AuthenticationState authState = await AuthState;
         ClaimsPrincipal user = authState.User;
         isLoggedIn = user.Identity != null;
         
         if (!isLoggedIn) return;
         
         userClaims = user.Claims;
-        name = user.Identity!.Name!;*/
-       // users=userService.GetUsers(name);
+        email = user.Identity!.Name!;
+        users=userService.GetUserByEmail(email);
         locations = await LocationService.findAll();
         categories = await CategoryService.findAll();
     }
@@ -118,7 +119,7 @@
         try
         {
             //"Poner userid en create post"
-            Post dto = new(0,1,postTitle,postdescription,imageurl,category,location);
+            Post dto = new(0,userService.id,postTitle,postdescription,imageurl,category,location);
             await PostService.CreateAsync(dto);
             postTitle = "";
             postdescription = "";

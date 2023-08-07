@@ -9,5 +9,6 @@ public interface IUserService
     Task<User?> findById(int id);
     Task<User?> UpdateUser(User user);
     Task deleteById(int deleteId);
-
+    Task<User> GetUserByEmail(string email);
+    int id { get; set; }
 }

@@ -100,8 +100,6 @@
                     <div class="widget-title">
                         <h3>Latest Post</h3>
                     </div>
-                    
-                       
                 </div>
             </div>
         </div>
@@ -109,9 +107,6 @@
         </div>
 
 <br/>
-
-
-
 <h4> Comments </h4>
 <br/>
 <br/>
@@ -122,11 +117,12 @@
    		    <div class="blog-comment">
               @foreach (Comment comment in comments)
               {
+                  //User user = userService.findById(comment.UserId).Result;
                   <ul class="comments">
                       <li class="clearfix">
                           <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
                           <div class="post-comments">
-                              <p class="meta"><a href="#">@comment.UserId</a> says : <i class="pull-right"><a href="#"></a></i></p>
+                              <p class="meta">Id of the use @comment.UserId says : <i class="pull-right"><a href="#"></a></i></p>
                               <p>
                                   @comment.message
                               </p>
@@ -160,14 +156,15 @@
         msg = "";
         try
         {
-            post = await postService.GetByIdAsync(7);
+            post = await postService.GetByIdAsync(postService.id);
             title = post.Title;
             description = post.description;
             categories = await categoryService.findById(post.category);
             user = await userService.findById(post.userID);
             category =categories.category;
             imageurl = post.imageUrl;
-            comments = await commentService.GetByPostIdAsync(7);
+            comments = await commentService.GetByPostIdAsync(post.Id);
+            
         }
         catch (Exception e)
         {
@@ -183,7 +180,7 @@
         
         try
         {
-            Comment dto = new Comment(comment,0,7,1);
+            Comment dto = new Comment(comment,0,post.Id,userService.id);
             await commentService.CreateAsync(dto);
             comment = "";
             color = "green";
