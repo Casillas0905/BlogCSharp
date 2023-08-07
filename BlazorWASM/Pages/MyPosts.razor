@@ -8,7 +8,9 @@
 @inject ILocationService LocationService;
 @inject ICategoryService CategoryService;
 @inject IUserService UserService;
+@attribute [Authorize]
 @using Domain.Models
+@using System.Security.Claims
  <div class="w3-row">
 @if (posts == null)
 {
@@ -38,9 +40,24 @@ else
 @code {
     private IEnumerable<Post>? posts;
     private string msg = "";
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    private string? email;
+    private IEnumerable<Claim>? userClaims;
+    private bool isLoggedIn;
+    private Task<User> users;
 
     protected override async Task OnInitializedAsync()
     {
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user2 = authState.User;
+        isLoggedIn = user2.Identity != null;
+        
+        if (!isLoggedIn) return;
+        
+        userClaims = user2.Claims;
+        email = user2.Identity!.Name!;
+        users=UserService.GetUserByEmail(email);  
         msg = "";
         try
         {

@@ -1,9 +1,10 @@
 ﻿@page "/DeleteAccount"
 @using HttpClients.ClientInterfaces
 @using Domain.Models
+@using System.Security.Claims
 @inject IUserService UserService;
 @inject NavigationManager navMang;
-
+@attribute [Authorize]
 <div class="container h-100">
     		<div class="row h-100">
 				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
@@ -56,10 +57,24 @@
 	private User user;
 	private string resultMsg = "";
 	private string color = "";
+	[CascadingParameter]
+	public Task<AuthenticationState> AuthState { get; set; } = null!;
+	private IEnumerable<Claim>? userClaims;
+	private bool isLoggedIn;
+	private Task<User> users;
 	
 	protected override async Task OnInitializedAsync()
 	{
 		user=await UserService.findById(UserService.id);
+		AuthenticationState authState = await AuthState;
+		ClaimsPrincipal user2 = authState.User;
+		isLoggedIn = user2.Identity != null;
+        
+		if (!isLoggedIn) return;
+        
+		userClaims = user2.Claims;
+		email = user2.Identity!.Name!;
+		users=UserService.GetUserByEmail(email);  
 	}
 
 	private async Task Submit()

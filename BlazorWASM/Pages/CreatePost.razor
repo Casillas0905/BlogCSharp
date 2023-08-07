@@ -94,14 +94,16 @@
     protected override async Task OnInitializedAsync()
     {
         AuthenticationState authState = await AuthState;
-        ClaimsPrincipal user = authState.User;
-        isLoggedIn = user.Identity != null;
+        ClaimsPrincipal user2 = authState.User;
+        isLoggedIn = user2.Identity != null;
         
         if (!isLoggedIn) return;
         
-        userClaims = user.Claims;
-        email = user.Identity!.Name!;
-        users=userService.GetUserByEmail(email);
+        userClaims = user2.Claims;
+        email = user2.Identity!.Name!;
+        users=userService.GetUserByEmail(email);  
+        
+        
         locations = await LocationService.findAll();
         categories = await CategoryService.findAll();
     }
