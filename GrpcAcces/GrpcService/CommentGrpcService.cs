@@ -13,8 +13,6 @@ public class CommentGrpcService : ICommentDao
    
     public void CreateAsync(Comment comment)
     {
-        
-        Console.WriteLine("grpc 1");
         CommentModelGrpc commentGrpc = new CommentModelGrpc()
         {
            Id = comment.id,
@@ -22,9 +20,7 @@ public class CommentGrpcService : ICommentDao
            PostId = comment.postId,
            UserId = comment.UserId
         }; 
-        Console.WriteLine("grpc 2");
         commentGrpcClient.saveComment(commentGrpc);
-        Console.WriteLine("grpc 3");
     }
 
     public async Task<IEnumerable<Comment>> GetByPostId(int id)

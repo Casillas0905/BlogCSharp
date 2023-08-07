@@ -16,7 +16,6 @@ public class PostGrpcService : IPostDao
 
     public async Task<Post> CreateAsync(Post post)
     {
-        Console.WriteLine("grpc called");
         PostModelGrpc postModel = new PostModelGrpc()
         {
             Id = post.Id,
@@ -28,7 +27,6 @@ public class PostGrpcService : IPostDao
             Location = post.location
         };
         postGrpcClient.createPost(postModel);
-        Console.WriteLine("grpc called 2");
         return post;
     }
 

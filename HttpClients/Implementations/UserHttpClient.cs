@@ -20,7 +20,6 @@ public class UserHttpClient : IUserService
 
     public async Task<User> Create(User dto)
     {
-        Console.WriteLine("CreateAsync method called");
         HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7093/Users/create", dto);
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
@@ -46,13 +45,11 @@ public class UserHttpClient : IUserService
         {
             PropertyNameCaseInsensitive = true
         });
-        Console.WriteLine("user");
         return user;
     }
 
     public async Task<User?> UpdateUser(User user)
     {
-        Console.WriteLine("UpdateUser method called");
         HttpResponseMessage response = await client.PatchAsync("https://localhost:7093/Users/patch", new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, "application/json"));
         string result = await response.Content.ReadAsStringAsync();
 
@@ -89,7 +86,6 @@ public class UserHttpClient : IUserService
         {
             PropertyNameCaseInsensitive = true
         });
-        Console.WriteLine("user");
         return user;;
     }
 }

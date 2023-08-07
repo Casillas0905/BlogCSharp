@@ -58,25 +58,21 @@ public class PostHttpClient : IPostService
         {
             PropertyNameCaseInsensitive = true
         })!;
-        Console.WriteLine("post");
         return posts;
     }
 
     public async Task<IEnumerable<Post>> GetByUserIdAsync(int UserId)
     {
-        Console.WriteLine("Http1");
         HttpResponseMessage response = await client.GetAsync($"https://localhost:7093/Posts/GetByUserIdAsync/{UserId}");
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(result);
         }
-        Console.WriteLine("Http2");
         IEnumerable<Post> posts = JsonSerializer.Deserialize<IEnumerable<Post>>(result, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
-        Console.WriteLine("Http3");
         return posts;
     }
 

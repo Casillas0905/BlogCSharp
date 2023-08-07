@@ -14,7 +14,6 @@ public class LocationGrpcService : ILocationDao
 
     public void saveLocation(Location location)
     {
-         Console.WriteLine("grpc called");
          LocationModelGrpc locationModel = new LocationModelGrpc()
          {
              Id = location.Id,

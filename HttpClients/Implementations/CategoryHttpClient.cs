@@ -54,7 +54,6 @@ public class CategoryHttpClient : ICategoryService
         {
             PropertyNameCaseInsensitive = true
         })!;
-        Console.WriteLine("category");
         return category;
     }
 }

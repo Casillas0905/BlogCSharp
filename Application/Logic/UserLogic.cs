@@ -16,16 +16,13 @@ public class UserLogic : IUserLogic
 
     public void CreateAsync(User user)
     {
-        Console.WriteLine("logic called");
         User? existing = userDao.GetByEmailAsync(user.Email);
         if (existing.Id >0)
         {
             throw new Exception("Email already taken!");
         }
         ValidateUser(user);
-        Console.WriteLine("logic2 called");
         userDao.CreateAsync(user);
-        Console.WriteLine("logic3 called");
     }
 
     public async Task<User?> GetByEmailAsync(string email)
@@ -40,7 +37,6 @@ public class UserLogic : IUserLogic
 
     public async Task UpdateUser(User user)
     {
-        Console.WriteLine("logic called");
         User? existing = userDao.GetByEmailAsync(user.Email);
         if (user.Id == existing.Id)
         {

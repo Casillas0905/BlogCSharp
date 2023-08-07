@@ -50,7 +50,6 @@ public class PostLogic : IPostLogic
 
     public Task<IEnumerable<Post>> GetByUserIdAsync(int UserId)
     {
-        Console.WriteLine("Logic");
         return postDao.GetByUserIdAsync(UserId);
     }
 

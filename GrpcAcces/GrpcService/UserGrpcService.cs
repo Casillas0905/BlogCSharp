@@ -13,7 +13,6 @@ public class UserGrpcService : IUserDao
 
     public void CreateAsync(User user)
     {
-        Console.WriteLine("grpc called");
         UserModelGrpc userModel = new UserModelGrpc()
         {
             Id = user.Id,
@@ -60,7 +59,6 @@ public class UserGrpcService : IUserDao
             Administrator = user.administrator
         };
         userGrpcClient.updateUserAsync(userGrpc);
-        Console.WriteLine("update grpc called");
     }
 
     public void deleteUser(int id)
