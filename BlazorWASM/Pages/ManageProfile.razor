@@ -96,13 +96,16 @@
                            
                         <a href="/DeleteAccount" class="btn btn-style-1 btn-white">Delete Account</a>
                         <a href="/ForgotPassword" class="btn btn-style-1 btn-white">Reset Password</a>
+                        
                     </div>
                 </div>
             </form>
         </div>
-    </div>
+    </div><button class="btn btn-style-1 btn-white" @onclick="Update">Update profile</button>
 </div>
-<button @onclick="Update">Update profile</button>
+
+
+
 @code {
     private string firstname = "";
     private string lastname = "";

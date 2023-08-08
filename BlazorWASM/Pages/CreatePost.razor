@@ -12,20 +12,20 @@
 @inject ICategoryService CategoryService;
 @attribute [Authorize]
 <div class="background-image-container">
-    <div class="row justify-content-center align-items-center h-100">
+    <div class="row justify-content-center align-items-center h-100">    
         <div class="col-md-8">
             <div class="content-box">
-                <h3 class="secondtitle">Create a post</h3>
+    <h3 class="secondtitle">Create post</h3>                           
                 <div class="upload-bar">
                     <a class="nav-item" >Add Photo</a>
 
                 </div>
-                <br/>
-                <br/>
+
                 <div class="photo-upload-container">
-                                        <!-- Add your photo upload input and logic here -->
-                                        <input  @bind="imageurl" type="file" accept="image/*"  />
-                                        </div>
+                    <!-- Add your photo upload input and logic here -->
+                    <input  @bind="imageurl" type="file" accept="image/*"  />
+                </div>
+                <br/>
                 <form class="post-form">
                     <div class="form-group mb-4"> <!-- Added margin-bottom to create more space between "Choose File" and title -->
                         <label for="postTitle">Title:</label>
@@ -40,35 +40,36 @@
                     <div class="form-group">
                         <label for="category">Category:</label>
                         <select @bind="category" name="category" id="category" class="form-control">
-                             @foreach (Category category in categories)
-                             {
-                                 <option value="@category.Id">@category.category</option>
+                            @foreach (Category category in categories)
+                            {
+                                <option value="@category.Id">@category.category</option>
                                                                                          
-                             }
+                            }
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="location">Choose campus:</label>
                         <select @bind="location" name="location" id="location" class="form-control">
-                             @foreach (Location location in locations)
-                                {
-                                    <option value="@location.Id">@location.location</option>
+                            @foreach (Location location in locations)
+                            {
+                                <option value="@location.Id">@location.location</option>
                                                                                                                          
-                                }
+                            }
                         </select>
                     </div>
-
+                        
                     
                     @if (!string.IsNullOrEmpty(resultMsg))
                     {<label style="color: @color">@resultMsg</label>
                     }
-                </form>
+                </form><button @onclick="Create" class=" btn btn-primary btn-create-post">Create Post</button> 
             </div>
         </div>
     </div>
 </div>
-<button @onclick="Create" class="btn btn-primary btn-create-post">Create Post</button>
+
+
 
 @code {
     private int? selectedUserId;

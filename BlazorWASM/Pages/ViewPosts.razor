@@ -13,6 +13,8 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
+  
+    
 </head>
 <body>
 
@@ -26,7 +28,7 @@
 </div>
 </body>
 <hr/>
-<input type="text" @bind="title" placeholder="Search..">
+<input type="text" @bind="title" placeholder="Search.."> <button class=" btn btn-secondary btn-create-post" @onclick="Search">Search</button>
 <div class="category">
     <form name="form1" id="form1" action="/action_page.php">
         Category:  <select @bind="category" name="category" id="category" class="form-control">
@@ -53,16 +55,22 @@
     </form>
 </div>
 
-<button @onclick="Search">Search</button>
+
 
 <head>
- <title>W3.CSS Template</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <style>
         body, h1, h2, h3, h4, h5 { font-family: "Raleway", sans-serif; }
+        .center-container {
+        display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+                               }
     </style>
 </head>
 <body class="w3-light-grey">
@@ -84,6 +92,8 @@ else
 {
     @foreach (Post post in posts)
     {
+        
+      
         <!-- Blog entries -->
         <div class="w3-col l8 s12">
                     <!-- Blog entry -->
@@ -92,7 +102,7 @@ else
                             <h3><b>@post.Title</b></h3>
                             <!-- Image Box -->
                             <div class="image-box">
-                                <img src="@post.imageUrl" alt="Nature" style="width:100%">
+                                <img src="@post.imageUrl" alt="Image" style="width:100%">
                             </div>
                         </div>
         

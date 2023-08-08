@@ -38,6 +38,8 @@
 											<input @bind="confirmpassword" class="form-control smaller-input" type="password" name="confirmpassword" placeholder="Enter the password again">
 											<label class="label">Birthday</label>
 											<input @bind="birthday" type="date" class="form-control smaller-input" required autofocus>
+											<br/>
+											
 										</div>
 										@if (!string.IsNullOrEmpty(resultMsg))
                                                 {
@@ -46,7 +48,7 @@
 										<div >
 											
 										</div>
-									</form>
+									</form><button @onclick="Create" class=" btn btn-secondary btn-create-post">Create User</button>
 								</div>
 							</div>
 						</div>
@@ -55,7 +57,7 @@
 				</div>
 			</div>
 		</div>
-<button @onclick="Create">Create User</button>
+
 
 @code {
     private string firstname = "";

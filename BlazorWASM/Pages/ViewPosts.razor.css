@@ -1,6 +1,14 @@
 ﻿* {
     box-sizing: border-box;
 }
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure the container is at least the full viewport height */
+}
+
+
 
 body {
     font-family: Arial, sans-serif;
