@@ -11,7 +11,7 @@
 @attribute [Authorize]
 @using Domain.Models
 @using System.Security.Claims
- <div class="w3-row">
+
 @if (posts == null)
 {
     <span>Loading..</span>
@@ -30,13 +30,13 @@ else
                 <img @post.imageUrl class="blog-image" alt="">
                 <h1 class="blog-title">@post.Title</h1>
                 <p class="blog-overview">@post.description</p>
-                <p><button postId=@post.Id.ToString() @onclick="() => goToPosts(post.Id)"  class="btn dark"><b>Edit</b></button></p>
+                <a class="btn dark" postId=@post.Id.ToString() @onclick="() => goToPosts(post.Id)" ><b>Edit</b></a>
             </div>
         </section>
     }
     </div>
 }
-</div>
+
 @code {
     private IEnumerable<Post>? posts;
     private string msg = "";
