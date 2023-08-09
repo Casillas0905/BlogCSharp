@@ -1,26 +1,21 @@
-﻿/* Styles for the background image */
-.background-image-container {
-    background-image: url('path/to/your/image.jpg');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
+﻿
+
+.secondtitle {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
-
-.content-box {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.upload-bar {
+.nav-item {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px; /* Increase the margin between the upload bar and the title */
+    margin-bottom: 30px; 
 }
 
-.upload-bar a {
+.item a {
     display: block;
     padding: 8px 16px;
     font-size: 16px;
@@ -32,37 +27,36 @@
     border-bottom: 2px solid transparent;
 }
 
-.upload-bar a.active {
+.item a.active {
     border-bottom-color: #000;
 }
+.thetext {
+     background-color: #fff;
+     border-radius: 10px;
+     padding: 30px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ }
 
-.btn-create-post {
+.create {
     background-color: #ccc;
     color: #fff;
     border: none;
     border-radius: 4px;
-    padding: 12px 40px; /* Increase the padding to make the button longer */
+    padding: 12px 40px; /* Increase the padding to make my button longer */
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     display: block;
-    margin: 30px auto 0; /* Increase the margin between the button and the form fields and center the button horizontally */
+    margin: 30px auto 0; 
 }
 
-.btn-create-post:hover {
+.create:hover {
     background-color: #999;
 }
 
-/* Increase the spacing between form fields */
-/* Rest of the styles as before */
 
-/* Increase the margin between form fields */
-.post-form .form-group {
-    margin-bottom: 25px; /* Increased margin between form fields */
+.post-form .context {
+    margin-bottom: 25px; 
 }
 
-/* Rest of the styles as needed */
-
-
-/* Rest of the styles as needed */
 

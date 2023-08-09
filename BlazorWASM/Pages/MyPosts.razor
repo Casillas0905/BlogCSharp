@@ -27,7 +27,7 @@ else
     {
         <section class="blogs-section">
             <div class="blog-card">
-                <img @post.imageUrl class="blog-image" alt="">
+                <img src="@post.imageUrl" class="blog-image" alt="">
                 <h1 class="blog-title">@post.Title</h1>
                 <p class="blog-overview">@post.description</p>
                 <a class="btn dark" postId=@post.Id.ToString() @onclick="() => goToPosts(post.Id)" ><b>Edit</b></a>

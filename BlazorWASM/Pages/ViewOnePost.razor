@@ -8,14 +8,16 @@
 @inject ICommentService commentService;
 @inject ICategoryService categoryService;
 @attribute [Authorize]
+
+
 <div class="blog-single gray-bg">
     <div class="container">
         <div class="row align-items-start">
             <div class="col-lg-8 m-15px-tb">
                 <article class="article">
                     <div class="article-img">
-                        <p>@imageurl</p>
-                        <p>Image goes here</p>
+                       
+                      
                         <img src=@imageurl title="" alt="">
                     </div>
                     <div class="article-title"><div class="post">
@@ -29,11 +31,11 @@
                                         <li><a href="#" onclick="savePost()">Save</a></li>
                                         <li><a href="#" onclick="reportPost()">Report</a></li>
                                     </ul>
-                                </div>  <!-- Close the "article-title" div -->
+                                </div> 
                             </div>
                             <h2>@title</h2>
                       
-                            <!-- Rest of your post content goes here -->
+                        
                         </div>
                         <div class="media">
                             <div class="avatar">
@@ -109,7 +111,7 @@
    		    <div class="blog-comment">
               @foreach (Comment comment in comments)
               {
-                  //User user = userService.findById(comment.UserId).Result;
+                 
                   <ul class="comments">
                       <li class="clearfix">
                           <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">

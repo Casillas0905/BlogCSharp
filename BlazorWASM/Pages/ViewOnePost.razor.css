@@ -57,8 +57,7 @@ body{margin-top:20px;}
 }
 
 
-/* Blog Sidebar
--------------------*/
+
 .blog-aside .widget {
     box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
     border-radius: 5px;
@@ -479,9 +478,9 @@ a {
 
 .button2 {
     background-color: #fff;
-    width: 70px; /* Adjust the width to your desired size */
+    width: 70px; 
     float: right;
-    border-radius: 10px; /* Adjust the value to control the roundness */
+    border-radius: 10px;
    
 }
 
@@ -558,7 +557,7 @@ a {
 
 .post {
     position: relative;
-    /* Add your post styling here */
+    
 }
 
 .menu {
@@ -604,7 +603,7 @@ a {
     text-decoration: none;
 }
 
-/* Show the options when the menu is hovered */
+
 .menu:hover .options {
     display: block;
 }

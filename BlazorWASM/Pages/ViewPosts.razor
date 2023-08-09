@@ -10,13 +10,6 @@
 @inject ICategoryService CategoryService;
 @inject IUserService userService;
 @attribute [Authorize]
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-  
-    
-</head>
-<body>
 
 <div class="topnav">
     <a class="active" href="#ViewPosts.razor">Home</a>
@@ -26,7 +19,7 @@
     </div>
     
 </div>
-</body>
+
 <hr/>
 <input type="text" @bind="title" placeholder="Search.."> <button class=" btn btn-secondary btn-create-post" @onclick="Search">Search</button>
 <div class="category">
@@ -94,7 +87,7 @@ else
     {
         
       
-        <!-- Blog entries -->
+    
         <div class="w3-col l8 s12">
                     <!-- Blog entry -->
                     <div class="w3-card-4 w3-margin w3-white">
@@ -121,7 +114,7 @@ else
                         </div>
                     </div>
                     <hr>
-                    <!-- END BLOG ENTRIES -->
+         
                 </div>
     }
 }

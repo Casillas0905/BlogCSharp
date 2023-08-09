@@ -5,8 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensure the container is at least the full viewport height */
-}
+    min-height: 100vh;}
 
 
 
@@ -16,7 +15,7 @@ body {
     background: #f1f1f1;
 }
 
-/* Header/Blog Title */
+
 .header {
     padding: 30px;
     font-size: 40px;
@@ -24,7 +23,7 @@ body {
     background: white;
 }
 
-/* Add styling to top navigation */
+
 .topnav {
     background-color: darkgray;
     overflow: hidden;
@@ -55,57 +54,4 @@ body {
     border-radius: 5px;
 }
 
-/* Profile icon */
-.profile-icon {
-    padding-right: 20px;
-}
 
-.profile-icon a {
-    color: #333;
-    text-decoration: none;
-    font-size: 20px;
-}
-
-/* Category and Choose Campus */
-.category, .choose-campus {
-    margin: 10px 0;
-}
-
-.category form, .choose-campus form {
-    margin: 0;
-}
-
-.category select, .choose-campus select {
-    border: 1px solid #ccc;
-    padding: 6px;
-    border-radius: 5px;
-}
-
-/* Blog layout */
-.blog-layout {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-/* Add a card effect for articles */
-.card {
-    background-color: #fff;
-    width: 48%;
-    margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    transition: transform 0.3s;
-}
-
-/* Card hover effect */
-.card:hover {
-    transform: translateY(-5px);
-}
-
-/* Fake image */
-.fakeimg {
-    background-color: #ddd;
-    width: 100%;
-    height: 220px;}
