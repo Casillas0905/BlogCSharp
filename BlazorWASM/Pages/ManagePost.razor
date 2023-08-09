@@ -15,7 +15,7 @@
 <style>
  
   .secondtitle {
-    text-align: center; /* Center text horizontally */
+    text-align: center; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,12 +35,11 @@
                 </div>
 
                 <div class="photo-upload-container">
-                    <!-- Add your photo upload input and logic here -->
                     <input  @bind="imageurl" type="file" accept="image/*"  />
                 </div>
                 <br/>
                 <form class="post-form">
-                    <div class="form-group mb-4"> <!-- Added margin-bottom to create more space between "Choose File" and title -->
+                    <div class="form-group mb-4"> 
                         <label for="postTitle">Title:</label>
                         <input type="text" @bind="postTitle" class="form-control" />
                     </div>

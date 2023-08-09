@@ -22,7 +22,7 @@ body {
 
 
 .card-body {
-    flex: 20; /* Allow the card body to grow and fill the remaining space */
+    flex: 20; 
 }
 
 

@@ -17,12 +17,11 @@ body {
     width: 400px;
     height: 700px;
     margin-bottom: 100px;
-    /* Add overflow property to add scrollbars if content overflows */
     overflow: auto;
 }
 
 .card-body {
-    flex: 1; /* Change '20' to '1' to allow the card body to fill the remaining space */
+    flex: 1; 
 }
 
 .form-group input {

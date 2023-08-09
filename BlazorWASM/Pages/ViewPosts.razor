@@ -68,10 +68,7 @@
 </head>
 <body class="w3-light-grey">
 <div class="w3-content" style="max-width:1400px">
-
-  
-
-    <!-- Grid -->
+    
     <div class="w3-row">
 @if (posts == null)
 {
@@ -89,7 +86,6 @@ else
       
     
         <div class="w3-col l8 s12">
-                    <!-- Blog entry -->
                     <div class="w3-card-4 w3-margin w3-white">
                         <div class="w3-container">
                             <h3><b>@post.Title</b></h3>
@@ -106,7 +102,6 @@ else
                                     <p><button postId=@post.Id.ToString() @onclick="() => goToPosts(post.Id)"  class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
                                 </div>
                                 <div class="w3-col m4 w3-hide-small">
-                                    <!-- Display the number of likes -->
                                     <p><span class="w3-padding-large w3-right"><b>Likes  </b> <span class="w3-badge">0</span></span></p>
                                     </div>
                             </div>

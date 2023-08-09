@@ -20,15 +20,14 @@
 
 
 .btn-login {
-    background-color: #888888; /* Gray background color */
-    border-color: #888888; /* Gray border color */
-    color: #ffffff; /* White text color */
+    background-color: #888888; 
+    border-color: #888888; 
+    color: #ffffff; 
 }
 
-/* On hover, darken the background and border color */
 .btn-login:hover {
-    background-color: #666666; /* Darker gray background color on hover */
-    border-color: #666666; /* Darker gray border color on hover */
+    background-color: #666666; 
+    border-color: #666666; 
 }
 
 

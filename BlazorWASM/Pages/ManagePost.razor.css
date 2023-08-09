@@ -1,4 +1,4 @@
-/* Styles for the background image */
+
 .background-image-container {
     background-image: url('path/to/your/image.jpg');
     background-size: cover;
@@ -17,7 +17,7 @@
 .upload-bar {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px; /* Increase the margin between the upload bar and the title */
+    margin-bottom: 30px; 
 }
 
 .upload-bar a {
@@ -41,28 +41,20 @@
     color: #fff;
     border: none;
     border-radius: 4px;
-    padding: 12px 40px; /* Increase the padding to make the button longer */
+    padding: 12px 40px; 
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     display: block;
-    margin: 30px auto 0; /* Increase the margin between the button and the form fields and center the button horizontally */
+    margin: 30px auto 0; 
 }
 
 .btn-create-post:hover {
     background-color: #999;
 }
 
-/* Increase the spacing between form fields */
-/* Rest of the styles as before */
-
-/* Increase the margin between form fields */
 .post-form .form-group {
-    margin-bottom: 25px; /* Increased margin between form fields */
+    margin-bottom: 25px; 
 }
 
-/* Rest of the styles as needed */
-
-
-/* Rest of the styles as needed */
 
